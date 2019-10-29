@@ -1,0 +1,37 @@
+
+
+entity TbCategoria {
+	idTbCategoria Number,
+    nmCategoria String,
+}
+
+entity TbUnidadeMedida {
+	idTbUnidadeMedida Number,
+    nmUnidadeMedida String,
+}
+
+entity TbProduto {
+	idTbProduto Number,
+    nmProduto String,
+    qtdEstoque String,
+    qtdMin String,
+    ativo Number,
+}
+
+entity TbMovimentacao {
+idTbMovimentacao Number,
+quantidade Number,
+data Date,
+entrada Number,
+}
+
+relationship ManyToOne {
+	TbCategoria{idCategoria} to TbProduto,
+   	TbUnidadeMedida{idUnidadeMedida} to TbProduto,
+}
+
+relationship ManyToMany {
+    TbMovimentacao{TbProduto(idTbProduto)} to TbProduto{tbmovimentacao}
+}
+
+paginate TbProduto with pagination

@@ -1,0 +1,39 @@
+{
+  "generator-jhipster": {
+    "promptValues": {
+      "packageName": "com.contexto.br.app"
+    },
+    "jhipsterVersion": "6.3.1",
+    "applicationType": "monolith",
+    "baseName": "contexto",
+    "packageName": "com.contexto.br.app",
+    "packageFolder": "com/contexto/br/app",
+    "serverPort": "8080",
+    "authenticationType": "jwt",
+    "cacheProvider": "ehcache",
+    "enableHibernateCache": false,
+    "websocket": false,
+    "databaseType": "sql",
+    "devDatabaseType": "mysql",
+    "prodDatabaseType": "mysql",
+    "searchEngine": false,
+    "messageBroker": false,
+    "serviceDiscoveryType": false,
+    "buildTool": "maven",
+    "enableSwaggerCodegen": false,
+    "jwtSecretKey": "MDczY2Q3M2QwNzE0ZTU3ZjJlNjgxM2RlZmNjNTIxMDk0YmQwZDcyZTY0YjMxZjBkMGQ3NDJjMTU5ZjM4NmVlMTY5NjA1ZGMyNTA3YjFhZDNhZjdkM2Y4OThiNWI2NDYyMzcwZDMxMGZlZWM0OTc2ZDJiYzRmZGQwNzMyNzdjYTk=",
+    "embeddableLaunchScript": false,
+    "useSass": true,
+    "clientPackageManager": "npm",
+    "clientFramework": "angularX",
+    "clientTheme": "lux",
+    "clientThemeVariant": "dark",
+    "testFrameworks": [],
+    "jhiPrefix": "jhi",
+    "entitySuffix": "",
+    "dtoSuffix": "DTO",
+    "otherModules": [],
+    "enableTranslation": false,
+    "blueprints": []
+  }
+}
