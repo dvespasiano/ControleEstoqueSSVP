@@ -1,0 +1,31 @@
+{
+    "name": "TbCategoria",
+    "fields": [
+        {
+            "fieldName": "idTbCategoria",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "nmCategoria",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "tbProduto",
+            "otherEntityRelationshipName": "tbCategoria",
+            "relationshipName": "idCategoria",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20191107005610",
+    "entityTableName": "tb_categoria",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

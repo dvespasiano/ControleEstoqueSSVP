@@ -1,0 +1,45 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="tbMovimentacao">
+            <h2><span>Tb Movimentacao</span> {{tbMovimentacao.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Id Tb Movimentacao</span></dt>
+                <dd>
+                    <span>{{tbMovimentacao.idTbMovimentacao}}</span>
+                </dd>
+                <dt><span>Quantidade</span></dt>
+                <dd>
+                    <span>{{tbMovimentacao.quantidade}}</span>
+                </dd>
+                <dt><span>Data</span></dt>
+                <dd>
+                    <span>{{tbMovimentacao.data}}</span>
+                </dd>
+                <dt><span>Entrada</span></dt>
+                <dd>
+                    <span>{{tbMovimentacao.entrada}}</span>
+                </dd>
+                <dt><span>Tb Produto</span></dt>
+                <dd>
+                    <span *ngFor="let tbProduto of tbMovimentacao.tbProdutos; let last = last">
+                        <a [routerLink]="['/tb-produto', tbProduto?.id, 'view' ]">{{tbProduto.idTbProduto}}</a>{{last ? '' : ', '}}
+                    </span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/tb-movimentacao', tbMovimentacao.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

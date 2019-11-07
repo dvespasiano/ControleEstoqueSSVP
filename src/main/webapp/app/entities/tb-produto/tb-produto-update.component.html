@@ -1,0 +1,49 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-tb-produto-heading">Create or edit a Tb Produto</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!editForm.get('id').value">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
+                        readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_idTbProduto">Id Tb Produto</label>
+                    <input type="number" class="form-control" name="idTbProduto" id="field_idTbProduto"
+                           formControlName="idTbProduto"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_nmProduto">Nm Produto</label>
+                    <input type="text" class="form-control" name="nmProduto" id="field_nmProduto"
+                           formControlName="nmProduto"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_qtdEstoque">Qtd Estoque</label>
+                    <input type="text" class="form-control" name="qtdEstoque" id="field_qtdEstoque"
+                           formControlName="qtdEstoque"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_qtdMin">Qtd Min</label>
+                    <input type="text" class="form-control" name="qtdMin" id="field_qtdMin"
+                           formControlName="qtdMin"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_ativo">Ativo</label>
+                    <input type="number" class="form-control" name="ativo" id="field_ativo"
+                           formControlName="ativo"/>
+                </div>
+
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

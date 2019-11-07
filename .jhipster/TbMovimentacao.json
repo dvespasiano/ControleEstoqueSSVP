@@ -1,0 +1,40 @@
+{
+    "name": "TbMovimentacao",
+    "fields": [
+        {
+            "fieldName": "idTbMovimentacao",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "quantidade",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "data",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "entrada",
+            "fieldType": "Integer"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityName": "tbProduto",
+            "otherEntityRelationshipName": "tbmovimentacao",
+            "relationshipName": "tbProduto",
+            "otherEntityField": "idTbProduto",
+            "ownerSide": true
+        }
+    ],
+    "changelogDate": "20191107005613",
+    "entityTableName": "tb_movimentacao",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

@@ -1,0 +1,44 @@
+{
+    "name": "TbProduto",
+    "fields": [
+        {
+            "fieldName": "idTbProduto",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "nmProduto",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "qtdEstoque",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "qtdMin",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "ativo",
+            "fieldType": "Integer"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityName": "tbMovimentacao",
+            "otherEntityRelationshipName": "tbProduto",
+            "relationshipName": "tbmovimentacao",
+            "otherEntityField": "id",
+            "ownerSide": false
+        }
+    ],
+    "changelogDate": "20191107005612",
+    "entityTableName": "tb_produto",
+    "dto": "no",
+    "pagination": "pagination",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

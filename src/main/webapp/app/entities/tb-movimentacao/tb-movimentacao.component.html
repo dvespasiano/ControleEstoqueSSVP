@@ -1,0 +1,69 @@
+<div>
+    <h2 id="page-heading">
+        <span>Tb Movimentacaos</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-tb-movimentacao" [routerLink]="['/tb-movimentacao/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span >
+            Create a new Tb Movimentacao
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="alert alert-warning" *ngIf="tbMovimentacaos?.length === 0">
+        <span>No tbMovimentacaos found</span>
+    </div>
+    <div class="table-responsive" *ngIf="tbMovimentacaos?.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+            <tr>
+            <th><span>ID</span></th>
+            <th><span>Id Tb Movimentacao</span></th>
+            <th><span>Quantidade</span></th>
+            <th><span>Data</span></th>
+            <th><span>Entrada</span></th>
+            <th><span>Tb Produto</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let tbMovimentacao of tbMovimentacaos ;trackBy: trackId">
+                <td><a [routerLink]="['/tb-movimentacao', tbMovimentacao.id, 'view' ]">{{tbMovimentacao.id}}</a></td>
+                <td>{{tbMovimentacao.idTbMovimentacao}}</td>
+                <td>{{tbMovimentacao.quantidade}}</td>
+                <td>{{tbMovimentacao.data | date:'mediumDate'}}</td>
+                <td>{{tbMovimentacao.entrada}}</td>
+                <td>
+                    <span *ngFor="let tbProduto of tbMovimentacao.tbProdutos; let last = last">
+                            <a class="form-control-static" [routerLink]="['/tb-produto', tbProduto?.id, 'view' ]">{{tbProduto.idTbProduto}}</a>{{last ? '' : ', '}}
+                        </span>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group">
+                        <button type="submit"
+                                [routerLink]="['/tb-movimentacao', tbMovimentacao.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/tb-movimentacao', tbMovimentacao.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/tb-movimentacao', { outlets: { popup: tbMovimentacao.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

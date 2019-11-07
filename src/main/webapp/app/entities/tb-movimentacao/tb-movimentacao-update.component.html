@@ -1,0 +1,54 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-tb-movimentacao-heading">Create or edit a Tb Movimentacao</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!editForm.get('id').value">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
+                        readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_idTbMovimentacao">Id Tb Movimentacao</label>
+                    <input type="number" class="form-control" name="idTbMovimentacao" id="field_idTbMovimentacao"
+                           formControlName="idTbMovimentacao"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_quantidade">Quantidade</label>
+                    <input type="number" class="form-control" name="quantidade" id="field_quantidade"
+                           formControlName="quantidade"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_data">Data</label>
+                    <div class="input-group">
+                        <input id="field_data" type="text" class="form-control" name="data" ngbDatepicker  #dataDp="ngbDatepicker" formControlName="data"/>
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="dataDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_entrada">Entrada</label>
+                    <input type="number" class="form-control" name="entrada" id="field_entrada"
+                           formControlName="entrada"/>
+                </div>
+
+                <div class="form-group">
+                    <label for="field_tbProdutos">Tb Produto</label>
+                    <select class="form-control" id="field_tbProdutos" multiple name="tbProdutos" formControlName="tbProdutos">
+                        <option [ngValue]="getSelected(editForm.get('tbProdutos').value, tbProdutoOption)" *ngFor="let tbProdutoOption of tbprodutos; trackBy: trackTbProdutoById">{{tbProdutoOption.idTbProduto}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
