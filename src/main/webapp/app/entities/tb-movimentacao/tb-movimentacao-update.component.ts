@@ -6,7 +6,6 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
-import * as moment from 'moment';
 import { JhiAlertService } from 'ng-jhipster';
 import { ITbMovimentacao, TbMovimentacao } from 'app/shared/model/tb-movimentacao.model';
 import { TbMovimentacaoService } from './tb-movimentacao.service';
