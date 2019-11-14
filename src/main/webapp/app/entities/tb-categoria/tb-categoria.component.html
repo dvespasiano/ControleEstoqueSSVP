@@ -1,52 +1,44 @@
 <div>
     <h2 id="page-heading">
-        <span>Tb Categorias</span>
+        <span>Categorias</span>
         <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-tb-categoria" [routerLink]="['/tb-categoria/new']">
             <fa-icon [icon]="'plus'"></fa-icon>
             <span >
-            Create a new Tb Categoria
+            Adicionar nova Categoria
             </span>
         </button>
     </h2>
     <jhi-alert></jhi-alert>
     <br/>
     <div class="alert alert-warning" *ngIf="tbCategorias?.length === 0">
-        <span>No tbCategorias found</span>
+        <span>Nenhuma categoria encontrada</span>
     </div>
     <div class="table-responsive" *ngIf="tbCategorias?.length > 0">
         <table class="table table-striped" aria-describedby="page-heading">
             <thead>
             <tr>
             <th><span>ID</span></th>
-            <th><span>Id Tb Categoria</span></th>
-            <th><span>Nm Categoria</span></th>
-            <th><span>Id Categoria</span></th>
+            <th><span>Nome da Categoria</span></th>
             <th></th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let tbCategoria of tbCategorias ;trackBy: trackId">
                 <td><a [routerLink]="['/tb-categoria', tbCategoria.id, 'view' ]">{{tbCategoria.id}}</a></td>
-                <td>{{tbCategoria.idTbCategoria}}</td>
                 <td>{{tbCategoria.nmCategoria}}</td>
-                <td>
-                    <div *ngIf="tbCategoria.idCategoria">
-                        <a [routerLink]="['/tb-produto', tbCategoria.idCategoria?.id, 'view' ]" >{{tbCategoria.idCategoria?.id}}</a>
-                    </div>
-                </td>
                 <td class="text-right">
                     <div class="btn-group">
                         <button type="submit"
                                 [routerLink]="['/tb-categoria', tbCategoria.id, 'view' ]"
                                 class="btn btn-info btn-sm">
                             <fa-icon [icon]="'eye'"></fa-icon>
-                            <span class="d-none d-md-inline">View</span>
+                            <span class="d-none d-md-inline">Visualizar</span>
                         </button>
                         <button type="submit"
                                 [routerLink]="['/tb-categoria', tbCategoria.id, 'edit']"
                                 class="btn btn-primary btn-sm">
                             <fa-icon [icon]="'pencil-alt'"></fa-icon>
-                            <span class="d-none d-md-inline">Edit</span>
+                            <span class="d-none d-md-inline">Editar</span>
                         </button>
                         <button type="submit"
                                 [routerLink]="['/tb-categoria', { outlets: { popup: tbCategoria.id + '/delete'} }]"
@@ -54,7 +46,7 @@
                                 queryParamsHandling="merge"
                                 class="btn btn-danger btn-sm">
                             <fa-icon [icon]="'times'"></fa-icon>
-                            <span class="d-none d-md-inline">Delete</span>
+                            <span class="d-none d-md-inline">Excluir</span>
                         </button>
                     </div>
                 </td>

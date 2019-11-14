@@ -1,27 +1,26 @@
 <div>
     <h2 id="page-heading">
-        <span>Tb Produtos</span>
+        <span>Produtos</span>
         <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-tb-produto" [routerLink]="['/tb-produto/new']">
             <fa-icon [icon]="'plus'"></fa-icon>
             <span >
-            Create a new Tb Produto
+            Adicionar novo Produto
             </span>
         </button>
     </h2>
     <jhi-alert></jhi-alert>
     <br/>
     <div class="alert alert-warning" *ngIf="tbProdutos?.length === 0">
-        <span>No tbProdutos found</span>
+        <span>Nenhum Produto encontrado</span>
     </div>
     <div class="table-responsive" *ngIf="tbProdutos?.length > 0">
         <table class="table table-striped" aria-describedby="page-heading">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
             <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="idTbProduto"><span>Id Tb Produto</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="nmProduto"><span>Nm Produto</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="qtdEstoque"><span>Qtd Estoque</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="qtdMin"><span>Qtd Min</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="nmProduto"><span>Nome do Produto</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="qtdEstoque"><span>Quantidade no Estoque</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="qtdMin"><span>Quantidade Mínima</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="ativo"><span>Ativo</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
@@ -29,7 +28,6 @@
             <tbody>
             <tr *ngFor="let tbProduto of tbProdutos ;trackBy: trackId">
                 <td><a [routerLink]="['/tb-produto', tbProduto.id, 'view' ]">{{tbProduto.id}}</a></td>
-                <td>{{tbProduto.idTbProduto}}</td>
                 <td>{{tbProduto.nmProduto}}</td>
                 <td>{{tbProduto.qtdEstoque}}</td>
                 <td>{{tbProduto.qtdMin}}</td>
@@ -40,13 +38,13 @@
                                 [routerLink]="['/tb-produto', tbProduto.id, 'view' ]"
                                 class="btn btn-info btn-sm">
                             <fa-icon [icon]="'eye'"></fa-icon>
-                            <span class="d-none d-md-inline">View</span>
+                            <span class="d-none d-md-inline">Visualizar</span>
                         </button>
                         <button type="submit"
                                 [routerLink]="['/tb-produto', tbProduto.id, 'edit']"
                                 class="btn btn-primary btn-sm">
                             <fa-icon [icon]="'pencil-alt'"></fa-icon>
-                            <span class="d-none d-md-inline">Edit</span>
+                            <span class="d-none d-md-inline">Editar</span>
                         </button>
                         <button type="submit"
                                 [routerLink]="['/tb-produto', { outlets: { popup: tbProduto.id + '/delete'} }]"
@@ -54,7 +52,7 @@
                                 queryParamsHandling="merge"
                                 class="btn btn-danger btn-sm">
                             <fa-icon [icon]="'times'"></fa-icon>
-                            <span class="d-none d-md-inline">Delete</span>
+                            <span class="d-none d-md-inline">Excluir</span>
                         </button>
                     </div>
                 </td>
