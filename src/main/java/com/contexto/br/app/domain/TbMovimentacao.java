@@ -2,10 +2,10 @@ package com.contexto.br.app.domain;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * A TbMovimentacao.
@@ -20,9 +20,6 @@ public class TbMovimentacao implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "id_tb_movimentacao")
-    private Integer idTbMovimentacao;
-
     @Column(name = "quantidade")
     private Integer quantidade;
 
@@ -32,11 +29,9 @@ public class TbMovimentacao implements Serializable {
     @Column(name = "entrada")
     private Integer entrada;
 
-    @ManyToMany
-    @JoinTable(name = "tb_movimentacao_tb_produto",
-               joinColumns = @JoinColumn(name = "tb_movimentacao_id", referencedColumnName = "id"),
-               inverseJoinColumns = @JoinColumn(name = "tb_produto_id", referencedColumnName = "id"))
-    private Set<TbProduto> tbProdutos = new HashSet<>();
+    @ManyToOne
+    @JsonIgnoreProperties("tbProduto")
+    private TbProduto produto;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -45,19 +40,6 @@ public class TbMovimentacao implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Integer getIdTbMovimentacao() {
-        return idTbMovimentacao;
-    }
-
-    public TbMovimentacao idTbMovimentacao(Integer idTbMovimentacao) {
-        this.idTbMovimentacao = idTbMovimentacao;
-        return this;
-    }
-
-    public void setIdTbMovimentacao(Integer idTbMovimentacao) {
-        this.idTbMovimentacao = idTbMovimentacao;
     }
 
     public Integer getQuantidade() {
@@ -99,30 +81,19 @@ public class TbMovimentacao implements Serializable {
         this.entrada = entrada;
     }
 
-    public Set<TbProduto> getTbProdutos() {
-        return tbProdutos;
+    public TbProduto getProduto() {
+        return produto;
     }
 
-    public TbMovimentacao tbProdutos(Set<TbProduto> tbProdutos) {
-        this.tbProdutos = tbProdutos;
+    public TbMovimentacao idCategoria(TbProduto produto) {
+        this.produto = produto;
         return this;
     }
 
-    public TbMovimentacao addTbProduto(TbProduto tbProduto) {
-        this.tbProdutos.add(tbProduto);
-        tbProduto.getTbmovimentacaos().add(this);
-        return this;
+    public void setProduto(TbProduto produto) {
+        this.produto = produto;
     }
 
-    public TbMovimentacao removeTbProduto(TbProduto tbProduto) {
-        this.tbProdutos.remove(tbProduto);
-        tbProduto.getTbmovimentacaos().remove(this);
-        return this;
-    }
-
-    public void setTbProdutos(Set<TbProduto> tbProdutos) {
-        this.tbProdutos = tbProdutos;
-    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -145,10 +116,11 @@ public class TbMovimentacao implements Serializable {
     public String toString() {
         return "TbMovimentacao{" +
             "id=" + getId() +
-            ", idTbMovimentacao=" + getIdTbMovimentacao() +
             ", quantidade=" + getQuantidade() +
             ", data='" + getData() + "'" +
             ", entrada=" + getEntrada() +
             "}";
     }
+
+    
 }

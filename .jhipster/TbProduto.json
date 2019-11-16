@@ -1,10 +1,6 @@
 {
     "name": "TbProduto",
-    "fields": [
-        {
-            "fieldName": "idTbProduto",
-            "fieldType": "Integer"
-        },
+    "fields": [        
         {
             "fieldName": "nmProduto",
             "fieldType": "String"
@@ -21,15 +17,21 @@
             "fieldName": "ativo",
             "fieldType": "Integer"
         }
-    ],
+    ],    
     "relationships": [
         {
-            "relationshipType": "many-to-many",
-            "otherEntityName": "tbMovimentacao",
-            "otherEntityRelationshipName": "tbProduto",
-            "relationshipName": "tbmovimentacao",
-            "otherEntityField": "id",
-            "ownerSide": false
+            "relationshipType": "many-to-one",
+            "otherEntityName": "tbUnidadeMedida",
+            "otherEntityRelationshipName": "tbUnidadeMedida",
+            "relationshipName": "idUnidadeMedida",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "tbCategoria",
+            "otherEntityRelationshipName": "tbCategoria",
+            "relationshipName": "idCategoria",
+            "otherEntityField": "id"
         }
     ],
     "changelogDate": "20191107005612",

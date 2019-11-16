@@ -19,8 +19,7 @@
     <include file="config/liquibase/changelog/20191107005612_added_entity_TbProduto.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20191107005613_added_entity_TbMovimentacao.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
-    <include file="config/liquibase/changelog/20191107005610_added_entity_constraints_TbCategoria.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20191107005611_added_entity_constraints_TbUnidadeMedida.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20191107005612_added_entity_constraints_TbProduto.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20191107005613_added_entity_constraints_TbMovimentacao.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>

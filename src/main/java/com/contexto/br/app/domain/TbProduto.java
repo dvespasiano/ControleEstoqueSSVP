@@ -1,11 +1,11 @@
 package com.contexto.br.app.domain;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+
 
 /**
  * A TbProduto.
@@ -20,9 +20,6 @@ public class TbProduto implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "id_tb_produto")
-    private Integer idTbProduto;
-
     @Column(name = "nm_produto")
     private String nmProduto;
 
@@ -35,42 +32,34 @@ public class TbProduto implements Serializable {
     @Column(name = "ativo")
     private Integer ativo;
 
-    @ManyToMany(mappedBy = "tbProdutos")
-    @JsonIgnore
-    private Set<TbMovimentacao> tbmovimentacaos = new HashSet<>();
+    @ManyToOne
+    @JsonIgnoreProperties("tbUnidadeMedida")
+    private TbUnidadeMedida unidade_medida;
+
+    @ManyToOne
+    @JsonIgnoreProperties("tbCategoria")
+    private TbCategoria categoria;
+
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(final Long id) {
         this.id = id;
-    }
-
-    public Integer getIdTbProduto() {
-        return idTbProduto;
-    }
-
-    public TbProduto idTbProduto(Integer idTbProduto) {
-        this.idTbProduto = idTbProduto;
-        return this;
-    }
-
-    public void setIdTbProduto(Integer idTbProduto) {
-        this.idTbProduto = idTbProduto;
     }
 
     public String getNmProduto() {
         return nmProduto;
     }
 
-    public TbProduto nmProduto(String nmProduto) {
+    public TbProduto nmProduto(final String nmProduto) {
         this.nmProduto = nmProduto;
         return this;
     }
 
-    public void setNmProduto(String nmProduto) {
+    public void setNmProduto(final String nmProduto) {
         this.nmProduto = nmProduto;
     }
 
@@ -78,12 +67,12 @@ public class TbProduto implements Serializable {
         return qtdEstoque;
     }
 
-    public TbProduto qtdEstoque(String qtdEstoque) {
+    public TbProduto qtdEstoque(final String qtdEstoque) {
         this.qtdEstoque = qtdEstoque;
         return this;
     }
 
-    public void setQtdEstoque(String qtdEstoque) {
+    public void setQtdEstoque(final String qtdEstoque) {
         this.qtdEstoque = qtdEstoque;
     }
 
@@ -91,12 +80,12 @@ public class TbProduto implements Serializable {
         return qtdMin;
     }
 
-    public TbProduto qtdMin(String qtdMin) {
+    public TbProduto qtdMin(final String qtdMin) {
         this.qtdMin = qtdMin;
         return this;
     }
 
-    public void setQtdMin(String qtdMin) {
+    public void setQtdMin(final String qtdMin) {
         this.qtdMin = qtdMin;
     }
 
@@ -104,43 +93,45 @@ public class TbProduto implements Serializable {
         return ativo;
     }
 
-    public TbProduto ativo(Integer ativo) {
+    public TbProduto ativo(final Integer ativo) {
         this.ativo = ativo;
         return this;
     }
 
-    public void setAtivo(Integer ativo) {
+    public void setAtivo(final Integer ativo) {
         this.ativo = ativo;
     }
 
-    public Set<TbMovimentacao> getTbmovimentacaos() {
-        return tbmovimentacaos;
+    public TbUnidadeMedida getUnidade_medida() {
+        return unidade_medida;
     }
 
-    public TbProduto tbmovimentacaos(Set<TbMovimentacao> tbMovimentacaos) {
-        this.tbmovimentacaos = tbMovimentacaos;
+    public TbProduto idCategoria(TbUnidadeMedida unidade_medida) {
+        this.unidade_medida = unidade_medida;
         return this;
     }
 
-    public TbProduto addTbmovimentacao(TbMovimentacao tbMovimentacao) {
-        this.tbmovimentacaos.add(tbMovimentacao);
-        tbMovimentacao.getTbProdutos().add(this);
+    public void setUnidade_medida(TbUnidadeMedida unidade_medida) {
+        this.unidade_medida = unidade_medida;
+    }
+
+    public TbCategoria getCategoria() {
+        return categoria;
+    }
+
+    public TbProduto idCategoria(TbCategoria categoria) {
+        this.categoria = categoria;
         return this;
     }
 
-    public TbProduto removeTbmovimentacao(TbMovimentacao tbMovimentacao) {
-        this.tbmovimentacaos.remove(tbMovimentacao);
-        tbMovimentacao.getTbProdutos().remove(this);
-        return this;
+    public void setCategoria(TbCategoria categoria) {
+        this.categoria = categoria;
     }
 
-    public void setTbmovimentacaos(Set<TbMovimentacao> tbMovimentacaos) {
-        this.tbmovimentacaos = tbMovimentacaos;
-    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) {
             return true;
         }
@@ -159,11 +150,14 @@ public class TbProduto implements Serializable {
     public String toString() {
         return "TbProduto{" +
             "id=" + getId() +
-            ", idTbProduto=" + getIdTbProduto() +
             ", nmProduto='" + getNmProduto() + "'" +
             ", qtdEstoque='" + getQtdEstoque() + "'" +
             ", qtdMin='" + getQtdMin() + "'" +
             ", ativo=" + getAtivo() +
             "}";
     }
+
+    
+
+    
 }

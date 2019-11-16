@@ -28,10 +28,8 @@ entrada Integer,
 relationship ManyToOne {
 	TbCategoria{idCategoria} to TbProduto,
    	TbUnidadeMedida{idUnidadeMedida} to TbProduto,
+    TbProduto{idTbProduto} to TbMovimentacao
 }
 
-relationship ManyToMany {
-    TbMovimentacao{TbProduto(idTbProduto)} to TbProduto{tbmovimentacao}
-}
 
 paginate TbProduto with pagination

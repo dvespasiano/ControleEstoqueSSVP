@@ -2,10 +2,6 @@
     "name": "TbCategoria",
     "fields": [
         {
-            "fieldName": "idTbCategoria",
-            "fieldType": "Integer"
-        },
-        {
             "fieldName": "nmCategoria",
             "fieldType": "String"
         }

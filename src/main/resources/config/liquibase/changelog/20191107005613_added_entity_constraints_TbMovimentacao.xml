@@ -8,15 +8,9 @@
     -->
     <changeSet id="20191107005613-2" author="jhipster">
         
-        <addForeignKeyConstraint baseColumnNames="tb_movimentacao_id"
-                                 baseTableName="tb_movimentacao_tb_produto"
-                                 constraintName="fk_tb_movimentacao_tb_produto_tb_movimentacao_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="tb_movimentacao"/>
-
-        <addForeignKeyConstraint baseColumnNames="tb_produto_id"
-                                 baseTableName="tb_movimentacao_tb_produto"
-                                 constraintName="fk_tb_movimentacao_tb_produto_tb_produto_id"
+        <addForeignKeyConstraint baseColumnNames="produto_id"
+                                 baseTableName="tb_movimentacao"
+                                 constraintName="fk_tb_p"
                                  referencedColumnNames="id"
                                  referencedTableName="tb_produto"/>
         

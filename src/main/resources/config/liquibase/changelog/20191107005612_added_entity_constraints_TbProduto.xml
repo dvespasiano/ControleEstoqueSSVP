@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <!--
+        Added the constraints for entity TbCategoria.
+    -->
+
+    <changeSet id="20191107005612-2" author="jhipster">
+        <addForeignKeyConstraint 
+        baseColumnNames="categoria_id" 
+        baseTableName="tb_produto" 
+        constraintName="fk_tb_c" 
+        referencedColumnNames="id" 
+        referencedTableName="tb_categoria" />
+
+        <addForeignKeyConstraint 
+        baseColumnNames="unidade_medida_id" 
+        baseTableName="tb_produto" 
+        constraintName="fk_tb_um" 
+        referencedColumnNames="id" 
+        referencedTableName="tb_unidade_medida" />
+
+    </changeSet>
+</databaseChangeLog>

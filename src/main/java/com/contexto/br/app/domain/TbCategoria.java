@@ -18,15 +18,8 @@ public class TbCategoria implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "id_tb_categoria")
-    private Integer idTbCategoria;
-
     @Column(name = "nm_categoria")
     private String nmCategoria;
-
-    @ManyToOne
-    @JsonIgnoreProperties("tbCategorias")
-    private TbProduto idCategoria;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -37,17 +30,9 @@ public class TbCategoria implements Serializable {
         this.id = id;
     }
 
-    public Integer getIdTbCategoria() {
-        return idTbCategoria;
-    }
-
     public TbCategoria idTbCategoria(Integer idTbCategoria) {
-        this.idTbCategoria = idTbCategoria;
+        this.id = (long)idTbCategoria;
         return this;
-    }
-
-    public void setIdTbCategoria(Integer idTbCategoria) {
-        this.idTbCategoria = idTbCategoria;
     }
 
     public String getNmCategoria() {
@@ -63,18 +48,6 @@ public class TbCategoria implements Serializable {
         this.nmCategoria = nmCategoria;
     }
 
-    public TbProduto getIdCategoria() {
-        return idCategoria;
-    }
-
-    public TbCategoria idCategoria(TbProduto tbProduto) {
-        this.idCategoria = tbProduto;
-        return this;
-    }
-
-    public void setIdCategoria(TbProduto tbProduto) {
-        this.idCategoria = tbProduto;
-    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -97,7 +70,6 @@ public class TbCategoria implements Serializable {
     public String toString() {
         return "TbCategoria{" +
             "id=" + getId() +
-            ", idTbCategoria=" + getIdTbCategoria() +
             ", nmCategoria='" + getNmCategoria() + "'" +
             "}";
     }

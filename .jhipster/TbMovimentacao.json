@@ -2,10 +2,6 @@
     "name": "TbMovimentacao",
     "fields": [
         {
-            "fieldName": "idTbMovimentacao",
-            "fieldType": "Integer"
-        },
-        {
             "fieldName": "quantidade",
             "fieldType": "Integer"
         },
@@ -20,12 +16,12 @@
     ],
     "relationships": [
         {
-            "relationshipType": "many-to-many",
+            "relationshipType": "many-to-one",
             "otherEntityName": "tbProduto",
-            "otherEntityRelationshipName": "tbmovimentacao",
-            "relationshipName": "tbProduto",
-            "otherEntityField": "idTbProduto",
-            "ownerSide": true
+            "otherEntityRelationshipName": "tbProduto",
+            "relationshipName": "tbmovimentacao",
+            "otherEntityField": "id",
+            "ownerSide": false
         }
     ],
     "changelogDate": "20191107005613",

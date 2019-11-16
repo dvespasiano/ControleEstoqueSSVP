@@ -2,21 +2,8 @@
     "name": "TbUnidadeMedida",
     "fields": [
         {
-            "fieldName": "idTbUnidadeMedida",
-            "fieldType": "Integer"
-        },
-        {
             "fieldName": "nmUnidadeMedida",
             "fieldType": "String"
-        }
-    ],
-    "relationships": [
-        {
-            "relationshipType": "many-to-one",
-            "otherEntityName": "tbProduto",
-            "otherEntityRelationshipName": "tbUnidadeMedida",
-            "relationshipName": "idUnidadeMedida",
-            "otherEntityField": "id"
         }
     ],
     "changelogDate": "20191107005611",
