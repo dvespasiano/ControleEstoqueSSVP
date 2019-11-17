@@ -27,7 +27,7 @@ export class TbProdutoDetailComponent implements OnInit {
     id: [],
     idTbProduto: [],
     nmProduto: [],
-    qtdEstoque: [],
+    qtdAlterar: [],
     qtdMin: [],
     ativo: []
   });
@@ -64,7 +64,6 @@ export class TbProdutoDetailComponent implements OnInit {
       id: tbProduto.id,
       idTbProduto: tbProduto.idTbProduto,
       nmProduto: tbProduto.nmProduto,
-      qtdEstoque: tbProduto.qtdEstoque,
       qtdMin: tbProduto.qtdMin,
       ativo: tbProduto.ativo
     });
@@ -85,15 +84,11 @@ export class TbProdutoDetailComponent implements OnInit {
   }
 
   private createFromForm(): ITbProduto {
-    return {
-      ...new TbProduto(),
-      id: this.editForm.get(['id']).value,
-      idTbProduto: this.editForm.get(['idTbProduto']).value,
-      nmProduto: this.editForm.get(['nmProduto']).value,
-      qtdEstoque: this.editForm.get(['qtdEstoque']).value,
-      qtdMin: this.editForm.get(['qtdMin']).value,
-      ativo: this.editForm.get(['ativo']).value
-    };
+    const novoProduto: TbProduto = this.tbProduto;
+    const estoqueAtual: number = parseInt(novoProduto.qtdEstoque,10);
+    const estoqueAlteracao: number = parseInt(this.editForm.get(['qtdAlterar']).value,10);
+    novoProduto.qtdEstoque = (estoqueAtual+estoqueAlteracao)+ "";
+    return novoProduto;
   }
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<ITbProduto>>) {
@@ -108,6 +103,7 @@ export class TbProdutoDetailComponent implements OnInit {
   protected onSaveError() {
     this.isSaving = false;
   }
+  
   protected onError(errorMessage: string) {
     this.jhiAlertService.error(errorMessage, null, null);
   }

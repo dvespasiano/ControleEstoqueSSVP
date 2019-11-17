@@ -80,7 +80,7 @@ public class TbProdutoResource {
         }
         TbProduto result = tbProdutoRepository.save(tbProduto);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, tbProduto.getId().toString()))
+            .headers(HeaderUtil.createAlert(applicationName, "O estoque do \"" + tbProduto.getNmProduto() + "\" foi alterado para " + tbProduto.getQtdEstoque(), ""))
             .body(result);
     }
 
