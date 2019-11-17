@@ -1,8 +1,8 @@
 <div>
     <h2>
-        <span id="user-management-page-heading">Users</span>
+        <span id="user-management-page-heading">Usuários</span>
         <button class="btn btn-primary float-right jh-create-entity" [routerLink]="['./new']">
-            <fa-icon [icon]="'plus'"></fa-icon> <span>Create a new User</span>
+            <fa-icon [icon]="'plus'"></fa-icon> <span>Criar novo Usuário</span>
         </button>
     </h2>
     <jhi-alert></jhi-alert>
@@ -15,9 +15,9 @@
                 <th jhiSortBy="email"><span>Email</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th></th>
                 <th><span>Profiles</span></th>
-                <th jhiSortBy="createdDate"><span>Created Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                <th jhiSortBy="lastModifiedBy"><span>Last Modified By</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                <th jhiSortBy="lastModifiedDate"><span>Last Modified Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="createdDate"><span>Data de Criação</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="lastModifiedBy"><span>Modificado por Último por : </span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="lastModifiedDate"><span>Ultima Data de Modificação</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th></th>
             </tr>
             </thead>
@@ -28,9 +28,9 @@
                 <td>{{user.email}}</td>
                 <td>
                     <button class="btn btn-danger btn-sm" (click)="setActive(user, true)" *ngIf="!user.activated"
-                           >Deactivated</button>
+                           >Inativo</button>
                     <button class="btn btn-success btn-sm" (click)="setActive(user, false)" *ngIf="user.activated"
-                            [disabled]="currentAccount.login === user.login">Activated</button>
+                            [disabled]="currentAccount.login === user.login">Ativo</button>
                 </td>
                 
                 <td>
@@ -44,22 +44,16 @@
                 <td class="text-right">
                     <div class="btn-group">
                         <button type="submit"
-                                [routerLink]="['./', user.login, 'view']"
-                                class="btn btn-info btn-sm">
-                            <fa-icon [icon]="'eye'"></fa-icon>
-                            <span class="d-none d-md-inline">View</span>
-                        </button>
-                        <button type="submit"
                                 [routerLink]="['./', user.login, 'edit']"
                                 queryParamsHandling="merge"
                                 class="btn btn-primary btn-sm">
                             <fa-icon [icon]="'pencil-alt'"></fa-icon>
-                            <span class="d-none d-md-inline">Edit</span>
+                            <span class="d-none d-md-inline">Editar</span>
                         </button>
                         <button type="button" (click)="deleteUser(user)"
                                 class="btn btn-danger btn-sm" [disabled]="currentAccount.login === user.login">
                             <fa-icon [icon]="'times'"></fa-icon>
-                            <span class="d-none d-md-inline">Delete</span>
+                            <span class="d-none d-md-inline">Excluir</span>
                         </button>
                     </div>
                 </td>
