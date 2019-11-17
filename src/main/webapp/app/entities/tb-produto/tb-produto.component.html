@@ -21,7 +21,7 @@
             <th jhiSortBy="nmProduto"><span>Nome do Produto</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="qtdEstoque"><span>Quantidade no Estoque</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="qtdMin"><span>Quantidade Mínima</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="ativo"><span>Ativo</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="categoria.nmCategoria"><span>Categoria</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
             </thead>
@@ -31,20 +31,14 @@
                 <td>{{tbProduto.nmProduto}}</td>
                 <td>{{tbProduto.qtdEstoque}}</td>
                 <td>{{tbProduto.qtdMin}}</td>
-                <td>{{tbProduto.ativo}}</td>
+                <td>{{tbProduto.categoria.nmCategoria}}</td>
                 <td class="text-right">
                     <div class="btn-group">
                         <button type="submit"
                                 [routerLink]="['/tb-produto', tbProduto.id, 'view' ]"
                                 class="btn btn-info btn-sm">
-                            <fa-icon [icon]="'eye'"></fa-icon>
-                            <span class="d-none d-md-inline">Visualizar</span>
-                        </button>
-                        <button type="submit"
-                                [routerLink]="['/tb-produto', tbProduto.id, 'edit']"
-                                class="btn btn-primary btn-sm">
-                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
-                            <span class="d-none d-md-inline">Editar</span>
+                            <fa-icon [icon]="'edit'"></fa-icon>
+                            <span class="d-none d-md-inline">Alterar Estoque</span>
                         </button>
                         <button type="submit"
                                 [routerLink]="['/tb-produto', { outlets: { popup: tbProduto.id + '/delete'} }]"
@@ -52,7 +46,7 @@
                                 queryParamsHandling="merge"
                                 class="btn btn-danger btn-sm">
                             <fa-icon [icon]="'times'"></fa-icon>
-                            <span class="d-none d-md-inline">Excluir</span>
+                            <span class="d-none d-md-inline">Excluir Produto</span>
                         </button>
                     </div>
                 </td>

@@ -1,7 +1,7 @@
 <div class="row justify-content-center">
-    <div class="col-8">
+    <div class="col-4">
         <div *ngIf="tbProduto">
-            <h2><span>Produto</span> {{tbProduto.id}}</h2>
+            <h2><span>Alterar Estoque </span></h2>
             <hr>
             <jhi-alert-error></jhi-alert-error>
             <dl class="row-md jh-entity-details">
@@ -17,22 +17,40 @@
                 <dd>
                     <span>{{tbProduto.qtdMin}}</span>
                 </dd>
-                <dt><span>Ativo</span></dt>
-                <dd>
-                    <span>{{tbProduto.ativo}}</span>
-                </dd>
             </dl>
 
-            <button type="submit"
-                    (click)="previousState()"
-                    class="btn btn-info">
-                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Voltar</span>
-            </button>
+            <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+                <div class="form-group" [hidden]="!editForm.get('id').value">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
+                </div>
 
-            <button type="button"
-                    [routerLink]="['/tb-produto', tbProduto.id, 'edit']"
-                    class="btn btn-primary">
-                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Editar</span>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_qtdAlterar">Quantidade</label>
+                    <input type="number" class="form-control" name="qtdAlterar" id="field_qtdAlterar"
+                        formControlName="qtdAlterar" />
+                </div>
+
+
+                <div>
+                    <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving"
+                        class="btn btn-info">
+                        <fa-icon [icon]="'plus'"></fa-icon>&nbsp;<span>Adicionar</span>
+                    </button>
+
+                    <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving"
+                        class="btn btn-danger">
+                        <fa-icon [icon]="'times'"></fa-icon>&nbsp;<span>Remover</span>
+                    </button>
+                </div>
+            </form>
+
+
+        </div>
+
+        <div>
+            <button type="submit" (click)="previousState()" class="btn btn-primary">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Voltar</span>
             </button>
         </div>
     </div>
