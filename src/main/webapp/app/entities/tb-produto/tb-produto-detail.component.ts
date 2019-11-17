@@ -25,11 +25,8 @@ export class TbProdutoDetailComponent implements OnInit {
 
   editForm = this.fb.group({
     id: [],
-    idTbProduto: [],
-    nmProduto: [],
-    qtdEstoque: [],
-    qtdMin: [],
-    ativo: []
+    qtdAlterar: [],
+    tipo: []
   });
 
   constructor(
@@ -85,15 +82,18 @@ export class TbProdutoDetailComponent implements OnInit {
   }
 
   private createFromForm(): ITbProduto {
-    return {
-      ...new TbProduto(),
-      id: this.editForm.get(['id']).value,
-      idTbProduto: this.editForm.get(['idTbProduto']).value,
-      nmProduto: this.editForm.get(['nmProduto']).value,
-      qtdEstoque: this.editForm.get(['qtdEstoque']).value,
-      qtdMin: this.editForm.get(['qtdMin']).value,
-      ativo: this.editForm.get(['ativo']).value
-    };
+    const novoProduto: TbProduto = this.tbProduto;
+    const estoqueAtual: number = parseInt(novoProduto.qtdEstoque, 10);
+    const tipo: number = parseInt(this.editForm.get(['tipo']).value, 10);
+    let estoqueAlteracao: number;
+    if (tipo === 1) {
+      estoqueAlteracao = parseInt(this.editForm.get(['qtdAlterar']).value, 10);
+    } else {
+      estoqueAlteracao = -1 * parseInt(this.editForm.get(['qtdAlterar']).value, 10);
+    }
+
+    novoProduto.qtdEstoque = estoqueAtual + estoqueAlteracao + '';
+    return novoProduto;
   }
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<ITbProduto>>) {

@@ -27,7 +27,8 @@ export class TbProdutoUpdateComponent implements OnInit {
     nmProduto: [],
     qtdEstoque: [],
     qtdMin: [],
-    ativo: []
+    ativo: [],
+    nmcategoria: []
   });
 
   constructor(
