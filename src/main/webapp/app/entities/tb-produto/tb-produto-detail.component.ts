@@ -25,16 +25,11 @@ export class TbProdutoDetailComponent implements OnInit {
 
   editForm = this.fb.group({
     id: [],
-<<<<<<< HEAD
     idTbProduto: [],
     nmProduto: [],
     qtdAlterar: [],
     qtdMin: [],
     ativo: []
-=======
-    qtdAlterar: [],
-    tipo: []
->>>>>>> a3432cff6a7adf33419775bfe7209a6e858743ee
   });
 
   constructor(
@@ -90,22 +85,9 @@ export class TbProdutoDetailComponent implements OnInit {
 
   private createFromForm(): ITbProduto {
     const novoProduto: TbProduto = this.tbProduto;
-<<<<<<< HEAD
-    const estoqueAtual: number = parseInt(novoProduto.qtdEstoque,10);
-    const estoqueAlteracao: number = parseInt(this.editForm.get(['qtdAlterar']).value,10);
-    novoProduto.qtdEstoque = (estoqueAtual+estoqueAlteracao)+ "";
-=======
     const estoqueAtual: number = parseInt(novoProduto.qtdEstoque, 10);
-    const tipo: number = parseInt(this.editForm.get(['tipo']).value, 10);
-    let estoqueAlteracao: number;
-    if (tipo === 1) {
-      estoqueAlteracao = parseInt(this.editForm.get(['qtdAlterar']).value, 10);
-    } else {
-      estoqueAlteracao = -1 * parseInt(this.editForm.get(['qtdAlterar']).value, 10);
-    }
-
+    const estoqueAlteracao: number = parseInt(this.editForm.get(['qtdAlterar']).value, 10);
     novoProduto.qtdEstoque = estoqueAtual + estoqueAlteracao + '';
->>>>>>> a3432cff6a7adf33419775bfe7209a6e858743ee
     return novoProduto;
   }
 
@@ -121,7 +103,7 @@ export class TbProdutoDetailComponent implements OnInit {
   protected onSaveError() {
     this.isSaving = false;
   }
-  
+
   protected onError(errorMessage: string) {
     this.jhiAlertService.error(errorMessage, null, null);
   }
