@@ -30,7 +30,6 @@ export class TbProdutoComponent implements OnInit, OnDestroy {
   predicate: any;
   previousPage: any;
   reverse: any;
-  situacao: number;
 
   constructor(
     protected tbProdutoService: TbProdutoService,
@@ -48,38 +47,6 @@ export class TbProdutoComponent implements OnInit, OnDestroy {
       this.reverse = data.pagingParams.ascending;
       this.predicate = data.pagingParams.predicate;
     });
-  }
-
-  maior(num1: string, num2: string) {
-    if (parseInt(num1, 10) > parseInt(num2, 10)) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  maiorIgual(num1: string, num2: string) {
-    if (parseInt(num1, 10) >= parseInt(num2, 10)) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  menor(num1: string, num2: string) {
-    if (parseInt(num1, 10) < parseInt(num2, 10)) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  menorIgual(num1: string, num2: string) {
-    if (parseInt(num1, 10) <= parseInt(num2, 10)) {
-      return true;
-    } else {
-      return false;
-    }
   }
 
   loadAll() {

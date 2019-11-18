@@ -1,77 +1,56 @@
 <div>
     <h2 id="page-heading">
         <span>Produtos</span>
-        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-tb-produto"
-            [routerLink]="['/tb-produto/new']">
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-tb-produto" [routerLink]="['/tb-produto/new']">
             <fa-icon [icon]="'plus'"></fa-icon>
-            <span>
-                Adicionar novo Produto
+            <span >
+            Adicionar novo Produto
             </span>
         </button>
     </h2>
     <jhi-alert></jhi-alert>
-    <br />
+    <br/>
     <div class="alert alert-warning" *ngIf="tbProdutos?.length === 0">
         <span>Nenhum Produto encontrado</span>
     </div>
     <div class="table-responsive" *ngIf="tbProdutos?.length > 0">
         <table class="table table-striped" aria-describedby="page-heading">
             <thead>
-                <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-                    <th jhiSortBy="id"><span>ID</span>
-                        <fa-icon [icon]="'sort'"></fa-icon>
-                    </th>
-                    <th jhiSortBy="nmProduto"><span>Nome do Produto</span>
-                        <fa-icon [icon]="'sort'"></fa-icon>
-                    </th>
-                    <th jhiSortBy="qtdEstoque"><span>Quantidade no Estoque</span>
-                        <fa-icon [icon]="'sort'"></fa-icon>
-                    </th>
-                    <th jhiSortBy="qtdMin"><span>Quantidade Mínima</span>
-                        <fa-icon [icon]="'sort'"></fa-icon>
-                    </th>
-                    <th jhiSortBy="categoria.nmCategoria"><span>Categoria</span>
-                        <fa-icon [icon]="'sort'"></fa-icon>
-                    </th>
-                    <th><span>Situação</span></th>
-                    <th></th>
-                </tr>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="nmProduto"><span>Nome do Produto</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="qtdEstoque"><span>Quantidade no Estoque</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="qtdMin"><span>Quantidade Mínima</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="categoria.nmCategoria"><span>Categoria</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th></th>
+            </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let tbProduto of tbProdutos ;trackBy: trackId">
-                    <td><a [routerLink]="['/tb-produto', tbProduto.id, 'view' ]">{{tbProduto.id}}</a></td>
-                    <td>{{tbProduto.nmProduto}}</td>
-                    <td>{{tbProduto.qtdEstoque}}</td>
-                    <td>{{tbProduto.qtdMin}}</td>
-                    <td>{{tbProduto.categoria.nmCategoria}}</td>
-                    <ng-container *ngIf="menor(tbProduto.qtdEstoque,tbProduto.qtdMin)">
-                        <td> <span class="badge badge-danger"> Em falta</span> </td>
-                    </ng-container>
-                    <ng-container *ngIf="maiorIgual(tbProduto.qtdEstoque,tbProduto.qtdMin) && 
-                                         menorIgual(tbProduto.qtdEstoque*1.2,tbProduto.qtdMin)">
-                        <td> <span class="badge badge-warning"> Quase em falta </span> </td>
-                    </ng-container>
-                    <ng-container *ngIf="maior(tbProduto.qtdEstoque,tbProduto.qtdMin)"> 
-                        <td> <span class="badge badge-success"> Em estoque</span> </td>
-                    </ng-container>
-                    
-
-                    <td class="text-right">
-                        <div class="btn-group">
-                            <button type="submit" [routerLink]="['/tb-produto', tbProduto.id, 'view' ]"
+            <tr *ngFor="let tbProduto of tbProdutos ;trackBy: trackId">
+                <td><a [routerLink]="['/tb-produto', tbProduto.id, 'view' ]">{{tbProduto.id}}</a></td>
+                <td>{{tbProduto.nmProduto}}</td>
+                <td>{{tbProduto.qtdEstoque}}</td>
+                <td>{{tbProduto.qtdMin}}</td>
+                <td>{{tbProduto.categoria.nmCategoria}}</td>
+                <td class="text-right">
+                    <div class="btn-group">
+                        <button type="submit"
+                                [routerLink]="['/tb-produto', tbProduto.id, 'view' ]"
                                 class="btn btn-info btn-sm">
-                                <fa-icon [icon]="'edit'"></fa-icon>
-                                <span class="d-none d-md-inline">Alterar Estoque</span>
-                            </button>
-                            <button type="submit"
+                            <fa-icon [icon]="'edit'"></fa-icon>
+                            <span class="d-none d-md-inline">Alterar Estoque</span>
+                        </button>
+                        <button type="submit"
                                 [routerLink]="['/tb-produto', { outlets: { popup: tbProduto.id + '/delete'} }]"
-                                replaceUrl="true" queryParamsHandling="merge" class="btn btn-danger btn-sm">
-                                <fa-icon [icon]="'times'"></fa-icon>
-                                <span class="d-none d-md-inline">Excluir Produto</span>
-                            </button>
-                        </div>
-                    </td>
-                </tr>
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline">Excluir Produto</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
             </tbody>
         </table>
     </div>
@@ -80,8 +59,7 @@
             <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
         </div>
         <div class="row justify-content-center">
-            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5"
-                [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
         </div>
     </div>
 </div>
