@@ -9,6 +9,7 @@
             </span>
         </button>
     </h2>
+    <input [(ngModel)]="nome" type="text">
     <jhi-alert></jhi-alert>
     <br />
     <div class="alert alert-warning" *ngIf="tbProdutos?.length === 0">
@@ -38,39 +39,40 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let tbProduto of tbProdutos ;trackBy: trackId">
-                    <td><a [routerLink]="['/tb-produto', tbProduto.id, 'view' ]">{{tbProduto.id}}</a></td>
-                    <td>{{tbProduto.nmProduto}}</td>
-                    <td>{{tbProduto.qtdEstoque}}</td>
-                    <td>{{tbProduto.qtdMin}}</td>
-                    <td>{{tbProduto.categoria.nmCategoria}}</td>
-                    <ng-container *ngIf="menor(tbProduto.qtdEstoque,tbProduto.qtdMin)">
-                        <td> <span class="badge badge-danger"> Em falta</span> </td>
-                    </ng-container>
-                    <ng-container *ngIf="maiorIgual(tbProduto.qtdEstoque,tbProduto.qtdMin) && 
+                <tr *ngFor="let tbProduto of tbProdutos;trackBy: trackId">
+                    <ng-container
+                        *ngIf="(tbProduto.nmProduto | lowercase).startsWith(nome | lowercase) || nome.length === 0">
+                        <td><a [routerLink]="['/tb-produto', tbProduto.id, 'view' ]">{{tbProduto.id}}</a></td>
+                        <td>{{tbProduto.nmProduto}}</td>
+                        <td>{{tbProduto.qtdEstoque}}</td>
+                        <td>{{tbProduto.qtdMin}}</td>
+                        <td>{{tbProduto.categoria.nmCategoria}}</td>
+                        <ng-container *ngIf="menor(tbProduto.qtdEstoque,tbProduto.qtdMin)">
+                            <td> <span class="badge badge-danger"> Em falta</span> </td>
+                        </ng-container>
+                        <ng-container *ngIf="maiorIgual(tbProduto.qtdEstoque,tbProduto.qtdMin) && 
                                          menorIgual(tbProduto.qtdEstoque*1.2,tbProduto.qtdMin)">
-                        <td> <span class="badge badge-warning"> Quase em falta </span> </td>
+                            <td> <span class="badge badge-warning"> Quase em falta </span> </td>
+                        </ng-container>
+                        <ng-container *ngIf="maior(tbProduto.qtdEstoque,tbProduto.qtdMin)">
+                            <td> <span class="badge badge-success"> Em estoque</span> </td>
+                        </ng-container>
+                        <td class="text-right">
+                            <div class="btn-group">
+                                <button type="submit" [routerLink]="['/tb-produto', tbProduto.id, 'view' ]"
+                                    class="btn btn-info btn-sm">
+                                    <fa-icon [icon]="'edit'"></fa-icon>
+                                    <span class="d-none d-md-inline">Alterar Estoque</span>
+                                </button>
+                                <button type="submit"
+                                    [routerLink]="['/tb-produto', { outlets: { popup: tbProduto.id + '/delete'} }]"
+                                    replaceUrl="true" queryParamsHandling="merge" class="btn btn-danger btn-sm">
+                                    <fa-icon [icon]="'times'"></fa-icon>
+                                    <span class="d-none d-md-inline">Excluir Produto</span>
+                                </button>
+                            </div>
+                        </td>
                     </ng-container>
-                    <ng-container *ngIf="maior(tbProduto.qtdEstoque,tbProduto.qtdMin)"> 
-                        <td> <span class="badge badge-success"> Em estoque</span> </td>
-                    </ng-container>
-                    
-
-                    <td class="text-right">
-                        <div class="btn-group">
-                            <button type="submit" [routerLink]="['/tb-produto', tbProduto.id, 'view' ]"
-                                class="btn btn-info btn-sm">
-                                <fa-icon [icon]="'edit'"></fa-icon>
-                                <span class="d-none d-md-inline">Alterar Estoque</span>
-                            </button>
-                            <button type="submit"
-                                [routerLink]="['/tb-produto', { outlets: { popup: tbProduto.id + '/delete'} }]"
-                                replaceUrl="true" queryParamsHandling="merge" class="btn btn-danger btn-sm">
-                                <fa-icon [icon]="'times'"></fa-icon>
-                                <span class="d-none d-md-inline">Excluir Produto</span>
-                            </button>
-                        </div>
-                    </td>
                 </tr>
             </tbody>
         </table>
