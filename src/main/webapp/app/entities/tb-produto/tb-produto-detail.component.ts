@@ -11,8 +11,10 @@ import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { JhiAlertService } from 'ng-jhipster';
 import { TbProdutoService } from './tb-produto.service';
-import { ITbMovimentacao } from 'app/shared/model/tb-movimentacao.model';
+import { ITbMovimentacao, TbMovimentacao } from 'app/shared/model/tb-movimentacao.model';
 import { TbMovimentacaoService } from 'app/entities/tb-movimentacao/tb-movimentacao.service';
+import { Moment } from 'moment';
+import moment = require('moment');
 
 @Component({
   selector: 'jhi-tb-produto-detail',
@@ -76,8 +78,16 @@ export class TbProdutoDetailComponent implements OnInit {
   save() {
     this.isSaving = true;
     const tbProduto = this.createFromForm();
+
     if (tbProduto.id !== undefined) {
       this.subscribeToSaveResponse(this.tbProdutoService.update(tbProduto));
+      let tbMovimentacao: ITbMovimentacao;
+
+      tbMovimentacao.data = moment();
+      tbMovimentacao.entrada = parseInt(this.editForm.get(['tipo']).value, 10);
+      tbMovimentacao.quantidade = parseInt(this.editForm.get(['qtdAlterar']).value, 10);
+      tbMovimentacao.tbProduto = tbProduto;
+      this.subscribeToSaveResponse(this.tbMovimentacaoService.create(tbMovimentacao));
     } else {
       this.subscribeToSaveResponse(this.tbProdutoService.create(tbProduto));
     }

@@ -1,4 +1,6 @@
 import { ITbMovimentacao } from 'app/shared/model/tb-movimentacao.model';
+import { ITbUnidadeMedida } from './tb-unidade-medida.model';
+import { ITbCategoria } from './tb-categoria.model';
 
 export interface ITbProduto {
   id?: number;
@@ -7,7 +9,8 @@ export interface ITbProduto {
   qtdMin?: number;
   ativo?: number;
   situacao?: number;
-  tbmovimentacaos?: ITbMovimentacao[];
+  tbUnidadeMedida?: ITbUnidadeMedida;
+  tbCategoria?: ITbCategoria;
 }
 
 export class TbProduto implements ITbProduto {
@@ -18,6 +21,7 @@ export class TbProduto implements ITbProduto {
     public qtdMin?: number,
     public ativo?: number,
     public situacao?: number,
-    public tbmovimentacaos?: ITbMovimentacao[]
+    public tbUnidadeMedida?: ITbUnidadeMedida,
+    public tbCategoria?: ITbCategoria
   ) {}
 }

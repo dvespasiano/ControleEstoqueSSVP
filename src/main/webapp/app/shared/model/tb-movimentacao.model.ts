@@ -1,5 +1,5 @@
 import { Moment } from 'moment';
-import { ITbProduto } from 'app/shared/model/tb-produto.model';
+import { ITbProduto, TbProduto } from 'app/shared/model/tb-produto.model';
 
 export interface ITbMovimentacao {
   id?: number;
@@ -7,6 +7,7 @@ export interface ITbMovimentacao {
   quantidade?: number;
   data?: Moment;
   entrada?: number;
+  tbProduto?: ITbProduto;
 }
 
 export class TbMovimentacao implements ITbMovimentacao {
@@ -15,6 +16,7 @@ export class TbMovimentacao implements ITbMovimentacao {
     public idTbMovimentacao?: number,
     public quantidade?: number,
     public data?: Moment,
-    public entrada?: number
+    public entrada?: number,
+    public tbProduto?: ITbProduto
   ) {}
 }
