@@ -17,6 +17,7 @@ import { TbProdutoService } from './tb-produto.service';
   templateUrl: './tb-produto.component.html'
 })
 export class TbProdutoComponent implements OnInit, OnDestroy {
+  nome = '';
   currentAccount: any;
   tbProdutos: ITbProduto[];
   error: any;

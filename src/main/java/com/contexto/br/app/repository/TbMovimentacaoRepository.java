@@ -4,8 +4,6 @@ import java.util.List;
 
 import com.contexto.br.app.domain.TbMovimentacao;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
 
@@ -36,5 +34,4 @@ public interface TbMovimentacaoRepository extends JpaRepository<TbMovimentacao, 
             + "inner join TbUnidadeMedida as um on p.unidade_medida.id = um.id "
             + "inner join TbMovimentacao as m on m.produto.id = p.id")
     List<TbMovimentacao> findAllMov();*/
-
 }
