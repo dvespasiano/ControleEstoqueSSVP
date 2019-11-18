@@ -51,7 +51,7 @@ export class TbProdutoComponent implements OnInit, OnDestroy {
   }
 
   maior(num1: string, num2: string) {
-    if (parseInt(num1, 10) > parseInt(num2, 10)) {
+    if (parseFloat(num1) > parseFloat(num2)) {
       return true;
     } else {
       return false;
@@ -59,7 +59,7 @@ export class TbProdutoComponent implements OnInit, OnDestroy {
   }
 
   maiorIgual(num1: string, num2: string) {
-    if (parseInt(num1, 10) >= parseInt(num2, 10)) {
+    if (parseFloat(num1) >= parseFloat(num2)) {
       return true;
     } else {
       return false;
@@ -67,7 +67,7 @@ export class TbProdutoComponent implements OnInit, OnDestroy {
   }
 
   menor(num1: string, num2: string) {
-    if (parseInt(num1, 10) < parseInt(num2, 10)) {
+    if (parseFloat(num1) < parseFloat(num2)) {
       return true;
     } else {
       return false;
@@ -75,7 +75,7 @@ export class TbProdutoComponent implements OnInit, OnDestroy {
   }
 
   menorIgual(num1: string, num2: string) {
-    if (parseInt(num1, 10) <= parseInt(num2, 10)) {
+    if (parseFloat(num1) <= parseFloat(num2)) {
       return true;
     } else {
       return false;

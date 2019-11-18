@@ -59,8 +59,7 @@ export class TbMovimentacaoUpdateComponent implements OnInit {
       idTbMovimentacao: tbMovimentacao.idTbMovimentacao,
       quantidade: tbMovimentacao.quantidade,
       data: tbMovimentacao.data,
-      entrada: tbMovimentacao.entrada,
-      tbProdutos: tbMovimentacao.tbProdutos
+      entrada: tbMovimentacao.entrada
     });
   }
 
@@ -85,8 +84,7 @@ export class TbMovimentacaoUpdateComponent implements OnInit {
       idTbMovimentacao: this.editForm.get(['idTbMovimentacao']).value,
       quantidade: this.editForm.get(['quantidade']).value,
       data: this.editForm.get(['data']).value,
-      entrada: this.editForm.get(['entrada']).value,
-      tbProdutos: this.editForm.get(['tbProdutos']).value
+      entrada: this.editForm.get(['entrada']).value
     };
   }
 

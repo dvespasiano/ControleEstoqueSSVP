@@ -15,13 +15,16 @@
             <column name="nm_produto" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            <column name="qtd_estoque" type="varchar(255)">
+            <column name="qtd_estoque" type="integer">
                 <constraints nullable="true" />
             </column>
-            <column name="qtd_min" type="varchar(255)">
+            <column name="qtd_min" type="integer">
                 <constraints nullable="true" />
             </column>
             <column name="ativo" type="integer">
+                <constraints nullable="true" />
+            </column>
+            <column name="situacao" type="float">
                 <constraints nullable="true" />
             </column>
             <column name="categoria_id" type="bigint">
@@ -52,8 +55,10 @@
         encoding="UTF-8">
             <column name="id" type="numeric" />
             <column name="nm_produto" type="string" />
-            <column name="qtd_estoque" type="string" />
-            <column name="qtd_min" type="string" />
+            <column name="qtd_estoque" type="numeric" />
+            <column name="qtd_min" type="numeric" />
+            <column name="ativo" type="numeric" />
+            <column name="situacao" type="numeric" />
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here, do not remove-->
         </loadData>
     </changeSet>

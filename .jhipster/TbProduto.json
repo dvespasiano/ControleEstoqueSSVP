@@ -7,15 +7,19 @@
         },
         {
             "fieldName": "qtdEstoque",
-            "fieldType": "String"
+            "fieldType": "Integer"
         },
         {
             "fieldName": "qtdMin",
-            "fieldType": "String"
+            "fieldType": "Integer"
         },
         {
             "fieldName": "ativo",
             "fieldType": "Integer"
+        },
+        {
+            "fieldName": "situacao",
+            "fieldType": "Float"
         }
     ],    
     "relationships": [

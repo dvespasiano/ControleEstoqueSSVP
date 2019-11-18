@@ -63,7 +63,6 @@ export class TbProdutoDetailComponent implements OnInit {
   updateForm(tbProduto: ITbProduto) {
     this.editForm.patchValue({
       id: tbProduto.id,
-      idTbProduto: tbProduto.idTbProduto,
       nmProduto: tbProduto.nmProduto,
       qtdMin: tbProduto.qtdMin,
       ativo: tbProduto.ativo
@@ -86,7 +85,7 @@ export class TbProdutoDetailComponent implements OnInit {
 
   private createFromForm(): ITbProduto {
     const novoProduto: TbProduto = this.tbProduto;
-    const estoqueAtual: number = parseInt(novoProduto.qtdEstoque, 10);
+    const estoqueAtual: number = novoProduto.qtdEstoque;
     const tipo: number = parseInt(this.editForm.get(['tipo']).value, 10);
     let estoqueAlteracao: number;
     if (tipo === 1) {
@@ -95,7 +94,9 @@ export class TbProdutoDetailComponent implements OnInit {
       estoqueAlteracao = -1 * parseInt(this.editForm.get(['qtdAlterar']).value, 10);
     }
 
-    novoProduto.qtdEstoque = estoqueAtual + estoqueAlteracao + '';
+    novoProduto.qtdEstoque = estoqueAtual + estoqueAlteracao;
+
+    novoProduto.situacao = novoProduto.qtdEstoque / novoProduto.qtdMin;
     return novoProduto;
   }
 

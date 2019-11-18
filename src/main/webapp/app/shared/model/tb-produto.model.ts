@@ -2,22 +2,22 @@ import { ITbMovimentacao } from 'app/shared/model/tb-movimentacao.model';
 
 export interface ITbProduto {
   id?: number;
-  idTbProduto?: number;
   nmProduto?: string;
-  qtdEstoque?: string;
-  qtdMin?: string;
+  qtdEstoque?: number;
+  qtdMin?: number;
   ativo?: number;
+  situacao?: number;
   tbmovimentacaos?: ITbMovimentacao[];
 }
 
 export class TbProduto implements ITbProduto {
   constructor(
     public id?: number,
-    public idTbProduto?: number,
     public nmProduto?: string,
-    public qtdEstoque?: string,
-    public qtdMin?: string,
+    public qtdEstoque?: number,
+    public qtdMin?: number,
     public ativo?: number,
+    public situacao?: number,
     public tbmovimentacaos?: ITbMovimentacao[]
   ) {}
 }

@@ -54,8 +54,7 @@ export class TbUnidadeMedidaUpdateComponent implements OnInit {
     this.editForm.patchValue({
       id: tbUnidadeMedida.id,
       idTbUnidadeMedida: tbUnidadeMedida.idTbUnidadeMedida,
-      nmUnidadeMedida: tbUnidadeMedida.nmUnidadeMedida,
-      idUnidadeMedida: tbUnidadeMedida.idUnidadeMedida
+      nmUnidadeMedida: tbUnidadeMedida.nmUnidadeMedida
     });
   }
 
@@ -78,8 +77,7 @@ export class TbUnidadeMedidaUpdateComponent implements OnInit {
       ...new TbUnidadeMedida(),
       id: this.editForm.get(['id']).value,
       idTbUnidadeMedida: this.editForm.get(['idTbUnidadeMedida']).value,
-      nmUnidadeMedida: this.editForm.get(['nmUnidadeMedida']).value,
-      idUnidadeMedida: this.editForm.get(['idUnidadeMedida']).value
+      nmUnidadeMedida: this.editForm.get(['nmUnidadeMedida']).value
     };
   }
 

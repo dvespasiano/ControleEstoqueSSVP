@@ -24,13 +24,16 @@ public class TbProduto implements Serializable {
     private String nmProduto;
 
     @Column(name = "qtd_estoque")
-    private String qtdEstoque;
+    private Integer qtdEstoque;
 
     @Column(name = "qtd_min")
-    private String qtdMin;
+    private Integer qtdMin;
 
     @Column(name = "ativo")
     private Integer ativo;
+
+    @Column(name = "situacao")
+    private Float situacao;
 
     @ManyToOne
     @JsonIgnoreProperties("tbUnidadeMedida")
@@ -63,29 +66,29 @@ public class TbProduto implements Serializable {
         this.nmProduto = nmProduto;
     }
 
-    public String getQtdEstoque() {
+    public Integer getQtdEstoque() {
         return qtdEstoque;
     }
 
-    public TbProduto qtdEstoque(final String qtdEstoque) {
+    public TbProduto qtdEstoque(final Integer qtdEstoque) {
         this.qtdEstoque = qtdEstoque;
         return this;
     }
 
-    public void setQtdEstoque(final String qtdEstoque) {
+    public void setQtdEstoque(final Integer qtdEstoque) {
         this.qtdEstoque = qtdEstoque;
     }
 
-    public String getQtdMin() {
+    public Integer getQtdMin() {
         return qtdMin;
     }
 
-    public TbProduto qtdMin(final String qtdMin) {
+    public TbProduto qtdMin(final Integer qtdMin) {
         this.qtdMin = qtdMin;
         return this;
     }
 
-    public void setQtdMin(final String qtdMin) {
+    public void setQtdMin(final Integer qtdMin) {
         this.qtdMin = qtdMin;
     }
 
@@ -100,6 +103,14 @@ public class TbProduto implements Serializable {
 
     public void setAtivo(final Integer ativo) {
         this.ativo = ativo;
+    }
+
+    public Float getSituacao() {
+        return situacao;
+    }
+
+    public void setSituacao(Float situacao) {
+        this.situacao = situacao;
     }
 
     public TbUnidadeMedida getUnidade_medida() {
@@ -128,6 +139,8 @@ public class TbProduto implements Serializable {
         this.categoria = categoria;
     }
 
+    
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -153,9 +166,12 @@ public class TbProduto implements Serializable {
             ", nmProduto='" + getNmProduto() + "'" +
             ", qtdEstoque='" + getQtdEstoque() + "'" +
             ", qtdMin='" + getQtdMin() + "'" +
-            ", ativo=" + getAtivo() +
+            ", ativo='" + getAtivo() + "'" +
+            ", situacao="  + getSituacao()  +
             "}";
     }
+
+    
 
     
 

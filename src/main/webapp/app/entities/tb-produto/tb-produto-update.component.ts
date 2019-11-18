@@ -73,7 +73,6 @@ export class TbProdutoUpdateComponent implements OnInit, OnDestroy {
   updateForm(tbProduto: ITbProduto) {
     this.editForm.patchValue({
       id: tbProduto.id,
-      idTbProduto: tbProduto.idTbProduto,
       nmProduto: tbProduto.nmProduto,
       qtdEstoque: tbProduto.qtdEstoque,
       qtdMin: tbProduto.qtdMin,
@@ -99,7 +98,6 @@ export class TbProdutoUpdateComponent implements OnInit, OnDestroy {
     return {
       ...new TbProduto(),
       id: this.editForm.get(['id']).value,
-      idTbProduto: this.editForm.get(['idTbProduto']).value,
       nmProduto: this.editForm.get(['nmProduto']).value,
       qtdEstoque: this.editForm.get(['qtdEstoque']).value,
       qtdMin: this.editForm.get(['qtdMin']).value,

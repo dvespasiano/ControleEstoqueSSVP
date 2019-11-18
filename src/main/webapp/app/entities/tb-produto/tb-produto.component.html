@@ -33,8 +33,9 @@
                     <th jhiSortBy="categoria.nmCategoria"><span>Categoria</span>
                         <fa-icon [icon]="'sort'"></fa-icon>
                     </th>
-                    <th><span>Situação</span></th>
-                    <th></th>
+                    <th jhiSortBy="situacao"><span>Situação</span>
+                        <fa-icon [icon]="'sort'"></fa-icon>
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -44,17 +45,17 @@
                     <td>{{tbProduto.qtdEstoque}}</td>
                     <td>{{tbProduto.qtdMin}}</td>
                     <td>{{tbProduto.categoria.nmCategoria}}</td>
-                    <ng-container *ngIf="menor(tbProduto.qtdEstoque,tbProduto.qtdMin)">
-                        <td> <span class="badge badge-danger"> Em falta</span> </td>
-                    </ng-container>
-                    <ng-container *ngIf="maiorIgual(tbProduto.qtdEstoque,tbProduto.qtdMin) && 
-                                         menorIgual(tbProduto.qtdEstoque*1.2,tbProduto.qtdMin)">
+                    <ng-container *ngIf="maiorIgual(tbProduto.situacao,1) && 
+                                    menor(tbProduto.situacao,1.2)">
                         <td> <span class="badge badge-warning"> Quase em falta </span> </td>
                     </ng-container>
-                    <ng-container *ngIf="maior(tbProduto.qtdEstoque,tbProduto.qtdMin)"> 
+                    <ng-container *ngIf="menor(tbProduto.situacao,1)">
+                        <td> <span class="badge badge-danger"> Em falta</span> </td>
+                    </ng-container>
+                    <ng-container *ngIf="maiorIgual(tbProduto.situacao,1.2)">
                         <td> <span class="badge badge-success"> Em estoque</span> </td>
                     </ng-container>
-                    
+
 
                     <td class="text-right">
                         <div class="btn-group">
