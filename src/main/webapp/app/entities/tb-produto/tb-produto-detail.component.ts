@@ -29,7 +29,8 @@ export class TbProdutoDetailComponent implements OnInit {
     nmProduto: [],
     qtdAlterar: [],
     qtdMin: [],
-    ativo: []
+    ativo: [],
+    tipo: []
   });
 
   constructor(
@@ -86,7 +87,14 @@ export class TbProdutoDetailComponent implements OnInit {
   private createFromForm(): ITbProduto {
     const novoProduto: TbProduto = this.tbProduto;
     const estoqueAtual: number = parseInt(novoProduto.qtdEstoque, 10);
-    const estoqueAlteracao: number = parseInt(this.editForm.get(['qtdAlterar']).value, 10);
+    const tipo: number = parseInt(this.editForm.get(['tipo']).value, 10);
+    let estoqueAlteracao: number;
+    if (tipo === 1) {
+      estoqueAlteracao = parseInt(this.editForm.get(['qtdAlterar']).value, 10);
+    } else {
+      estoqueAlteracao = -1 * parseInt(this.editForm.get(['qtdAlterar']).value, 10);
+    }
+
     novoProduto.qtdEstoque = estoqueAtual + estoqueAlteracao + '';
     return novoProduto;
   }
