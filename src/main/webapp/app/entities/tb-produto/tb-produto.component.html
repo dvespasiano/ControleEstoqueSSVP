@@ -1,32 +1,37 @@
 <div id="content" #content>
     <h2 id="page-heading">
         <span>Produtos</span>
-        <div class="col-md-4">
+        <div class="row">
+            <div class="col-md-6">
 
-                <div style="margin-left:-1em">
-                    <input class="form-control" [(ngModel)]="nome" type="text" placeholder=" Procure aqui pelo produto">
-                </div>
+
+                <input class="form-control" [(ngModel)]="nome" type="text" placeholder=" Procure aqui pelo produto">
+
             </div>
-        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-tb-produto"
-            [routerLink]="['/tb-produto/new']">
-            <fa-icon [icon]="'plus'"></fa-icon>
-            <span>
-                Adicionar novo Produto
-            </span>
-        </button>
+            <div *jhiHasAnyAuthority="'ROLE_ADMIN'" then class="col-md-6">
+                <button style="margin-left: 4px;" id="jh-create-entity"
+                    class="btn btn-primary float-right jh-create-entity create-tb-produto"
+                    [routerLink]="['/tb-produto/new']">
+                    <fa-icon [icon]="'plus'"></fa-icon>
+                    <span>
+                        Adicionar novo Produto
+                    </span>
+                </button>
 
-       
-            <button class="btn btn-primary float-right jh-create-entity create-tb-produto" (click)="downloadPDF()">
-                <fa-icon [icon]="'download'"></fa-icon>
-                <span>
-                    Exportar como PDF
-                </span>
-            </button>
-        
+
+                <button class="btn btn-primary float-right jh-create-entity create-tb-produto" (click)="downloadPDF()">
+                    <fa-icon [icon]="'download'"></fa-icon>
+                    <span>
+                        Exportar como PDF
+                    </span>
+                </button>
+
+            </div>
+        </div>
     </h2>
 
 
-    
+
 
     <jhi-alert></jhi-alert>
     <br />
@@ -34,7 +39,7 @@
         <span>Nenhum Produto encontrado</span>
     </div>
     <div class="table-responsive" *ngIf="tbProdutos?.length > 0">
-        <table id = "contentToConvert" #contentToConvert class="table table-striped" aria-describedby="page-heading">
+        <table id="contentToConvert" #contentToConvert class="table table-striped" aria-describedby="page-heading">
             <thead>
                 <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
                     <th jhiSortBy="id"><span>ID</span>
@@ -66,7 +71,7 @@
                         <td>{{tbProduto.qtdEstoque}}</td>
                         <td>{{tbProduto.qtdMin}}</td>
                         <td>{{tbProduto.categoria.nmCategoria}}</td>
-                        <ng-container *ngIf="maiorIgual(tbProduto.situacao,1) && 
+                        <ng-container *ngIf="maiorIgual(tbProduto.situacao,1) &&
                                     menor(tbProduto.situacao,1.2)">
                             <td> <span class="badge badge-warning"> Quase em falta </span> </td>
                         </ng-container>
@@ -78,7 +83,7 @@
                         </ng-container>
 
 
-                        <td class="text-right">
+                        <td *jhiHasAnyAuthority="'ROLE_ADMIN'" class="text-right">
                             <div class="btn-group">
                                 <button type="submit" [routerLink]="['/tb-produto', tbProduto.id, 'view' ]"
                                     class="btn btn-info btn-sm">

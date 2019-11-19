@@ -11,8 +11,8 @@ import { AccountService } from 'app/core/auth/account.service';
 
 import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
 import { TbProdutoService } from './tb-produto.service';
-import * as jsPDF from 'jspdf';
-import html2canvas from 'html2canvas';
+//import * as jsPDF from 'jspdf';
+//import html2canvas from 'html2canvas';
 
 @Component({
   selector: 'jhi-tb-produto',
