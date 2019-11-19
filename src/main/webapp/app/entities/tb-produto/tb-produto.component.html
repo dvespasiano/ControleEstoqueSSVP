@@ -1,6 +1,12 @@
-<div>
+<div id="content" #content>
     <h2 id="page-heading">
         <span>Produtos</span>
+        <div class="col-md-4">
+
+                <div style="margin-left:-1em">
+                    <input class="form-control" [(ngModel)]="nome" type="text" placeholder=" Procure aqui pelo produto">
+                </div>
+            </div>
         <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-tb-produto"
             [routerLink]="['/tb-produto/new']">
             <fa-icon [icon]="'plus'"></fa-icon>
@@ -8,15 +14,27 @@
                 Adicionar novo Produto
             </span>
         </button>
+
+       
+            <button class="btn btn-primary float-right jh-create-entity create-tb-produto" (click)="downloadPDF()">
+                <fa-icon [icon]="'download'"></fa-icon>
+                <span>
+                    Exportar como PDF
+                </span>
+            </button>
+        
     </h2>
-    <input [(ngModel)]="nome" type="text">
+
+
+    
+
     <jhi-alert></jhi-alert>
     <br />
     <div class="alert alert-warning" *ngIf="tbProdutos?.length === 0">
         <span>Nenhum Produto encontrado</span>
     </div>
     <div class="table-responsive" *ngIf="tbProdutos?.length > 0">
-        <table class="table table-striped" aria-describedby="page-heading">
+        <table id = "contentToConvert" #contentToConvert class="table table-striped" aria-describedby="page-heading">
             <thead>
                 <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
                     <th jhiSortBy="id"><span>ID</span>
