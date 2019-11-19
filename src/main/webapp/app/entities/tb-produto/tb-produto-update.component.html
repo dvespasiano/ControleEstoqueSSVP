@@ -13,17 +13,32 @@
                     <input type="text" class="form-control" name="nmProduto" id="field_nmProduto"
                         formControlName="nmProduto" />
                 </div>
+
                 <div class="form-group">
-                    <label class="form-control-label" for="field_nmcategoria">Categoria</label>
-                    <select class="custom-select" class="form-control" name="nmcategoria" id="field_nmcategoria"
-                        formControlName="nmcategoria">
-                        <option selected>Selecione uma categoria</option>
+                    <label class="form-control-label" for="field_unidadeMedida">Unidade de Medida</label>
+                    <select class="custom-select" class="form-control" name="unidadeMedida" id="field_unidadeMedida"
+                        formControlName="unidadeMedida">
+                        <option selected>Selecione uma Unidade de Medida</option>
+                        <option *ngFor="let tbUnidadeMedida of tbUnidadeMedidas ;trackBy: trackId" value="tbUnidadeMedida.id">
+                            {{tbUnidadeMedida.nmUnidadeMedida}}</option>
+
+                    </select>
+
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_categoria">Categoria</label>
+                    <select class="custom-select" class="form-control" name="categoria" id="field_categoria"
+                        formControlName="categoria">
+                        <option selected>Selecione uma Categoria</option>
                         <option *ngFor="let tbCategoria of tbCategorias ;trackBy: trackId" value="tbCategoria.id">
                             {{tbCategoria.nmCategoria}}</option>
 
                     </select>
 
                 </div>
+
+                
 
                 <div class="form-group">
                     <label class="form-control-label" for="field_qtdEstoque">Quantidade no Estoque</label>

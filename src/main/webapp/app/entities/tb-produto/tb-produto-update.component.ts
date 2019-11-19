@@ -17,6 +17,8 @@ import { Subscription } from 'rxjs';
 import { ITbCategoria } from 'app/shared/model/tb-categoria.model';
 import { AccountService } from 'app/core/auth/account.service';
 import { TbCategoriaService } from '../tb-categoria/tb-categoria.service';
+import { ITbUnidadeMedida, TbUnidadeMedida } from 'app/shared/model/tb-unidade-medida.model';
+import { TbUnidadeMedidaService } from 'app/entities/tb-unidade-medida/tb-unidade-medida.service';
 
 @Component({
   selector: 'jhi-tb-produto-update',
@@ -29,6 +31,7 @@ export class TbProdutoUpdateComponent implements OnInit, OnDestroy {
   tbCategorias: ITbCategoria[];
   currentAccount: any;
   eventSubscriber: Subscription;
+  tbUnidadeMedidas: ITbUnidadeMedida[];
 
   editForm = this.fb.group({
     id: [],
@@ -37,7 +40,8 @@ export class TbProdutoUpdateComponent implements OnInit, OnDestroy {
     qtdEstoque: [],
     qtdMin: [],
     ativo: [],
-    nmcategoria: []
+    categoria: [],
+    unidadeMedida: []
   });
 
   constructor(
@@ -48,7 +52,8 @@ export class TbProdutoUpdateComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     protected tbCategoriaService: TbCategoriaService,
     protected eventManager: JhiEventManager,
-    protected accountService: AccountService
+    protected accountService: AccountService,
+    protected tbUnidadeMedidaService: TbUnidadeMedidaService
   ) {}
 
   ngOnInit() {
@@ -68,6 +73,13 @@ export class TbProdutoUpdateComponent implements OnInit, OnDestroy {
         map((response: HttpResponse<ITbMovimentacao[]>) => response.body)
       )
       .subscribe((res: ITbMovimentacao[]) => (this.tbmovimentacaos = res), (res: HttpErrorResponse) => this.onError(res.message));
+    this.tbUnidadeMedidaService
+      .query()
+      .pipe(
+        filter((mayBeOk: HttpResponse<ITbUnidadeMedida[]>) => mayBeOk.ok),
+        map((response: HttpResponse<ITbUnidadeMedida[]>) => response.body)
+      )
+      .subscribe((res: ITbUnidadeMedida[]) => (this.tbUnidadeMedidas = res), (res: HttpErrorResponse) => this.onError(res.message));
   }
 
   updateForm(tbProduto: ITbProduto) {
@@ -95,6 +107,7 @@ export class TbProdutoUpdateComponent implements OnInit, OnDestroy {
   }
 
   private createFromForm(): ITbProduto {
+    const novaCategoria = this.tbUnidadeMedidaService.find(this.editForm.get(['categoria']).value);
     return {
       ...new TbProduto(),
       id: this.editForm.get(['id']).value,
