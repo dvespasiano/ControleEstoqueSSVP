@@ -13,8 +13,7 @@ import { JhiAlertService } from 'ng-jhipster';
 import { TbProdutoService } from './tb-produto.service';
 import { ITbMovimentacao, TbMovimentacao } from 'app/shared/model/tb-movimentacao.model';
 import { TbMovimentacaoService } from 'app/entities/tb-movimentacao/tb-movimentacao.service';
-import { Moment } from 'moment';
-import moment = require('moment');
+import moment from 'moment';
 
 @Component({
   selector: 'jhi-tb-produto-detail',
