@@ -9,7 +9,7 @@
 
             </div>
             <div class="col-md-6">
-                <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-tb-produto"
+                <button style="margin-left: 4px;" id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-tb-produto"
                     [routerLink]="['/tb-produto/new']">
                     <fa-icon [icon]="'plus'"></fa-icon>
                     <span>
@@ -70,7 +70,7 @@
                         <td>{{tbProduto.qtdEstoque}}</td>
                         <td>{{tbProduto.qtdMin}}</td>
                         <td>{{tbProduto.categoria.nmCategoria}}</td>
-                        <ng-container *ngIf="maiorIgual(tbProduto.situacao,1) && 
+                        <ng-container *ngIf="maiorIgual(tbProduto.situacao,1) &&
                                     menor(tbProduto.situacao,1.2)">
                             <td> <span class="badge badge-warning"> Quase em falta </span> </td>
                         </ng-container>
