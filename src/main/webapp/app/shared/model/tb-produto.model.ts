@@ -9,6 +9,8 @@ export interface ITbProduto {
   qtdMin?: number;
   ativo?: number;
   situacao?: number;
+  idUnidadeMedida?: number;
+  idCategoria?: number;
   tbUnidadeMedida?: ITbUnidadeMedida;
   tbCategoria?: ITbCategoria;
 }
@@ -21,7 +23,9 @@ export class TbProduto implements ITbProduto {
     public qtdMin?: number,
     public ativo?: number,
     public situacao?: number,
+    public idUnidadeMedida?: number,
+    public idCategoria?: number,
     public tbUnidadeMedida?: ITbUnidadeMedida,
-    public tbCategoria?: ITbCategoria
-  ) {}
+    public tbCategoria?: ITbCategoria,
+  ) { }
 }

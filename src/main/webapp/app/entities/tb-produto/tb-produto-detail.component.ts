@@ -13,7 +13,8 @@ import { JhiAlertService } from 'ng-jhipster';
 import { TbProdutoService } from './tb-produto.service';
 import { ITbMovimentacao, TbMovimentacao } from 'app/shared/model/tb-movimentacao.model';
 import { TbMovimentacaoService } from 'app/entities/tb-movimentacao/tb-movimentacao.service';
-import moment from 'moment';
+import * as moment from 'moment';
+import { log } from 'util';
 
 @Component({
   selector: 'jhi-tb-produto-detail',
@@ -76,19 +77,20 @@ export class TbProdutoDetailComponent implements OnInit {
 
   save() {
     this.isSaving = true;
-    const tbProduto = this.createFromForm();
+    const tbProduto:ITbProduto = this.createFromForm();
 
     if (tbProduto.id !== undefined) {
-      this.subscribeToSaveResponse(this.tbProdutoService.update(tbProduto));
-      let tbMovimentacao: ITbMovimentacao;
+      const tbMovimentacao: ITbMovimentacao = new TbMovimentacao();
 
       tbMovimentacao.data = moment();
       tbMovimentacao.entrada = parseInt(this.editForm.get(['tipo']).value, 10);
       tbMovimentacao.quantidade = parseInt(this.editForm.get(['qtdAlterar']).value, 10);
-      tbMovimentacao.tbProduto = tbProduto;
-      this.subscribeToSaveResponse(this.tbMovimentacaoService.create(tbMovimentacao));
+      tbMovimentacao.idProduto = tbProduto.id;
+      this.subscribeToSaveResponseMovimentacao(this.tbMovimentacaoService.create(tbMovimentacao));
+      this.subscribeToSaveResponseProduto(this.tbProdutoService.update(tbProduto));
+      
     } else {
-      this.subscribeToSaveResponse(this.tbProdutoService.create(tbProduto));
+      this.subscribeToSaveResponseProduto(this.tbProdutoService.create(tbProduto));
     }
   }
 
@@ -109,7 +111,11 @@ export class TbProdutoDetailComponent implements OnInit {
     return novoProduto;
   }
 
-  protected subscribeToSaveResponse(result: Observable<HttpResponse<ITbProduto>>) {
+  protected subscribeToSaveResponseProduto(result: Observable<HttpResponse<ITbProduto>>) {
+    result.subscribe(() => this.onSaveSuccess(), () => this.onSaveError());
+  }
+
+  protected subscribeToSaveResponseMovimentacao(result: Observable<HttpResponse<ITbMovimentacao>>) {
     result.subscribe(() => this.onSaveSuccess(), () => this.onSaveError());
   }
 
