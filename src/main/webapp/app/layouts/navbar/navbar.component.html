@@ -1,7 +1,7 @@
 <nav class="navbar navbar-dark navbar-expand-md bg-dark">
     <a class="navbar-brand logo" routerLink="/" (click)="collapseNavbar()">
         <span class="logo-img"></span>
-        <span class="navbar-title">SOCIEDADE DE SÃO VINCENTE DE PAULO</span> 
+        <span class="navbar-title">SOCIEDADE DE SÃO VINCENTE DE PAULO</span>
     </a>
     <a class="navbar-toggler d-lg-none" href="javascript:void(0);" data-toggle="collapse"
         data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
@@ -40,7 +40,7 @@
                     </li>
 
                     <li>
-                        <a class="dropdown-item" routerLink="tb-categoria" routerLinkActive="active"
+                        <a *jhiHasAnyAuthority="'ROLE_ADMIN'" class="dropdown-item" routerLink="tb-categoria" routerLinkActive="active"
                             [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                             <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
                             <span>Categorias</span>

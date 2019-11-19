@@ -33,7 +33,7 @@ export const tbCategoriaRoute: Routes = [
     path: '',
     component: TbCategoriaComponent,
     data: {
-      authorities: ['ROLE_USER'],
+      authorities: ['ROLE_ADMIN'],
       pageTitle: 'TbCategorias'
     },
     canActivate: [UserRouteAccessService]
@@ -45,7 +45,7 @@ export const tbCategoriaRoute: Routes = [
       tbCategoria: TbCategoriaResolve
     },
     data: {
-      authorities: ['ROLE_USER'],
+      authorities: ['ROLE_ADMIN'],
       pageTitle: 'TbCategorias'
     },
     canActivate: [UserRouteAccessService]
@@ -57,7 +57,7 @@ export const tbCategoriaRoute: Routes = [
       tbCategoria: TbCategoriaResolve
     },
     data: {
-      authorities: ['ROLE_USER'],
+      authorities: ['ROLE_ADMIN'],
       pageTitle: 'TbCategorias'
     },
     canActivate: [UserRouteAccessService]
@@ -69,7 +69,7 @@ export const tbCategoriaRoute: Routes = [
       tbCategoria: TbCategoriaResolve
     },
     data: {
-      authorities: ['ROLE_USER'],
+      authorities: ['ROLE_ADMIN'],
       pageTitle: 'TbCategorias'
     },
     canActivate: [UserRouteAccessService]

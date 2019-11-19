@@ -8,8 +8,9 @@
                 <input class="form-control" [(ngModel)]="nome" type="text" placeholder=" Procure aqui pelo produto">
 
             </div>
-            <div class="col-md-6">
-                <button style="margin-left: 4px;" id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-tb-produto"
+            <div *jhiHasAnyAuthority="'ROLE_ADMIN'" then class="col-md-6">
+                <button style="margin-left: 4px;" id="jh-create-entity"
+                    class="btn btn-primary float-right jh-create-entity create-tb-produto"
                     [routerLink]="['/tb-produto/new']">
                     <fa-icon [icon]="'plus'"></fa-icon>
                     <span>
@@ -82,7 +83,7 @@
                         </ng-container>
 
 
-                        <td class="text-right">
+                        <td *jhiHasAnyAuthority="'ROLE_ADMIN'" class="text-right">
                             <div class="btn-group">
                                 <button type="submit" [routerLink]="['/tb-produto', tbProduto.id, 'view' ]"
                                     class="btn btn-info btn-sm">
