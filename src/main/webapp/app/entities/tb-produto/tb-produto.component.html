@@ -1,13 +1,7 @@
 <div id="content" #content>
     <h2 id="page-heading">
-        <span>Produtos</span>
         <div class="row">
-            <div class="col-md-6">
-
-
-                <input class="form-control" [(ngModel)]="nome" type="text" placeholder=" Procure aqui pelo produto">
-
-            </div>
+            <div class="col-md-6"><span>Produtos</span></div>
             <div *jhiHasAnyAuthority="'ROLE_ADMIN'" then class="col-md-6">
                 <button style="margin-left: 4px;" id="jh-create-entity"
                     class="btn btn-primary float-right jh-create-entity create-tb-produto"
@@ -18,19 +12,51 @@
                     </span>
                 </button>
 
-
                 <button class="btn btn-primary float-right jh-create-entity create-tb-produto" (click)="downloadPDF()">
                     <fa-icon [icon]="'download'"></fa-icon>
                     <span>
                         Exportar como PDF
                     </span>
                 </button>
-
+            </div>
+        </div>
+    </h2>
+    <h2>
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <input class="form-control" [(ngModel)]="nome" type="text" placeholder=" Procure aqui pelo produto">
             </div>
         </div>
     </h2>
 
+    <h2 class = "row justify-content-center">
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" [(ngModel)]="categoria_radio" name="categoria_radio"
+                id="categoria_radio" value="Alimento Perecível">
+            <label class="form-check-label radio-button" for="categoria_radio">Alimento Perecível</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" [(ngModel)]="categoria_radio" name="categoria_radio"
+                id="categoria_radio" value="Alimento não Perecível">
+            <label class="form-check-label radio-button" for="categoria_radio"><span>Alimento Não Perecível</span></label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" [(ngModel)]="categoria_radio" name="categoria_radio"
+                id="categoria_radio" value="Remédio">
+            <label class="form-check-label radio-button" for="categoria_radio">Remédio</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" [(ngModel)]="categoria_radio" name="categoria_radio"
+                id="categoria_radio" value="Limpeza">
+            <label class="form-check-label radio-button" for="categoria_radio">Limpeza</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input checked" type="radio" [(ngModel)]="categoria_radio" name="categoria_radio"
+                id="categoria_radio" value="Todos">
+            <label class="form-check-label radio-button" for="categoria_radio">Todos</label>
+        </div>
 
+    </h2>
 
 
     <jhi-alert></jhi-alert>
@@ -39,12 +65,10 @@
         <span>Nenhum Produto encontrado</span>
     </div>
     <div class="table-responsive" *ngIf="tbProdutos?.length > 0">
-        <table id="contentToConvert" #contentToConvert class="table table-striped" aria-describedby="page-heading">
+        <table id="lista-produtos" #contentToConvert class="table table-striped" aria-describedby="page-heading">
             <thead>
                 <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-                    <th jhiSortBy="id"><span>ID</span>
-                        <fa-icon [icon]="'sort'"></fa-icon>
-                    </th>
+                    <th><span>Nº</span></th>
                     <th jhiSortBy="nmProduto"><span>Nome do Produto</span>
                         <fa-icon [icon]="'sort'"></fa-icon>
                     </th>
@@ -60,26 +84,27 @@
                     <th jhiSortBy="situacao"><span>Situação</span>
                         <fa-icon [icon]="'sort'"></fa-icon>
                     </th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let tbProduto of tbProdutos ;trackBy: trackId">
-                    <ng-container
-                        *ngIf="(tbProduto.nmProduto | lowercase).startsWith(nome | lowercase) || nome.length === 0">
-                        <td><a [routerLink]="['/tb-produto', tbProduto.id, 'view' ]">{{tbProduto.id}}</a></td>
+                <tr *ngFor="let tbProduto of tbProdutos; let i = index;trackBy: trackId">
+                    <ng-container *ngIf="((tbProduto.nmProduto | lowercase)
+                        .startsWith(nome | lowercase) || nome.length === 0) && 
+                        (tbProduto.categoria.nmCategoria === categoria_radio || categoria_radio === 'Todos')">
+                        <td>{{i+1}}</td>
                         <td>{{tbProduto.nmProduto}}</td>
                         <td>{{tbProduto.qtdEstoque}}</td>
                         <td>{{tbProduto.qtdMin}}</td>
                         <td>{{tbProduto.categoria.nmCategoria}}</td>
-                        <ng-container *ngIf="maiorIgual(tbProduto.situacao,1) &&
-                                    menor(tbProduto.situacao,1.2)">
-                            <td> <span class="badge badge-warning"> Quase em falta </span> </td>
+                        <ng-container *ngIf="decideSituacao(tbProduto.situacao) === ('Em falta')">
+                            <td><span class="badge badge-danger">Em falta</span></td>
                         </ng-container>
-                        <ng-container *ngIf="menor(tbProduto.situacao,1)">
-                            <td> <span class="badge badge-danger"> Em falta</span> </td>
-                        </ng-container>
-                        <ng-container *ngIf="maiorIgual(tbProduto.situacao,1.2)">
-                            <td> <span class="badge badge-success"> Em estoque</span> </td>
+                        <ng-container *ngIf="decideSituacao(tbProduto.situacao) === ('Quase em falta')">
+                            <td><span class="badge badge-warning">Quase em falta</span></td>
+                        </ng-container>                        
+                        <ng-container *ngIf="decideSituacao(tbProduto.situacao) === ('Em estoque')">
+                            <td><span class="badge badge-success">Em estoque</span></td>
                         </ng-container>
 
 

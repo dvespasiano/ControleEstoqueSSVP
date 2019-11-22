@@ -1,6 +1,6 @@
 id;nm_produto;qtd_estoque;qtd_min;ativo;situacao;categoria_id;unidade_medida_id
 1;Acetilcisteína 600 mg pó;32;2;1;16.0;1;1
-2;agulha 4 mm;49;2;1;24.5;1;1
+2;Agulha 4 mm;49;2;1;24.5;1;1
 3;Amiodarona 200mg;10;2;1;5.0;1;1
 4;Amitriptilina 25mg;33;2;1;16.5;1;1
 5;Amoxicilina 500mg + clav. 125;37;2;1;18.5;1;1
@@ -38,8 +38,8 @@ id;nm_produto;qtd_estoque;qtd_min;ativo;situacao;categoria_id;unidade_medida_id
 37;Escitalopran 15 mg;91;2;1;45.5;1;1
 38;Esomeprazol 20 mg;72;2;1;36.0;1;1
 39;Espirolactona 50 mg;94;2;1;47.0;1;1
-40;fenobarbital 100mg;92;2;1;46.0;1;1
-41;flexalgim;4;2;1;2.0;1;1
+40;Fenobarbital 100mg;92;2;1;46.0;1;1
+41;Flexalgim;4;2;1;2.0;1;1
 42;Fluoxetina 20 mg;11;2;1;5.5;1;1
 43;Forxiga 10 mg;29;2;1;14.5;1;1
 44;Frasco de dieta enteral;29;2;1;14.5;1;1
@@ -50,7 +50,7 @@ id;nm_produto;qtd_estoque;qtd_min;ativo;situacao;categoria_id;unidade_medida_id
 49;Imipramina 25mg;47;2;1;23.5;1;1
 50;Lacrifilme colírio;34;2;1;17.0;1;1
 51;Lavitan A a Z;59;2;1;29.5;1;1
-52;levofloxacino 500mg;43;2;1;21.5;1;1
+52;Levofloxacino 500mg;43;2;1;21.5;1;1
 53;Lidocaína POMADA;98;2;1;49.0;1;1
 54;Lisinopril 10mg;13;2;1;6.5;1;1
 55;listerine/ Fluor;38;2;1;19.0;1;1
@@ -98,16 +98,16 @@ id;nm_produto;qtd_estoque;qtd_min;ativo;situacao;categoria_id;unidade_medida_id
 97;Adoçante;18;20;1;0.9;3;5
 98;Água mineral;91;9;1;10.111111;3;5
 99;Amendoim;38;2;1;19.0;3;4
-100;Amido de Milho (Maisena;42;10;1;4.2;3;4
+100;Amido de Milho (Maisena);42;10;1;4.2;3;4
 101;Arroz;79;70;1;1.1285714;3;2
 102;Aveia;7;2;1;3.5;3;4
 103;Azeitona;83;2;1;41.5;3;5
 104;Batata palha;47;1;1;47.0;3;4
 105;Biscoito de Sal;94;16;1;5.875;3;4
-106;Biscoito Doce (4 G;9;3;1;3.0;3;4
-107;Biscoito Doce (4 P;40;12;1;3.3333333;3;4
+106;Biscoito Doce (4 G);9;3;1;3.0;3;4
+107;Biscoito Doce (4 P);40;12;1;3.3333333;3;4
 108;Biscoito Papa Ovo e Polvilho;45;6;1;7.5;3;4
-109;Café (250g;4;40;1;0.1;3;4
+109;Café (250g);4;40;1;0.1;3;4
 110;Canjica Branca;54;1;1;54.0;3;4
 111;Canjiquinha;13;1;1;13.0;3;4
 112;Cereais;39;7;1;5.571429;3;4
@@ -125,9 +125,9 @@ id;nm_produto;qtd_estoque;qtd_min;ativo;situacao;categoria_id;unidade_medida_id
 124;Goiabada;9;1;1;9.0;3;5
 125;Lasanha;17;1;1;17.0;3;4
 126;Leite Condensado;43;5;1;8.6;3;5
-127;Leite de 1;46;90;1;0.51111114;3;3
+127;Leite de 1L;46;90;1;0.51111114;3;3
 128;Leite em Pó;85;1;1;85.0;3;7
-129;Macarrão (500g;42;24;1;1.75;3;4
+129;Macarrão (500g);42;24;1;1.75;3;4
 130;Macarrão Cortado;96;5;1;19.2;3;4
 131;Massa de Bolo;11;5;1;2.2;3;4
 132;Massa de Tomate;20;12;1;1.6666666;3;6
@@ -155,7 +155,7 @@ id;nm_produto;qtd_estoque;qtd_min;ativo;situacao;categoria_id;unidade_medida_id
 154;pano de chao 55x75 cm;87;20;1;4.35;4;5
 155;sabonete liquido galao 5 l;58;20;1;2.9;4;5
 156;copo descartavel 50ml;53;20;1;2.65;4;4
-157;alcool gel 5 litros;54;20;1;2.7;4;5
+157;Alcool gel 5 litros;54;20;1;2.7;4;5
 158;Sabão em pó;38;20;1;1.9;4;2
 159;Confort;80;20;1;4.0;4;5
 160;Bom bril;65;20;1;3.25;4;5
@@ -166,5 +166,5 @@ id;nm_produto;qtd_estoque;qtd_min;ativo;situacao;categoria_id;unidade_medida_id
 165;Rolo perflex 20x300;15;20;1;0.75;4;5
 166;Sacola transparente 40x60 espessura 10;46;20;1;2.3;4;4
 167;Vassoura;57;20;1;2.85;4;5
-168;rodo;75;20;1;3.75;4;5
+168;Rodo;75;20;1;3.75;4;5
 169;Escova lava roupa;74;20;1;3.7;4;5

@@ -11,32 +11,31 @@
         <table class="table table-striped" aria-describedby="page-heading">
             <thead>
                 <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-                    <th jhiSortBy="id"><span>ID</span>
+                    <th jhiSortBy="produto.id"><span>ID</span>
                         <fa-icon [icon]="'sort'"></fa-icon>
                     </th>
-                    <th jhiSortBy="produto.nmProduto"><span>Produto</span>
+                    <th jhiSortBy="produto.nmProduto"><span>Nome do Produto</span>
                         <fa-icon [icon]="'sort'"></fa-icon>
                     </th>
-                    <th jhiSortBy="quantidade"><span>Quantidade</span>
+                    <th jhiSortBy="quantidade"><span>Entradas</span>
                         <fa-icon [icon]="'sort'"></fa-icon>
                     </th>
-                    <th jhiSortBy="data"><span>Data</span>
+                    <th jhiSortBy="data"><span>Saidas</span>
                         <fa-icon [icon]="'sort'"></fa-icon>
                     </th>
-                    <th jhiSortBy="entrada"><span>Entrada</span>
+                    <th jhiSortBy="entrada"><span>Saldo</span>
                         <fa-icon [icon]="'sort'"></fa-icon>
                     </th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let tbMovimentacao of tbMovimentacaos ;trackBy: trackId">
-                    <td><a [routerLink]="['/tb-movimentacao', tbMovimentacao.id, 'view' ]">{{tbMovimentacao.id}}</a>
-                    </td>
-                    <td>{{tbMovimentacao.produto.nmProduto}}</td>
-                    <td>{{tbMovimentacao.quantidade}}</td>
-                    <td>{{tbMovimentacao.data | date:'dd/MM/yyyy'}}</td>
-                    <td>{{tbMovimentacao.entrada}}</td>
+                <tr *ngFor="let rel of relatorio; let i = index; trackBy: trackId">
+                    <td>{{i+1}}</td>
+                    <td>{{rel.nome}}</td>
+                    <td>{{rel.entradas}}</td>
+                    <td>{{rel.saidas}}</td>
+                    <td>{{rel.entradas - rel.saidas}}</td>
                 </tr>
             </tbody>
         </table>

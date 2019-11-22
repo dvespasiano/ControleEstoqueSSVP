@@ -13,6 +13,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 
 import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
+import { ITbProduto, TbProduto } from 'app/shared/model/tb-produto.model';
 
 @Component({
   selector: 'jhi-tb-movimentacao',
@@ -20,6 +21,7 @@ import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
 })
 export class TbMovimentacaoComponent implements OnInit, OnDestroy {
   tbMovimentacaos: ITbMovimentacao[];
+  relatorio: { nome: string, entradas: number, saidas: number }[];
   currentAccount: any;
   eventSubscriber: Subscription;
   error: any;
@@ -65,6 +67,32 @@ export class TbMovimentacaoComponent implements OnInit, OnDestroy {
       .subscribe(
         (res: ITbMovimentacao[]) => {
           this.tbMovimentacaos = res;
+          this.relatorio = [];
+          let prod: ITbProduto;
+          let existe: boolean;
+          let relAtual: { nome: string, entradas: number, saidas: number };
+          let i: number;
+          this.tbMovimentacaos.forEach(mov => {
+            existe = false;
+            i = 0;
+            this.relatorio.forEach(rel => {
+              if (rel.nome === mov.produto.nmProduto) {
+                existe = true;
+                this.relatorio[i].entradas += mov.entrada === 1 ? mov.quantidade : 0;
+                this.relatorio[i].saidas += mov.entrada === 0 ? mov.quantidade : 0;
+              }
+              i = i + 1;
+
+            });
+            if (!existe) {
+              relAtual = {
+                nome: mov.produto.nmProduto,
+                entradas: mov.entrada === 1 ? mov.quantidade : 0,
+                saidas: mov.entrada === 0 ? mov.quantidade : 0
+              }
+              this.relatorio.push(relAtual);
+            }
+          });
         },
         (res: HttpErrorResponse) => this.onError(res.message)
       );

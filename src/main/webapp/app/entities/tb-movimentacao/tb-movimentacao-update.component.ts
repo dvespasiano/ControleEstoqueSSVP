@@ -56,7 +56,7 @@ export class TbMovimentacaoUpdateComponent implements OnInit {
   updateForm(tbMovimentacao: ITbMovimentacao) {
     this.editForm.patchValue({
       id: tbMovimentacao.id,
-      idTbMovimentacao: tbMovimentacao.idTbMovimentacao,
+      idProduto: tbMovimentacao.idProduto,
       quantidade: tbMovimentacao.quantidade,
       data: tbMovimentacao.data,
       entrada: tbMovimentacao.entrada
@@ -81,7 +81,7 @@ export class TbMovimentacaoUpdateComponent implements OnInit {
     return {
       ...new TbMovimentacao(),
       id: this.editForm.get(['id']).value,
-      idTbMovimentacao: this.editForm.get(['idTbMovimentacao']).value,
+      idProduto: this.editForm.get(['idProduto']).value,
       quantidade: this.editForm.get(['quantidade']).value,
       data: this.editForm.get(['data']).value,
       entrada: this.editForm.get(['entrada']).value

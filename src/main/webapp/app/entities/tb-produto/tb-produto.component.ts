@@ -3,25 +3,25 @@ import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/ht
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { filter, map } from 'rxjs/operators';
 import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
 
-import { ITbProduto } from 'app/shared/model/tb-produto.model';
+import { ITbProduto, TbProduto } from 'app/shared/model/tb-produto.model';
 import { AccountService } from 'app/core/auth/account.service';
-
 import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
 import { TbProdutoService } from './tb-produto.service';
-//import * as jsPDF from 'jspdf';
-//import html2canvas from 'html2canvas';
+import * as jsPDF from 'jspdf';
+require('jspdf-autotable');
 
 @Component({
   selector: 'jhi-tb-produto',
-  templateUrl: './tb-produto.component.html'
+  templateUrl: './tb-produto.component.html',
+  styleUrls: ['./tb-produto.component.scss']
 })
 export class TbProdutoComponent implements OnInit, OnDestroy {
+  categoria_radio = 'Todos';
   nome = '';
   currentAccount: any;
-  tbProdutos: ITbProduto[];
+  tbProdutos: TbProduto[];
   error: any;
   success: any;
   eventSubscriber: Subscription;
@@ -49,25 +49,46 @@ export class TbProdutoComponent implements OnInit, OnDestroy {
       this.page = data.pagingParams.page;
       this.previousPage = data.pagingParams.page;
       this.reverse = data.pagingParams.ascending;
-      this.predicate = data.pagingParams.predicate;
+      //this.predicate = data.pagingParams.predicate;
+      this.predicate = 'situacao';
     });
   }
 
-  public downloadPDF() {
-    const data = document.getElementById('contentToConvert');
-    html2canvas(data).then(canvas => {
-      // Few necessary setting options
-      const imgWidth = 208;
-      const pageHeight = 295;
-      const imgHeight = (canvas.height * imgWidth) / canvas.width;
-      const heightLeft = imgHeight;
-
-      const contentDataURL = canvas.toDataURL('image/png');
-      const pdf = new jsPDF('p', 'mm', 'a4'); // A4 size page of PDF
-      const position = 0;
-      pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight);
-      pdf.save('tbProduto.pdf'); // Generated PDF
+  public aux() {
+    const tabela: string[][] = [[]];
+    let produtoAtual: string[] = [];
+    let i = 1;
+    this.tbProdutos.forEach(p => {
+      produtoAtual = [i+"",p.nmProduto, p.qtdEstoque+"", p.qtdMin+"", p.categoria.nmCategoria + "",
+        this.decideSituacao(p.situacao+ "")];
+      tabela.push(produtoAtual);
+      i = i+1;
     });
+    return tabela;
+  }
+
+  public downloadPDF() {
+    const doc = new jsPDF();
+    const tabelaProdutos = this.aux();
+    //doc.autoTable({ html: '#lista-produtos', theme: 'grid'});
+    doc.autoTable({
+      head: [['Nº','Nome do Produto', 'Quantidade no Estoque', 'Quantidade Mínima',
+       'Categoria', 'Situação']],
+      body: tabelaProdutos,
+      theme: 'grid'
+    });
+    doc.save('table.pdf');
+    //doc.auto
+  }
+
+  decideSituacao(num1: string) {
+    if (this.menor(num1, '1')) {
+      return 'Em falta';
+    } else if (this.maiorIgual(num1, '1') && this.menor(num1, '1.2')) {
+      return 'Quase em falta';
+    } else if (this.maiorIgual(num1, '1.2')) {
+      return 'Em estoque';
+    }
   }
 
   maior(num1: string, num2: string) {

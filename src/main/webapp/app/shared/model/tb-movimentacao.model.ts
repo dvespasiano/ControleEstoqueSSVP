@@ -6,8 +6,7 @@ export interface ITbMovimentacao {
   quantidade?: number;
   data?: Moment;
   entrada?: number;
-  tbProduto?: ITbProduto;
-  idProduto?: number;
+  produto?: ITbProduto;
 }
 
 export class TbMovimentacao implements ITbMovimentacao {
@@ -16,8 +15,7 @@ export class TbMovimentacao implements ITbMovimentacao {
     public quantidade?: number,
     public data?: Moment,
     public entrada?: number,
-    public idProduto?: number,
-    public tbProduto?: ITbProduto,
+    public produto?: ITbProduto  
   ) {}
 
 }
