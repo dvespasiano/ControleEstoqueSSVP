@@ -9,6 +9,7 @@ import { ITbProduto, TbProduto } from 'app/shared/model/tb-produto.model';
 import { AccountService } from 'app/core/auth/account.service';
 import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
 import { TbProdutoService } from './tb-produto.service';
+import * as moment from 'moment';
 import * as jsPDF from 'jspdf';
 require('jspdf-autotable');
 
@@ -59,10 +60,10 @@ export class TbProdutoComponent implements OnInit, OnDestroy {
     let produtoAtual: string[] = [];
     let i = 1;
     this.tbProdutos.forEach(p => {
-      produtoAtual = [i+"",p.nmProduto, p.qtdEstoque+"", p.qtdMin+"", p.categoria.nmCategoria + "",
-        this.decideSituacao(p.situacao+ "")];
+      produtoAtual = [i + "", p.nmProduto, p.qtdEstoque + "", p.qtdMin + "", p.categoria.nmCategoria + "",
+      this.decideSituacao(p.situacao + "")];
       tabela.push(produtoAtual);
-      i = i+1;
+      i = i + 1;
     });
     return tabela;
   }
@@ -70,11 +71,22 @@ export class TbProdutoComponent implements OnInit, OnDestroy {
   public downloadPDF() {
     const doc = new jsPDF();
     const tabelaProdutos = this.aux();
+    const header = function (data) {
+      doc.setFontSize(12);
+      doc.setTextColor(40);
+      doc.setFontStyle('normal');
+      //doc.addImage(headerImgData, 'JPEG', data.settings.margin.left, 20, 50, 50);
+      doc.text("Emitido em: " + moment().format("DD/MM/YYYY"), 
+      data.settings.margin.top, 10,
+      data.settings.margin.left, 0);
+    };
     //doc.autoTable({ html: '#lista-produtos', theme: 'grid'});
     doc.autoTable({
-      head: [['Nº','Nome do Produto', 'Quantidade no Estoque', 'Quantidade Mínima',
-       'Categoria', 'Situação']],
-      body: tabelaProdutos,
+      didDrawPage: header,
+      margin: {top: 30},
+      head: [['Nº', 'Nome do Produto', 'Quantidade no Estoque', 'Quantidade Mínima',
+        'Categoria', 'Situação']],
+      body: tabelaProdutos,      
       theme: 'grid'
     });
     doc.save('table.pdf');

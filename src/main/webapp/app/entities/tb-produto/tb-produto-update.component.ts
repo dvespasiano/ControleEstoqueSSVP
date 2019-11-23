@@ -14,7 +14,7 @@ import { TbMovimentacaoService } from 'app/entities/tb-movimentacao/tb-movimenta
 
 import { Subscription } from 'rxjs';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { ITbCategoria } from 'app/shared/model/tb-categoria.model';
+import { ITbCategoria, TbCategoria } from 'app/shared/model/tb-categoria.model';
 import { AccountService } from 'app/core/auth/account.service';
 import { TbCategoriaService } from '../tb-categoria/tb-categoria.service';
 import { ITbUnidadeMedida, TbUnidadeMedida } from 'app/shared/model/tb-unidade-medida.model';
@@ -35,7 +35,6 @@ export class TbProdutoUpdateComponent implements OnInit, OnDestroy {
 
   editForm = this.fb.group({
     id: [],
-    idTbProduto: [],
     nmProduto: [],
     qtdEstoque: [],
     qtdMin: [],
@@ -47,7 +46,6 @@ export class TbProdutoUpdateComponent implements OnInit, OnDestroy {
   constructor(
     protected jhiAlertService: JhiAlertService,
     protected tbProdutoService: TbProdutoService,
-    protected tbMovimentacaoService: TbMovimentacaoService,
     protected activatedRoute: ActivatedRoute,
     private fb: FormBuilder,
     protected tbCategoriaService: TbCategoriaService,
@@ -66,11 +64,11 @@ export class TbProdutoUpdateComponent implements OnInit, OnDestroy {
     this.activatedRoute.data.subscribe(({ tbProduto }) => {
       this.updateForm(tbProduto);
     });
-    this.tbMovimentacaoService
+    this.tbCategoriaService
       .query()
       .pipe(
-        filter((mayBeOk: HttpResponse<ITbMovimentacao[]>) => mayBeOk.ok),
-        map((response: HttpResponse<ITbMovimentacao[]>) => response.body)
+        filter((mayBeOk: HttpResponse<ITbCategoria[]>) => mayBeOk.ok),
+        map((response: HttpResponse<ITbCategoria[]>) => response.body)
       )
       .subscribe((res: ITbMovimentacao[]) => (this.tbmovimentacaos = res), (res: HttpErrorResponse) => this.onError(res.message));
     this.tbUnidadeMedidaService
@@ -107,14 +105,18 @@ export class TbProdutoUpdateComponent implements OnInit, OnDestroy {
   }
 
   private createFromForm(): ITbProduto {
-    const novaCategoria = this.tbUnidadeMedidaService.find(this.editForm.get(['categoria']).value);
+    const qtdEstoque: number = parseInt(this.editForm.get(['qtdEstoque']).value,10);
+    const qtdMin: number = parseInt(this.editForm.get(['qtdMin']).value,10);
     return {
       ...new TbProduto(),
       id: this.editForm.get(['id']).value,
-      nmProduto: this.editForm.get(['nmProduto']).value,
+      nmProduto: this.editForm.get(['nmCategoria']).value,
       qtdEstoque: this.editForm.get(['qtdEstoque']).value,
       qtdMin: this.editForm.get(['qtdMin']).value,
-      ativo: this.editForm.get(['ativo']).value
+      situacao: qtdEstoque/qtdMin,
+      ativo: 1,
+      //categoria: 
+      //unidade_medida
     };
   }
 

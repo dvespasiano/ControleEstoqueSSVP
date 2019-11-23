@@ -1,5 +1,5 @@
 <div id="content" #content>
-    <h2 id="page-heading">
+    <h2 id="page-heading espaco-top">
         <div class="row">
             <div class="col-md-6"><span>Produtos</span></div>
             <div *jhiHasAnyAuthority="'ROLE_ADMIN'" then class="col-md-6">
@@ -21,7 +21,7 @@
             </div>
         </div>
     </h2>
-    <h2>
+    <h2 class="espaco-top">
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <input class="form-control" [(ngModel)]="nome" type="text" placeholder=" Procure aqui pelo produto">
@@ -29,38 +29,37 @@
         </div>
     </h2>
 
-    <h2 class = "row justify-content-center">
-        <div class="form-check form-check-inline">
+    <h2 class = "row justify-content-center espaco-top">
+        <div class="form-check form-check-inline radio-espaco">
             <input class="form-check-input" type="radio" [(ngModel)]="categoria_radio" name="categoria_radio"
                 id="categoria_radio" value="Alimento Perecível">
             <label class="form-check-label radio-button" for="categoria_radio">Alimento Perecível</label>
         </div>
-        <div class="form-check form-check-inline">
+        <div class="form-check form-check-inline radio-espaco">
             <input class="form-check-input" type="radio" [(ngModel)]="categoria_radio" name="categoria_radio"
                 id="categoria_radio" value="Alimento não Perecível">
             <label class="form-check-label radio-button" for="categoria_radio"><span>Alimento Não Perecível</span></label>
         </div>
-        <div class="form-check form-check-inline">
+        <div class="form-check form-check-inline radio-espaco">
             <input class="form-check-input" type="radio" [(ngModel)]="categoria_radio" name="categoria_radio"
                 id="categoria_radio" value="Remédio">
             <label class="form-check-label radio-button" for="categoria_radio">Remédio</label>
         </div>
-        <div class="form-check form-check-inline">
+        <div class="form-check form-check-inline radio-espaco">
             <input class="form-check-input" type="radio" [(ngModel)]="categoria_radio" name="categoria_radio"
                 id="categoria_radio" value="Limpeza">
             <label class="form-check-label radio-button" for="categoria_radio">Limpeza</label>
         </div>
-        <div class="form-check form-check-inline">
+        <div class="form-check form-check-inline radio-espaco">
             <input class="form-check-input checked" type="radio" [(ngModel)]="categoria_radio" name="categoria_radio"
                 id="categoria_radio" value="Todos">
             <label class="form-check-label radio-button" for="categoria_radio">Todos</label>
         </div>
-
     </h2>
 
 
     <jhi-alert></jhi-alert>
-    <br />
+    <br/>
     <div class="alert alert-warning" *ngIf="tbProdutos?.length === 0">
         <span>Nenhum Produto encontrado</span>
     </div>

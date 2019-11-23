@@ -53,7 +53,6 @@ export class TbCategoriaUpdateComponent implements OnInit {
   updateForm(tbCategoria: ITbCategoria) {
     this.editForm.patchValue({
       id: tbCategoria.id,
-      idTbCategoria: tbCategoria.idTbCategoria,
       nmCategoria: tbCategoria.nmCategoria
     });
   }
@@ -76,7 +75,6 @@ export class TbCategoriaUpdateComponent implements OnInit {
     return {
       ...new TbCategoria(),
       id: this.editForm.get(['id']).value,
-      idTbCategoria: this.editForm.get(['idTbCategoria']).value,
       nmCategoria: this.editForm.get(['nmCategoria']).value
     };
   }
