@@ -14,7 +14,7 @@ import { TbMovimentacaoService } from 'app/entities/tb-movimentacao/tb-movimenta
 
 import { Subscription } from 'rxjs';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { ITbCategoria } from 'app/shared/model/tb-categoria.model';
+import { ITbCategoria, TbCategoria } from 'app/shared/model/tb-categoria.model';
 import { AccountService } from 'app/core/auth/account.service';
 import { TbCategoriaService } from '../tb-categoria/tb-categoria.service';
 import { ITbUnidadeMedida, TbUnidadeMedida } from 'app/shared/model/tb-unidade-medida.model';
@@ -107,14 +107,20 @@ export class TbProdutoUpdateComponent implements OnInit, OnDestroy {
   }
 
   private createFromForm(): ITbProduto {
-    const novaCategoria = this.tbUnidadeMedidaService.find(this.editForm.get(['categoria']).value);
+    const tbCategoria: ITbCategoria = new TbCategoria();
+    tbCategoria.id = this.editForm.get(['categoria']).value;
+    const tbUnidadeMedida: ITbUnidadeMedida = new TbUnidadeMedida();
+    tbUnidadeMedida.id = this.editForm.get(['unidadeMedida']).value;
     return {
       ...new TbProduto(),
       id: this.editForm.get(['id']).value,
       nmProduto: this.editForm.get(['nmProduto']).value,
       qtdEstoque: this.editForm.get(['qtdEstoque']).value,
       qtdMin: this.editForm.get(['qtdMin']).value,
-      ativo: this.editForm.get(['ativo']).value
+      ativo: 1,
+      situacao: this.editForm.get(['qtdEstoque']).value / this.editForm.get(['qtdMin']).value,
+      categoria: tbCategoria,
+      unidadeMedida: tbUnidadeMedida
     };
   }
 

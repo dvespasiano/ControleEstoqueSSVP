@@ -56,7 +56,7 @@ export class TbMovimentacaoUpdateComponent implements OnInit {
   updateForm(tbMovimentacao: ITbMovimentacao) {
     this.editForm.patchValue({
       id: tbMovimentacao.id,
-      idProduto: tbMovimentacao.idProduto,
+      idProduto: tbMovimentacao.produto.id,
       quantidade: tbMovimentacao.quantidade,
       data: tbMovimentacao.data,
       entrada: tbMovimentacao.entrada
