@@ -59,10 +59,9 @@ export class TbProdutoComponent implements OnInit, OnDestroy {
     let produtoAtual: string[] = [];
     let i = 1;
     this.tbProdutos.forEach(p => {
-      produtoAtual = [i+"",p.nmProduto, p.qtdEstoque+"", p.qtdMin+"", p.categoria.nmCategoria + "",
-        this.decideSituacao(p.situacao+ "")];
+      produtoAtual = [p.nmProduto, p.qtdEstoque + '', p.qtdMin + '', p.categoria.nmCategoria + '', this.decideSituacao(p.situacao + '')];
       tabela.push(produtoAtual);
-      i = i+1;
+      i = i + 1;
     });
     return tabela;
   }
@@ -72,8 +71,7 @@ export class TbProdutoComponent implements OnInit, OnDestroy {
     const tabelaProdutos = this.aux();
     //doc.autoTable({ html: '#lista-produtos', theme: 'grid'});
     doc.autoTable({
-      head: [['Nº','Nome do Produto', 'Quantidade no Estoque', 'Quantidade Mínima',
-       'Categoria', 'Situação']],
+      head: [['Nome do Produto', 'Quantidade no Estoque', 'Quantidade Mínima', 'Categoria', 'Situação']],
       body: tabelaProdutos,
       theme: 'grid'
     });

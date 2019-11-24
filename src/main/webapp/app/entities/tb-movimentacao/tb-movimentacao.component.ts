@@ -14,6 +14,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
 import { ITbProduto, TbProduto } from 'app/shared/model/tb-produto.model';
+import * as jsPDF from 'jspdf';
+require('jspdf-autotable');
 
 @Component({
   selector: 'jhi-tb-movimentacao',
@@ -21,7 +23,7 @@ import { ITbProduto, TbProduto } from 'app/shared/model/tb-produto.model';
 })
 export class TbMovimentacaoComponent implements OnInit, OnDestroy {
   tbMovimentacaos: ITbMovimentacao[];
-  relatorio: { nome: string, entradas: number, saidas: number }[];
+  relatorio: { nome: string; entradas: number; saidas: number }[];
   currentAccount: any;
   eventSubscriber: Subscription;
   error: any;
@@ -53,6 +55,35 @@ export class TbMovimentacaoComponent implements OnInit, OnDestroy {
     });
   }
 
+  public aux() {
+    const tabela: string[][] = [[]];
+    let movimentacaoAtual: string[] = [];
+    for (let index = 0; index < this.relatorio.length; index++) {
+      movimentacaoAtual = [
+        index + '',
+        this.relatorio[index].nome,
+        this.relatorio[index].entradas + '',
+        this.relatorio[index].saidas + '',
+        this.relatorio[index].entradas - this.relatorio[index].saidas + ''
+      ];
+      tabela.push(movimentacaoAtual);
+    }
+    return tabela;
+  }
+
+  public downloadPDF() {
+    const doc = new jsPDF();
+    const tabelaMovimentacoes = this.aux();
+    //doc.autoTable({ html: '#lista-produtos', theme: 'grid'});
+    doc.autoTable({
+      head: [['Nº', 'Nome do Produto', 'Entradas', 'Saídas', 'Saldo']],
+      body: tabelaMovimentacoes,
+      theme: 'grid'
+    });
+    doc.save('table.pdf');
+    //doc.auto
+  }
+
   loadAll() {
     this.tbMovimentacaoService
       .query({
@@ -70,7 +101,7 @@ export class TbMovimentacaoComponent implements OnInit, OnDestroy {
           this.relatorio = [];
           let prod: ITbProduto;
           let existe: boolean;
-          let relAtual: { nome: string, entradas: number, saidas: number };
+          let relAtual: { nome: string; entradas: number; saidas: number };
           let i: number;
           this.tbMovimentacaos.forEach(mov => {
             existe = false;
@@ -82,14 +113,13 @@ export class TbMovimentacaoComponent implements OnInit, OnDestroy {
                 this.relatorio[i].saidas += mov.entrada === 0 ? mov.quantidade : 0;
               }
               i = i + 1;
-
             });
             if (!existe) {
               relAtual = {
                 nome: mov.produto.nmProduto,
                 entradas: mov.entrada === 1 ? mov.quantidade : 0,
                 saidas: mov.entrada === 0 ? mov.quantidade : 0
-              }
+              };
               this.relatorio.push(relAtual);
             }
           });
