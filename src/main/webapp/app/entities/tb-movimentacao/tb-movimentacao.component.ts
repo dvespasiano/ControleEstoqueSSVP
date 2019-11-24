@@ -60,7 +60,6 @@ export class TbMovimentacaoComponent implements OnInit, OnDestroy {
     let movimentacaoAtual: string[] = [];
     for (let index = 0; index < this.relatorio.length; index++) {
       movimentacaoAtual = [
-        index + '',
         this.relatorio[index].nome,
         this.relatorio[index].entradas + '',
         this.relatorio[index].saidas + '',
@@ -76,7 +75,7 @@ export class TbMovimentacaoComponent implements OnInit, OnDestroy {
     const tabelaMovimentacoes = this.aux();
     //doc.autoTable({ html: '#lista-produtos', theme: 'grid'});
     doc.autoTable({
-      head: [['Nº', 'Nome do Produto', 'Entradas', 'Saídas', 'Saldo']],
+      head: [['Nome do Produto', 'Entradas', 'Saídas', 'Saldo']],
       body: tabelaMovimentacoes,
       theme: 'grid'
     });
