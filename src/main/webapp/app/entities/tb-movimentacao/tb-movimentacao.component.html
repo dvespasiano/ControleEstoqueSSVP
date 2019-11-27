@@ -4,40 +4,20 @@
     </h2>
     <jhi-alert></jhi-alert>
     <br />
-    <div class="alert alert-warning" *ngIf="tbMovimentacaos?.length === 0">
-        <span>Nenhuma movimentação encontrada</span>
-    </div>
-    <div class="table-responsive" *ngIf="tbMovimentacaos?.length > 0">
-        <table class="table table-striped" aria-describedby="page-heading">
-            <thead>
-                <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-                    <th jhiSortBy="produto.id"><span>ID</span>
-                        <fa-icon [icon]="'sort'"></fa-icon>
-                    </th>
-                    <th jhiSortBy="produto.nmProduto"><span>Nome do Produto</span>
-                        <fa-icon [icon]="'sort'"></fa-icon>
-                    </th>
-                    <th jhiSortBy="quantidade"><span>Entradas</span>
-                        <fa-icon [icon]="'sort'"></fa-icon>
-                    </th>
-                    <th jhiSortBy="data"><span>Saidas</span>
-                        <fa-icon [icon]="'sort'"></fa-icon>
-                    </th>
-                    <th jhiSortBy="entrada"><span>Saldo</span>
-                        <fa-icon [icon]="'sort'"></fa-icon>
-                    </th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let rel of relatorio; let i = index; trackBy: trackId">
-                    <td>{{i+1}}</td>
-                    <td>{{rel.nome}}</td>
-                    <td>{{rel.entradas}}</td>
-                    <td>{{rel.saidas}}</td>
-                    <td>{{rel.entradas - rel.saidas}}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+    <form name="editForm" role="form" (ngSubmit)="downloadPDF()" [formGroup]="editForm">
+        <div class="form-group">
+            <label class="form-control-label" for="dataInicio">Nome do Produto</label>
+            <input type="text" class="form-control" name="dataInicio" id="dataInicio" formControlName="dataInicio" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="dataFim">Nome do Produto</label>
+            <input type="date" class="form-control" name="dataFim" id="dataFim" formControlName="dataFim" />
+        </div>
+        <button type="submit" class="btn btn-primary jh-create-entity">
+            <fa-icon [icon]="'download'"></fa-icon>
+            <span>
+                Exportar como PDF
+            </span>
+        </button>
+    </form>
 </div>
