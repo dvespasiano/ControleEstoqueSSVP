@@ -1,7 +1,5 @@
 package com.contexto.br.app.repository;
 
-import java.util.List;
-
 import com.contexto.br.app.domain.TbMovimentacao;
 
 import org.springframework.data.jpa.repository.*;

@@ -10,7 +10,6 @@ import { JhiAlertService, JhiEventManager } from 'ng-jhipster';
 import { ITbProduto, TbProduto } from 'app/shared/model/tb-produto.model';
 import { TbProdutoService } from './tb-produto.service';
 import { ITbMovimentacao } from 'app/shared/model/tb-movimentacao.model';
-import { TbMovimentacaoService } from 'app/entities/tb-movimentacao/tb-movimentacao.service';
 
 import { Subscription } from 'rxjs';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -27,7 +26,6 @@ import { TbUnidadeMedidaService } from 'app/entities/tb-unidade-medida/tb-unidad
 export class TbProdutoUpdateComponent implements OnInit, OnDestroy {
   isSaving: boolean;
 
-  tbmovimentacaos: ITbMovimentacao[];
   tbCategorias: ITbCategoria[];
   currentAccount: any;
   eventSubscriber: Subscription;
@@ -64,21 +62,7 @@ export class TbProdutoUpdateComponent implements OnInit, OnDestroy {
     this.activatedRoute.data.subscribe(({ tbProduto }) => {
       this.updateForm(tbProduto);
     });
-    this.tbCategoriaService
-      .query()
-      .pipe(
-        filter((mayBeOk: HttpResponse<ITbCategoria[]>) => mayBeOk.ok),
-        map((response: HttpResponse<ITbCategoria[]>) => response.body)
-      )
-      .subscribe((res: ITbMovimentacao[]) => (this.tbmovimentacaos = res), (res: HttpErrorResponse) => this.onError(res.message));
-    this.tbUnidadeMedidaService
-      .query()
-      .pipe(
-        filter((mayBeOk: HttpResponse<ITbUnidadeMedida[]>) => mayBeOk.ok),
-        map((response: HttpResponse<ITbUnidadeMedida[]>) => response.body)
-      )
-      .subscribe((res: ITbUnidadeMedida[]) => (this.tbUnidadeMedidas = res), (res: HttpErrorResponse) => this.onError(res.message));
-  }
+    }
 
   updateForm(tbProduto: ITbProduto) {
     this.editForm.patchValue({
@@ -109,15 +93,34 @@ export class TbProdutoUpdateComponent implements OnInit, OnDestroy {
     const qtdMin: number = parseInt(this.editForm.get(['qtdMin']).value,10);
     return {
       ...new TbProduto(),
-      id: this.editForm.get(['id']).value,
-      nmProduto: this.editForm.get(['nmCategoria']).value,
+      nmProduto: this.editForm.get(['nmProduto']).value,
       qtdEstoque: this.editForm.get(['qtdEstoque']).value,
       qtdMin: this.editForm.get(['qtdMin']).value,
       situacao: qtdEstoque/qtdMin,
       ativo: 1,
-      //categoria: 
-      //unidade_medida
+      categoria: this.buscaCategoria(),
+      unidadeMedida: this.buscaUnidadeMedida()
     };
+  }
+
+  private buscaCategoria() {
+    let categoria: ITbCategoria;
+    this.tbCategorias.forEach(element => {
+      if(element.id === parseInt(this.editForm.get(['categoria']).value,10)) {
+        categoria = element;
+      }
+    });
+    return categoria;
+  }
+
+  private buscaUnidadeMedida() {
+    let unidadeMedida: ITbUnidadeMedida;
+    this.tbUnidadeMedidas.forEach(element => {
+      if(element.id === parseInt(this.editForm.get(['unidadeMedida']).value,10)) {
+        unidadeMedida = element;
+      }
+    });
+    return unidadeMedida;
   }
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<ITbProduto>>) {
@@ -159,11 +162,18 @@ export class TbProdutoUpdateComponent implements OnInit, OnDestroy {
         map((res: HttpResponse<ITbCategoria[]>) => res.body)
       )
       .subscribe(
-        (res: ITbCategoria[]) => {
-          this.tbCategorias = res;
-        },
-        (res: HttpErrorResponse) => this.onError(res.message)
+        (res: ITbCategoria[]) => 
+          this.tbCategorias = res, (res: HttpErrorResponse) => this.onError(res.message)
       );
+      this.tbUnidadeMedidaService
+      .query()
+      .pipe(
+        filter((mayBeOk: HttpResponse<ITbUnidadeMedida[]>) => mayBeOk.ok),
+        map((response: HttpResponse<ITbUnidadeMedida[]>) => response.body)
+      )
+      .subscribe((res: ITbUnidadeMedida[]) => 
+      (this.tbUnidadeMedidas = res), (res: HttpErrorResponse) => this.onError(res.message));
+  
   }
 
   ngOnDestroy() {

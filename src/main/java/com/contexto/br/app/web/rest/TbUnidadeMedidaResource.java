@@ -53,7 +53,7 @@ public class TbUnidadeMedidaResource {
         }
         TbUnidadeMedida result = tbUnidadeMedidaRepository.save(tbUnidadeMedida);
         return ResponseEntity.created(new URI("/api/tb-unidade-medidas/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
+        .headers(HeaderUtil.createAlert(applicationName,"A unidade de medida \"" + tbUnidadeMedida.getNmUnidadeMedida() + "\" foi criada com sucesso",""))
             .body(result);
     }
 

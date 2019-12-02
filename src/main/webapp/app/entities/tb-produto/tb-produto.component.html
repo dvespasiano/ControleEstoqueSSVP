@@ -80,6 +80,9 @@
                     <th jhiSortBy="categoria.nmCategoria"><span>Categoria</span>
                         <fa-icon [icon]="'sort'"></fa-icon>
                     </th>
+                    <th jhiSortBy="unidadeMedida.nmUnidadeMedida"><span>Unidade</span>
+                        <fa-icon [icon]="'sort'"></fa-icon>
+                    </th>
                     <th jhiSortBy="situacao"><span>Situação</span>
                         <fa-icon [icon]="'sort'"></fa-icon>
                     </th>
@@ -96,6 +99,7 @@
                         <td>{{tbProduto.qtdEstoque}}</td>
                         <td>{{tbProduto.qtdMin}}</td>
                         <td>{{tbProduto.categoria.nmCategoria}}</td>
+                        <td>{{tbProduto.unidadeMedida.nmUnidadeMedida}}</td>
                         <ng-container *ngIf="decideSituacao(tbProduto.situacao) === ('Em falta')">
                             <td><span class="badge badge-danger">Em falta</span></td>
                         </ng-container>

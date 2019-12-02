@@ -37,7 +37,7 @@ public class TbProduto implements Serializable {
 
     @ManyToOne
     @JsonIgnoreProperties("tbUnidadeMedida")
-    private TbUnidadeMedida unidade_medida;
+    private TbUnidadeMedida unidadeMedida;
 
     @ManyToOne
     @JsonIgnoreProperties("tbCategoria")
@@ -113,17 +113,17 @@ public class TbProduto implements Serializable {
         this.situacao = situacao;
     }
 
-    public TbUnidadeMedida getUnidade_medida() {
-        return unidade_medida;
+    public TbUnidadeMedida getUnidadeMedida() {
+        return unidadeMedida;
     }
 
-    public TbProduto idCategoria(TbUnidadeMedida unidade_medida) {
-        this.unidade_medida = unidade_medida;
+    public TbProduto idCategoria(TbUnidadeMedida unidadeMedida) {
+        this.unidadeMedida = unidadeMedida;
         return this;
     }
 
-    public void setUnidade_medida(TbUnidadeMedida unidade_medida) {
-        this.unidade_medida = unidade_medida;
+    public void setUnidadeMedida(TbUnidadeMedida unidadeMedida) {
+        this.unidadeMedida = unidadeMedida;
     }
 
     public TbCategoria getCategoria() {

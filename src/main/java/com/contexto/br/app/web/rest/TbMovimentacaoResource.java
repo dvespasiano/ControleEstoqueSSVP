@@ -54,8 +54,8 @@ public class TbMovimentacaoResource {
         }
         final TbMovimentacao result = tbMovimentacaoRepository.save(tbMovimentacao);
         return ResponseEntity.created(new URI("/api/tb-movimentacaos/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
-            .body(result);
+        .headers(HeaderUtil.createAlert(applicationName, "XX", ""))
+        .body(result);
     }
 
     /**

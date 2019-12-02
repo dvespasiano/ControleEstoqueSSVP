@@ -86,9 +86,8 @@ export class TbProdutoDetailComponent implements OnInit {
       tbMovimentacao.entrada = parseInt(this.editForm.get(['tipo']).value, 10);
       tbMovimentacao.quantidade = parseInt(this.editForm.get(['qtdAlterar']).value, 10);
       tbMovimentacao.produto = tbProduto;
-      this.subscribeToSaveResponseMovimentacao(this.tbMovimentacaoService.create(tbMovimentacao));
-      this.subscribeToSaveResponseProduto(this.tbProdutoService.update(tbProduto));
-      
+      this.tbMovimentacaoService.create(tbMovimentacao);
+      this.subscribeToSaveResponseProduto(this.tbProdutoService.update(tbProduto));      
     } else {
       this.subscribeToSaveResponseProduto(this.tbProdutoService.create(tbProduto));
     }

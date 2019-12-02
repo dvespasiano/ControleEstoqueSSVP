@@ -29,7 +29,7 @@
                     <select class="custom-select" class="form-control" name="categoria" id="field_categoria"
                         formControlName="categoria">
                         <option selected>Selecione uma Categoria</option>
-                        <option *ngFor="let tbCategoria of tbCategorias;trackBy: trackId" [value]="tbCategoria.nmCategoria">
+                        <option *ngFor="let tbCategoria of tbCategorias;trackBy: trackId" [value]="tbCategoria.id">
                             {{tbCategoria.nmCategoria}}</option>
                     </select>
 

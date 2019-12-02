@@ -43,7 +43,7 @@ public class TbCategoriaResource {
         }
         TbCategoria result = tbCategoriaRepository.save(tbCategoria);
         return ResponseEntity.created(new URI("/api/tb-categorias/" + result.getId()))
-                .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
+                .headers(HeaderUtil.createAlert(applicationName,"A categoria \"" + tbCategoria.getNmCategoria() + "\" foi criada com sucesso",""))
                 .body(result);
     }
 

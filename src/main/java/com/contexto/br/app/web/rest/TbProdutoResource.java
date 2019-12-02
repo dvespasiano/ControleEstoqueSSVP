@@ -59,7 +59,7 @@ public class TbProdutoResource {
         }
         TbProduto result = tbProdutoRepository.save(tbProduto);
         return ResponseEntity.created(new URI("/api/tb-produtos/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
+            .headers(HeaderUtil.createAlert(applicationName,"O novo produto \"" + tbProduto.getNmProduto() + "\" foi criado com sucesso!" ,""))
             .body(result);
     }
 

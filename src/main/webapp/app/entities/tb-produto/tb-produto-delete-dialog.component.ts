@@ -21,7 +21,7 @@ export class TbProdutoDeleteDialogComponent {
   }
 
   confirmDelete(id: number) {
-    this.tbProdutoService.delete(id).subscribe(response => {
+    this.tbProdutoService.update(this.tbProduto).subscribe(response => {
       this.eventManager.broadcast({
         name: 'tbProdutoListModification',
         content: 'Deleted an tbProduto'
