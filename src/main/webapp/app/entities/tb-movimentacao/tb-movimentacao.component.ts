@@ -17,6 +17,7 @@ import { ITbProduto, TbProduto } from 'app/shared/model/tb-produto.model';
 import { FormBuilder } from '@angular/forms';
 import * as jsPDF from 'jspdf';
 import * as moment from 'moment';
+import { DatePipe } from '@angular/common';
 require('jspdf-autotable');
 
 @Component({
@@ -25,7 +26,7 @@ require('jspdf-autotable');
 })
 export class TbMovimentacaoComponent implements OnInit, OnDestroy {
   tbMovimentacaos: ITbMovimentacao[];
-  relatorio: { nome: string, entradas: number, saidas: number }[];
+  relatorio: { nome: string, estoqueAnt: number, entradas: number, saidas: number }[];
   currentAccount: any;
   eventSubscriber: Subscription;
   error: any;
@@ -38,6 +39,8 @@ export class TbMovimentacaoComponent implements OnInit, OnDestroy {
   predicate: any;
   previousPage: any;
   reverse: any;
+  dataInicio: Date;
+  dataFim: Date;
 
   editForm = this.form.group({
     dataInicio: [],
@@ -52,7 +55,7 @@ export class TbMovimentacaoComponent implements OnInit, OnDestroy {
     protected parseLinks: JhiParseLinks,
     protected activatedRoute: ActivatedRoute,
     protected router: Router,
-    private form: FormBuilder,
+    private form: FormBuilder
   ) {
     this.itemsPerPage = ITEMS_PER_PAGE;
     this.routeData = this.activatedRoute.data.subscribe(data => {
@@ -63,19 +66,31 @@ export class TbMovimentacaoComponent implements OnInit, OnDestroy {
     });
   }
 
+  public transformaData(data: string): Date {
+    const vet: string[] = data.split("/");
+    return new Date(vet[2] + "/" + vet[1] + "/" + vet[0]);
+  }
+
+  public retornaData(data: Date) {
+    return (data.getUTCDate() < 10 ? "0" + data.getUTCDate() : data.getUTCDate()) + "/" +
+      (data.getUTCMonth() < 10 ? "0" + (data.getUTCMonth()+1) : (data.getUTCMonth()+1)) + "/" +
+      data.getUTCFullYear();
+  }
+
   public agrupamento() {
     this.relatorio = [];
-    const dataInicio = this.editForm.get(['dataInicio']).value;
-    //const dataFim: Date = this.editForm.get(['dataFim']).value;
-    let prod: ITbProduto;
+    this.dataInicio = this.transformaData(this.editForm.get(['dataInicio']).value);
+    this.dataFim = this.transformaData(this.editForm.get(['dataFim']).value);
     let existe: boolean;
-    let relAtual: { nome: string, entradas: number, saidas: number };
+    let relAtual: { nome: string, estoqueAnt: number, entradas: number, saidas: number };
     let i: number;
     this.tbMovimentacaos.forEach(mov => {
       existe = false;
       i = 0;
       this.relatorio.forEach(rel => {
-        if (rel.nome === mov.produto.nmProduto) {
+        if (rel.nome === mov.produto.nmProduto &&
+          this.dataInicio.getTime() <= new Date(mov.data.toString()).getTime() &&
+          this.dataFim.getTime() >= new Date(mov.data.toString()).getTime()) {
           existe = true;
           this.relatorio[i].entradas += mov.entrada === 1 ? mov.quantidade : 0;
           this.relatorio[i].saidas += mov.entrada === 0 ? mov.quantidade : 0;
@@ -83,15 +98,21 @@ export class TbMovimentacaoComponent implements OnInit, OnDestroy {
         i = i + 1;
 
       });
-      if (!existe) {
+      if (!existe &&
+        this.dataInicio.getTime() <= new Date(mov.data.toString()).getTime() &&
+        this.dataFim.getTime() >= new Date(mov.data.toString()).getTime()) {
         relAtual = {
           'nome': mov.produto.nmProduto,
-          //nome: dataInicio + " la",
+          'estoqueAnt': mov.produto.qtdEstoque,
           'entradas': mov.entrada === 1 ? mov.quantidade : 0,
           'saidas': mov.entrada === 0 ? mov.quantidade : 0
         }
         this.relatorio.push(relAtual);
       }
+    });
+
+    this.relatorio.forEach(rel => {
+      rel.estoqueAnt += rel.saidas - rel.entradas;
     });
   }
 
@@ -99,11 +120,14 @@ export class TbMovimentacaoComponent implements OnInit, OnDestroy {
     const tabela: any[] = [];
     for (let index = 0; index < this.relatorio.length; index++) {
       tabela.push(
-      {'id': (index + 1) + '',
-      'nome': this.relatorio[index].nome,
-      'entradas': this.relatorio[index].entradas + '',
-      'saidas':this.relatorio[index].saidas + '',
-      'saldo':this.relatorio[index].entradas - this.relatorio[index].saidas + ''}
+        {
+          'id': (index + 1) + '',
+          'nome': this.relatorio[index].nome,
+          'estoqueAnt': this.relatorio[index].estoqueAnt,
+          'entradas': this.relatorio[index].entradas + '',
+          'saidas': this.relatorio[index].saidas + '',
+          'saldoAtual': (this.relatorio[index].estoqueAnt + this.relatorio[index].entradas - this.relatorio[index].saidas) + ''
+        }
       );
     }
     return tabela;
@@ -114,15 +138,18 @@ export class TbMovimentacaoComponent implements OnInit, OnDestroy {
   }
 
   public downloadPDF() {
+    this.agrupamento();
     const doc = new jsPDF();
     //const pageTotal = this.page;
+
     const imgData = this.imagemData();
     const tabelaRelatorio = this.criaRelatorio();
-    const tabelaTH = [{ title: 'Nº', dataKey: 'id' },
+    const tabelaTH = [{ title: ' Nº ', dataKey: 'id' },
     { title: 'Nome do Produto', dataKey: 'nome' },
+    { title: 'Estoque Anterior', dataKey: 'estoqueAnt' },
     { title: 'Entradas', dataKey: 'entradas' },
     { title: 'Saídas', dataKey: 'saidas' },
-    { title: 'Saldo', dataKey: 'saldo' }];
+    { title: 'Saldo Atual', dataKey: 'saldoAtual' }];
     const headerFooter = (data) => {
       if (doc.internal.getNumberOfPages() === 1) {
         //header
@@ -135,14 +162,25 @@ export class TbMovimentacaoComponent implements OnInit, OnDestroy {
         doc.setFontSize(10);
         doc.setTextColor(40);
         doc.setFontStyle('normal');
-        doc.text("Emitido em: " + moment().format("DD/MM/YYYY"), 15, 32, 0, 10);
+        doc.text("Emitido em: " + moment().format("DD/MM/YYYY"), 14.5, 32, 0, 10);
+
+        doc.setFontSize(10);
+        doc.setTextColor(40);
+        doc.setFontStyle('normal');
+        doc.text("Periodo: " + this.retornaData(this.dataInicio) + " - " + this.retornaData(this.dataFim), 142, 32, 0, 10);
       }
 
       //footer
       doc.setFontSize(8);
       doc.setTextColor(40);
       doc.setFontStyle('normal');
-      doc.text(185, 283, 'página ' + doc.internal.getNumberOfPages());
+      doc.text(185, 288, 'página ' + doc.internal.getNumberOfPages());
+    };
+
+    const centralizaTexto = (data) => {
+      if (data.column.index !== 1 || data.row.raw.nome === "Nome do Produto") {
+        data.cell.styles.halign = 'center';
+      }
     };
 
     //doc.autoTable({ html: '#lista-produtos', theme: 'grid'});
@@ -151,7 +189,8 @@ export class TbMovimentacaoComponent implements OnInit, OnDestroy {
       startY: doc.internal.getNumberOfPages() > 1 ? doc.autoTableEndPosY() + 0 : 35,
       theme: 'grid',
       rowPageBreak: 'avoid',
-      headerStyles: {
+      didParseCell: centralizaTexto,
+      headStyles: {
         lineWidth: 0.01,
         lineColor: [100, 100, 100]
       },
@@ -177,7 +216,6 @@ export class TbMovimentacaoComponent implements OnInit, OnDestroy {
       .subscribe(
         (res: ITbMovimentacao[]) => {
           this.tbMovimentacaos = res;
-          this.agrupamento();
         },
         (res: HttpErrorResponse) => this.onError(res.message)
       );

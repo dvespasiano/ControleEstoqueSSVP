@@ -79,9 +79,16 @@ public class TbProdutoResource {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
         TbProduto result = tbProdutoRepository.save(tbProduto);
-        return ResponseEntity.ok()
+        if(tbProduto.getAtivo() == 1) {
+            return ResponseEntity.ok()
             .headers(HeaderUtil.createAlert(applicationName, "O estoque do \"" + tbProduto.getNmProduto() + "\" foi alterado para " + tbProduto.getQtdEstoque(), ""))
             .body(result);
+        }else {
+            return ResponseEntity.ok()
+            .headers(HeaderUtil.createAlert(applicationName, "O produto \"" + tbProduto.getNmProduto() + "\" foi excluido", ""))
+            .body(result);
+        }
+        
     }
 
     /**

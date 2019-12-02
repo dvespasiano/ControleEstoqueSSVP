@@ -93,7 +93,7 @@
                 <tr *ngFor="let tbProduto of tbProdutos; let i = index;trackBy: trackId">
                     <ng-container *ngIf="((tbProduto.nmProduto | lowercase)
                         .startsWith(nome | lowercase) || nome.length === 0) && 
-                        (tbProduto.categoria.nmCategoria === categoria_radio || categoria_radio === 'Todos')">
+                        (tbProduto.categoria.nmCategoria === categoria_radio || categoria_radio === 'Todos') && tbProduto.ativo == 1">
                         <td>{{i+1}}</td>
                         <td>{{tbProduto.nmProduto}}</td>
                         <td>{{tbProduto.qtdEstoque}}</td>

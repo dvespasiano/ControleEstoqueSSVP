@@ -78,7 +78,7 @@ export class TbProdutoComponent implements OnInit, OnDestroy {
     //const pageTotal = doc.internal.pages.length;
     const imgData = this.imagemData();
     const tabelaProdutos = this.geraLista();
-    const tabelaTH = [{ title: 'Nº  ', dataKey: 'id' },
+    const tabelaTH = [{ title: '  Nº ', dataKey: 'id' },
     { title: 'Nome do Produto', dataKey: 'nome' },
     { title: 'Quantidade no Estoque', dataKey: 'estoque' },
     { title: 'Quantidade Mínima', dataKey: 'min' },
@@ -103,10 +103,10 @@ export class TbProdutoComponent implements OnInit, OnDestroy {
       doc.setFontSize(8);
       doc.setTextColor(40);
       doc.setFontStyle('normal');
-      doc.text(185, 283, 'página ' + doc.internal.getNumberOfPages());
+      doc.text(185, 288, 'página ' + doc.internal.getNumberOfPages());
     };
 
-    const corSituacao = (data) => {
+    const corSituacaoECenter = (data) => {
       if (data.row.raw.situacao === "Em estoque" && data.column.index === 5) {
         data.cell.styles.fillColor = [0, 200, 0];
         data.cell.styles.textColor = [255, 255, 255];
@@ -117,6 +117,9 @@ export class TbProdutoComponent implements OnInit, OnDestroy {
         data.cell.styles.fillColor = [200, 0, 0];
         data.cell.styles.textColor = [255, 255, 255];
       }
+      if (data.column.index !== 1 || data.row.raw.nome === "Nome do Produto") {
+        data.cell.styles.halign = 'center';
+      }
     };
 
     //doc.autoTable({ html: '#lista-produtos', theme: 'grid'});
@@ -124,7 +127,7 @@ export class TbProdutoComponent implements OnInit, OnDestroy {
       didDrawPage: headerFooter,
       startY: doc.internal.getNumberOfPages() > 1 ? doc.autoTableEndPosY() + 0 : 35,
       theme: 'grid',
-      didParseCell: corSituacao,
+      didParseCell: corSituacaoECenter,
       rowPageBreak: 'avoid',
       headerStyles: {
         lineWidth: 0.01,
