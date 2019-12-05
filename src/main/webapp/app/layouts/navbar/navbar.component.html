@@ -40,18 +40,18 @@
                     </li>
 
                     <li>
-                        <a *jhiHasAnyAuthority="'ROLE_ADMIN'" class="dropdown-item" routerLink="tb-categoria" routerLinkActive="active"
+                        <a class="dropdown-item" routerLink="tb-movimentacao" routerLinkActive="active"
                             [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                             <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
-                            <span>Categorias</span>
+                            <span>Relatório</span>
                         </a>
                     </li>
 
                     <li>
-                        <a class="dropdown-item" routerLink="tb-movimentacao" routerLinkActive="active"
+                        <a class="dropdown-item" routerLink="manual" routerLinkActive="active"
                             [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                             <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
-                            <span>Movimentações</span>
+                            <span>Manual</span>
                         </a>
                     </li>
                     <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->

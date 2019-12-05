@@ -67,7 +67,6 @@
         <table id="lista-produtos" #contentToConvert class="table table-striped" aria-describedby="page-heading">
             <thead>
                 <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-                    <th><span>Nº</span></th>
                     <th jhiSortBy="nmProduto"><span>Nome do Produto</span>
                         <fa-icon [icon]="'sort'"></fa-icon>
                     </th>
@@ -90,11 +89,10 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let tbProduto of tbProdutos; let i = index;trackBy: trackId">
+                <tr *ngFor="let tbProduto of tbProdutos;trackBy: trackId">
                     <ng-container *ngIf="((tbProduto.nmProduto | lowercase)
-                        .startsWith(nome | lowercase) || nome.length === 0) && 
+                        .includes(nome | lowercase) || nome.length === 0) && 
                         (tbProduto.categoria.nmCategoria === categoria_radio || categoria_radio === 'Todos') && tbProduto.ativo == 1">
-                        <td>{{i+1}}</td>
                         <td>{{tbProduto.nmProduto}}</td>
                         <td>{{tbProduto.qtdEstoque}}</td>
                         <td>{{tbProduto.qtdMin}}</td>
@@ -109,7 +107,6 @@
                         <ng-container *ngIf="decideSituacao(tbProduto.situacao) === ('Em estoque')">
                             <td><span class="badge badge-success">Em estoque</span></td>
                         </ng-container>
-
 
                         <td *jhiHasAnyAuthority="'ROLE_ADMIN'" class="text-right">
                             <div class="btn-group">

@@ -5,8 +5,6 @@ import com.contexto.br.app.repository.TbMovimentacaoRepository;
 import com.contexto.br.app.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;
-import io.github.jhipster.web.util.PaginationUtil;
-import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -53,9 +51,7 @@ public class TbMovimentacaoResource {
             throw new BadRequestAlertException("A new tbMovimentacao cannot already have an ID", ENTITY_NAME, "idexists");
         }
         final TbMovimentacao result = tbMovimentacaoRepository.save(tbMovimentacao);
-        return ResponseEntity.created(new URI("/api/tb-movimentacaos/" + result.getId()))
-        .headers(HeaderUtil.createAlert(applicationName, "XX", ""))
-        .body(result);
+        return null;
     }
 
     /**

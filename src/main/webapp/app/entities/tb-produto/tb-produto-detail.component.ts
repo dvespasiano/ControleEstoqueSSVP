@@ -81,12 +81,12 @@ export class TbProdutoDetailComponent implements OnInit {
 
     if (tbProduto.id !== undefined) {
       const tbMovimentacao: ITbMovimentacao = new TbMovimentacao();
-
       tbMovimentacao.data = moment();
       tbMovimentacao.entrada = parseInt(this.editForm.get(['tipo']).value, 10);
       tbMovimentacao.quantidade = parseInt(this.editForm.get(['qtdAlterar']).value, 10);
       tbMovimentacao.produto = tbProduto;
-      this.tbMovimentacaoService.create(tbMovimentacao);
+      tbMovimentacao.saldoAnt = tbProduto.qtdEstoque - tbMovimentacao.quantidade;
+      this.subscribeToSaveResponseMovimentacao(this.tbMovimentacaoService.create(tbMovimentacao));
       this.subscribeToSaveResponseProduto(this.tbProdutoService.update(tbProduto));      
     } else {
       this.subscribeToSaveResponseProduto(this.tbProdutoService.create(tbProduto));
@@ -115,7 +115,7 @@ export class TbProdutoDetailComponent implements OnInit {
   }
 
   protected subscribeToSaveResponseMovimentacao(result: Observable<HttpResponse<ITbMovimentacao>>) {
-    result.subscribe(() => this.onSaveSuccess(), () => this.onSaveError());
+    result.subscribe();
   }
 
   protected onSaveSuccess() {

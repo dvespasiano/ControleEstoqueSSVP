@@ -19,6 +19,10 @@ import { RouterModule } from '@angular/router';
       {
         path: 'tb-movimentacao',
         loadChildren: () => import('./tb-movimentacao/tb-movimentacao.module').then(m => m.ContextoTbMovimentacaoModule)
+      },
+      {
+        path: 'manual',
+        loadChildren: () => import('./manual/manual.module').then(m => m.ContextoManualModule)
       }
       /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
     ])

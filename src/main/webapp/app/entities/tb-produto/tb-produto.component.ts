@@ -50,7 +50,6 @@ export class TbProdutoComponent implements OnInit, OnDestroy {
       this.page = data.pagingParams.page;
       this.previousPage = data.pagingParams.page;
       this.reverse = data.pagingParams.ascending;
-      //this.predicate = data.pagingParams.predicate;
       this.predicate = 'situacao';
     });
   }
@@ -138,7 +137,7 @@ export class TbProdutoComponent implements OnInit, OnDestroy {
         lineColor: [100, 100, 100]
       }
     });
-    doc.save('table.pdf');
+    doc.save('lista de produtos.pdf');
   }
 
   decideSituacao(num1: string) {

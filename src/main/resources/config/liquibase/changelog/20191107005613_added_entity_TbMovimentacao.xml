@@ -16,6 +16,9 @@
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
+            <column name="saldo_ant" type="integer">
+                <constraints nullable="true" />
+            </column>
             <column name="quantidade" type="integer">
                 <constraints nullable="true" />
             </column>
@@ -62,6 +65,7 @@
                   separator=";"
                   tableName="tb_movimentacao">
             <column name="id" type="numeric"/>
+            <column name="saldo_ant" type="numeric"/>
             <column name="quantidade" type="numeric"/>
             <column name="data" type="date"/>
             <column name="entrada" type="numeric"/>

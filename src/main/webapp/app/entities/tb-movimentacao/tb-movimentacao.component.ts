@@ -26,7 +26,7 @@ require('jspdf-autotable');
 })
 export class TbMovimentacaoComponent implements OnInit, OnDestroy {
   tbMovimentacaos: ITbMovimentacao[];
-  relatorio: { nome: string, estoqueAnt: number, entradas: number, saidas: number }[];
+  relatorio: { nome: string, dataSaldoAnt: Date, saldoAnt: number, entradas: number, saidas: number }[];
   currentAccount: any;
   eventSubscriber: Subscription;
   error: any;
@@ -55,7 +55,8 @@ export class TbMovimentacaoComponent implements OnInit, OnDestroy {
     protected parseLinks: JhiParseLinks,
     protected activatedRoute: ActivatedRoute,
     protected router: Router,
-    private form: FormBuilder
+    private form: FormBuilder,
+    private datePipe: DatePipe
   ) {
     this.itemsPerPage = ITEMS_PER_PAGE;
     this.routeData = this.activatedRoute.data.subscribe(data => {
@@ -66,53 +67,73 @@ export class TbMovimentacaoComponent implements OnInit, OnDestroy {
     });
   }
 
-  public transformaData(data: string): Date {
-    const vet: string[] = data.split("/");
-    return new Date(vet[2] + "/" + vet[1] + "/" + vet[0]);
+  public transformaData() {
+    let vet: string[] = this.editForm.get(['dataInicio']).value.split("/");
+    this.dataInicio = new Date(vet[2] + "/" + vet[1] + "/" + vet[0]);
+
+    vet = this.editForm.get(['dataFim']).value.split("/");
+    this.dataFim = new Date(vet[2] + "/" + vet[1] + "/" + vet[0]);;
   }
 
-  public retornaData(data: Date) {
+  public retornaData(data: Date): string {
     return (data.getUTCDate() < 10 ? "0" + data.getUTCDate() : data.getUTCDate()) + "/" +
-      (data.getUTCMonth() < 10 ? "0" + (data.getUTCMonth()+1) : (data.getUTCMonth()+1)) + "/" +
+      ((data.getUTCMonth() + 1) < 10 ? "0" + (data.getUTCMonth() + 1) : (data.getUTCMonth() + 1)) + "/" +
       data.getUTCFullYear();
   }
 
   public agrupamento() {
     this.relatorio = [];
-    this.dataInicio = this.transformaData(this.editForm.get(['dataInicio']).value);
-    this.dataFim = this.transformaData(this.editForm.get(['dataFim']).value);
+    this.transformaData();
     let existe: boolean;
-    let relAtual: { nome: string, estoqueAnt: number, entradas: number, saidas: number };
-    let i: number;
+    let relAtual: { nome: string, dataSaldoAnt: Date, saldoAnt: number, entradas: number, saidas: number };
     this.tbMovimentacaos.forEach(mov => {
+      const dataMov = new Date(mov.data.format("YYYY/MM/DD"));
+      const valDataMov = dataMov.getTime() + 86400000;
       existe = false;
-      i = 0;
-      this.relatorio.forEach(rel => {
-        if (rel.nome === mov.produto.nmProduto &&
-          this.dataInicio.getTime() <= new Date(mov.data.toString()).getTime() &&
-          this.dataFim.getTime() >= new Date(mov.data.toString()).getTime()) {
-          existe = true;
-          this.relatorio[i].entradas += mov.entrada === 1 ? mov.quantidade : 0;
-          this.relatorio[i].saidas += mov.entrada === 0 ? mov.quantidade : 0;
-        }
-        i = i + 1;
+      if (this.dataFim.getTime() >= valDataMov) {
+        this.relatorio.forEach(rel => {
 
-      });
-      if (!existe &&
-        this.dataInicio.getTime() <= new Date(mov.data.toString()).getTime() &&
-        this.dataFim.getTime() >= new Date(mov.data.toString()).getTime()) {
-        relAtual = {
-          'nome': mov.produto.nmProduto,
-          'estoqueAnt': mov.produto.qtdEstoque,
-          'entradas': mov.entrada === 1 ? mov.quantidade : 0,
-          'saidas': mov.entrada === 0 ? mov.quantidade : 0
+          if (rel.nome === mov.produto.nmProduto) {
+            existe = true;
+            if (this.dataInicio.getTime() <= valDataMov) {
+              rel.entradas += mov.entrada === 1 ? mov.quantidade : 0;
+              rel.saidas += mov.entrada === 0 ? mov.quantidade : 0;
+              if (valDataMov < rel.dataSaldoAnt.getTime()) {
+                rel.dataSaldoAnt = dataMov;
+                rel.saldoAnt = mov.saldoAnt;
+              } else if (this.dataInicio.getTime() > rel.dataSaldoAnt.getTime()) {
+                rel.dataSaldoAnt = dataMov;
+                rel.saldoAnt = mov.saldoAnt;
+              }
+            } else if (valDataMov > rel.dataSaldoAnt.getTime() &&
+              valDataMov < this.dataInicio.getTime()) {
+              rel.dataSaldoAnt = dataMov;
+              rel.saldoAnt = mov.saldoAnt + (mov.entrada === 1 ? mov.quantidade : -1 * mov.quantidade);
+            }
+          }
+        });
+        if (!existe) {
+          if (this.dataInicio.getTime() <= valDataMov) {
+            relAtual = {
+              'nome': mov.produto.nmProduto,
+              'saldoAnt': mov.saldoAnt,
+              'dataSaldoAnt': dataMov,
+              'entradas': mov.entrada === 1 ? mov.quantidade : 0,
+              'saidas': mov.entrada === 0 ? mov.quantidade : 0
+            }
+            this.relatorio.push(relAtual);
+          } else if (this.dataInicio.getTime() > valDataMov) {
+            relAtual = {
+              'nome': mov.produto.nmProduto,
+              'saldoAnt': mov.saldoAnt + (mov.entrada === 1 ? mov.quantidade : -1 * mov.quantidade),
+              'dataSaldoAnt': dataMov,
+              'entradas': 0,
+              'saidas': 0
+            }
+            this.relatorio.push(relAtual);
+          }
         }
-        this.relatorio.push(relAtual);
       }
-    });
-
-    this.relatorio.forEach(rel => {
-      rel.estoqueAnt += rel.saidas - rel.entradas;
     });
   }
 
@@ -122,11 +143,12 @@ export class TbMovimentacaoComponent implements OnInit, OnDestroy {
       tabela.push(
         {
           'id': (index + 1) + '',
-          'nome': this.relatorio[index].nome,
-          'estoqueAnt': this.relatorio[index].estoqueAnt,
+          'nome': this.relatorio[index].nome + " - " +
+            this.relatorio[index].dataSaldoAnt.toDateString(),
+          'saldoAnt': this.relatorio[index].saldoAnt,
           'entradas': this.relatorio[index].entradas + '',
           'saidas': this.relatorio[index].saidas + '',
-          'saldoAtual': (this.relatorio[index].estoqueAnt + this.relatorio[index].entradas - this.relatorio[index].saidas) + ''
+          'saldoAtual': (this.relatorio[index].saldoAnt + this.relatorio[index].entradas - this.relatorio[index].saidas) + ''
         }
       );
     }
@@ -146,7 +168,7 @@ export class TbMovimentacaoComponent implements OnInit, OnDestroy {
     const tabelaRelatorio = this.criaRelatorio();
     const tabelaTH = [{ title: ' Nº ', dataKey: 'id' },
     { title: 'Nome do Produto', dataKey: 'nome' },
-    { title: 'Estoque Anterior', dataKey: 'estoqueAnt' },
+    { title: 'Saldo Anterior', dataKey: 'saldoAnt' },
     { title: 'Entradas', dataKey: 'entradas' },
     { title: 'Saídas', dataKey: 'saidas' },
     { title: 'Saldo Atual', dataKey: 'saldoAtual' }];
@@ -167,6 +189,7 @@ export class TbMovimentacaoComponent implements OnInit, OnDestroy {
         doc.setFontSize(10);
         doc.setTextColor(40);
         doc.setFontStyle('normal');
+
         doc.text("Periodo: " + this.retornaData(this.dataInicio) + " - " + this.retornaData(this.dataFim), 142, 32, 0, 10);
       }
 
@@ -199,7 +222,7 @@ export class TbMovimentacaoComponent implements OnInit, OnDestroy {
         lineColor: [100, 100, 100]
       }
     });
-    doc.save('table.pdf');
+    doc.save('relatório.pdf');
   }
 
   loadAll() {
@@ -208,16 +231,13 @@ export class TbMovimentacaoComponent implements OnInit, OnDestroy {
         page: this.page - 1,
         size: this.itemsPerPage,
         sort: this.sort()
-      })
-      .pipe(
+      }).pipe(
         filter((res: HttpResponse<ITbMovimentacao[]>) => res.ok),
         map((res: HttpResponse<ITbMovimentacao[]>) => res.body)
       )
       .subscribe(
-        (res: ITbMovimentacao[]) => {
-          this.tbMovimentacaos = res;
-        },
-        (res: HttpErrorResponse) => this.onError(res.message)
+        (res: ITbMovimentacao[]) =>
+          this.tbMovimentacaos = res, (res: HttpErrorResponse) => this.onError(res.message)
       );
   }
 

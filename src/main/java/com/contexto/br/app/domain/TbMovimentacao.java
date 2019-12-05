@@ -3,7 +3,6 @@ package com.contexto.br.app.domain;
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -19,6 +18,9 @@ public class TbMovimentacao implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "saldo_ant")
+    private Integer saldoAnt;
 
     @Column(name = "quantidade")
     private Integer quantidade;
@@ -40,6 +42,14 @@ public class TbMovimentacao implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Integer getSaldoAnt() {
+        return saldoAnt;
+    }
+
+    public void setSaldoAnt(Integer saldoAnt) {
+        this.saldoAnt = saldoAnt;
     }
 
     public Integer getQuantidade() {
@@ -121,6 +131,8 @@ public class TbMovimentacao implements Serializable {
             ", entrada=" + getEntrada() +
             "}";
     }
+
+    
 
     
 }
