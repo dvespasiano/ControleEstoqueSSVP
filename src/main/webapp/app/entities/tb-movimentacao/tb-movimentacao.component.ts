@@ -143,8 +143,7 @@ export class TbMovimentacaoComponent implements OnInit, OnDestroy {
       tabela.push(
         {
           'id': (index + 1) + '',
-          'nome': this.relatorio[index].nome + " - " +
-            this.relatorio[index].dataSaldoAnt.toDateString(),
+          'nome': this.relatorio[index].nome,
           'saldoAnt': this.relatorio[index].saldoAnt,
           'entradas': this.relatorio[index].entradas + '',
           'saidas': this.relatorio[index].saidas + '',
