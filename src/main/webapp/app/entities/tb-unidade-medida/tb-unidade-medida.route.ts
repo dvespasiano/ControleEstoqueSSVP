@@ -33,7 +33,7 @@ export const tbUnidadeMedidaRoute: Routes = [
     path: '',
     component: TbUnidadeMedidaComponent,
     data: {
-      authorities: ['ROLE_USER'],
+      authorities: ['ROLE_ADMIN'],
       pageTitle: 'TbUnidadeMedidas'
     },
     canActivate: [UserRouteAccessService]
@@ -45,7 +45,7 @@ export const tbUnidadeMedidaRoute: Routes = [
       tbUnidadeMedida: TbUnidadeMedidaResolve
     },
     data: {
-      authorities: ['ROLE_USER'],
+      authorities: ['ROLE_ADMIN'],
       pageTitle: 'TbUnidadeMedidas'
     },
     canActivate: [UserRouteAccessService]
@@ -57,7 +57,7 @@ export const tbUnidadeMedidaRoute: Routes = [
       tbUnidadeMedida: TbUnidadeMedidaResolve
     },
     data: {
-      authorities: ['ROLE_USER'],
+      authorities: ['ROLE_ADMIN'],
       pageTitle: 'TbUnidadeMedidas'
     },
     canActivate: [UserRouteAccessService]
@@ -69,7 +69,7 @@ export const tbUnidadeMedidaRoute: Routes = [
       tbUnidadeMedida: TbUnidadeMedidaResolve
     },
     data: {
-      authorities: ['ROLE_USER'],
+      authorities: ['ROLE_ADMIN'],
       pageTitle: 'TbUnidadeMedidas'
     },
     canActivate: [UserRouteAccessService]
@@ -84,7 +84,7 @@ export const tbUnidadeMedidaPopupRoute: Routes = [
       tbUnidadeMedida: TbUnidadeMedidaResolve
     },
     data: {
-      authorities: ['ROLE_USER'],
+      authorities: ['ROLE_ADMIN'],
       pageTitle: 'TbUnidadeMedidas'
     },
     canActivate: [UserRouteAccessService],

@@ -45,13 +45,21 @@ export class TbProdutoComponent implements OnInit, OnDestroy {
     protected router: Router,
     protected eventManager: JhiEventManager
   ) {
-    this.itemsPerPage = ITEMS_PER_PAGE;
+    this.itemsPerPage = 1000;
     this.routeData = this.activatedRoute.data.subscribe(data => {
       this.page = data.pagingParams.page;
       this.previousPage = data.pagingParams.page;
       this.reverse = data.pagingParams.ascending;
       this.predicate = 'situacao';
     });
+  }
+
+  ngOnInit() {
+    this.loadAll();
+    this.accountService.identity().then(account => {
+      this.currentAccount = account;
+    });
+    this.registerChangeInTbProdutos();
   }
 
   public geraLista() {
@@ -223,14 +231,6 @@ export class TbProdutoComponent implements OnInit, OnDestroy {
       }
     ]);
     this.loadAll();
-  }
-
-  ngOnInit() {
-    this.loadAll();
-    this.accountService.identity().then(account => {
-      this.currentAccount = account;
-    });
-    this.registerChangeInTbProdutos();
   }
 
   ngOnDestroy() {

@@ -4,54 +4,53 @@
             <h2 id="jhi-tb-produto-heading">Criar um novo Produto</h2>
             <div>
                 <jhi-alert-error></jhi-alert-error>
-                <div class="form-group" [hidden]="!editForm.get('id').value">
-                    <label for="id">ID</label>
-                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
-                </div>
+
                 <div class="form-group">
-                    <label class="form-control-label" for="field_nmProduto">Nome do Produto</label>
-                    <input type="text" class="form-control" name="nmProduto" id="field_nmProduto"
-                        formControlName="nmProduto" />
+                    <label class="form-control-label" for="nmProduto">Nome do Produto</label>
+                    <input type="text" class="form-control" name="nmProduto" id="nmProduto" formControlName="nmProduto"
+                        required />
+                    <small style="color: red" *ngIf="naoPreenchido(editForm.get('nmProduto'))">Campo 
+                    obrigatorio</small>
                 </div>
 
                 <div class="form-group">
-                    <label class="form-control-label" for="field_unidadeMedida">Unidade de Medida</label>
-                    <select class="custom-select" class="form-control" name="unidadeMedida" id="field_unidadeMedida"
+                    <label class="form-control-label" for="unidadeMedida">Unidade de Medida</label>
+                    <select class="custom-select" class="form-control" name="unidadeMedida" id="unidadeMedida"
                         formControlName="unidadeMedida">
-                        <option selected>Selecione uma Unidade de Medida</option>
-                        <option *ngFor="let tbUnidadeMedida of tbUnidadeMedidas;trackBy: trackId" [value]="tbUnidadeMedida.id">
+                        <option selected value="padrao">Selecione uma Unidade de Medida</option>
+                        <option *ngFor="let tbUnidadeMedida of tbUnidadeMedidas;trackBy: trackId"
+                            [value]="tbUnidadeMedida.id">
                             {{tbUnidadeMedida.nmUnidadeMedida}}</option>
                     </select>
+                    <small style="color: red" *ngIf="naoPreenchido(editForm.get('unidadeMedida'))">Escolha alguma
+                        unidade de medida</small>
                 </div>
 
                 <div class="form-group">
-                    <label class="form-control-label" for="field_categoria">Categoria</label>
-                    <select class="custom-select" class="form-control" name="categoria" id="field_categoria"
+                    <label class="form-control-label" for="categoria">Categoria</label>
+                    <select class="custom-select" class="form-control" name="categoria" id="categoria"
                         formControlName="categoria">
-                        <option selected>Selecione uma Categoria</option>
+                        <option selected value="padrao">Selecione uma Categoria</option>
                         <option *ngFor="let tbCategoria of tbCategorias;trackBy: trackId" [value]="tbCategoria.id">
                             {{tbCategoria.nmCategoria}}</option>
                     </select>
-
-                </div>
-
-                
-
-                <div class="form-group">
-                    <label class="form-control-label" for="field_qtdEstoque">Quantidade no Estoque</label>
-                    <input type="text" class="form-control" name="qtdEstoque" id="field_qtdEstoque"
-                        formControlName="qtdEstoque" />
+                    <small style="color: red" *ngIf="naoPreenchido(editForm.get('categoria'))">Escolha alguma
+                        categoria</small>
                 </div>
 
                 <div class="form-group">
-                    <label class="form-control-label" for="field_qtdMin">Quantidade Mínima</label>
-                    <input type="text" class="form-control" name="qtdMin" id="field_qtdMin" formControlName="qtdMin" />
+                    <label class="form-control-label" for="qtdMin">Quantidade Mínima Exigida</label>
+                    <input type="number" class="form-control" name="qtdMin" id="qtdMin" formControlName="qtdMin"
+                        required />
+                    <small style="color: red" *ngIf="invalidaValNeg(editForm.get('qtdMin'))">Valor tem que ser
+                        positivo</small>
+                    <small style="color: red" *ngIf="naoPreenchido(editForm.get('qtdMin'))">Campo
+                        obrigatório</small>
                 </div>
 
             </div>
             <div>
-                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving"
-                    class="btn btn-primary">
+                <button type="submit" id="save-entity" [disabled]="!editForm.valid || isSaving" class="btn btn-primary">
                     <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Salvar</span>
                 </button>
                 <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">

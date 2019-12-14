@@ -6,7 +6,7 @@ import { ITbProduto, TbProduto } from 'app/shared/model/tb-produto.model';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, FormControl, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { JhiAlertService } from 'ng-jhipster';
@@ -14,7 +14,7 @@ import { TbProdutoService } from './tb-produto.service';
 import { ITbMovimentacao, TbMovimentacao } from 'app/shared/model/tb-movimentacao.model';
 import { TbMovimentacaoService } from 'app/entities/tb-movimentacao/tb-movimentacao.service';
 import * as moment from 'moment';
-import { log } from 'util';
+import { ValidatorService } from '../validator.service';
 
 @Component({
   selector: 'jhi-tb-produto-detail',
@@ -26,13 +26,8 @@ export class TbProdutoDetailComponent implements OnInit {
   tbmovimentacaos: ITbMovimentacao[];
 
   editForm = this.fb.group({
-    id: [],
-    idTbProduto: [],
-    nmProduto: [],
-    qtdAlterar: [],
-    qtdMin: [],
-    ativo: [],
-    tipo: []
+    qtdAlterar: ['', [Validators.required, this.invalidaValNeg]],
+    tipo: ['', Validators.required]
   });
 
   constructor(
@@ -41,7 +36,8 @@ export class TbProdutoDetailComponent implements OnInit {
     protected tbMovimentacaoService: TbMovimentacaoService,
     protected activatedRoute: ActivatedRoute,
     private fb: FormBuilder
-  ) {}
+  ) { }
+
 
   ngOnInit() {
     this.isSaving = false;
@@ -62,12 +58,24 @@ export class TbProdutoDetailComponent implements OnInit {
       .subscribe((res: ITbMovimentacao[]) => (this.tbmovimentacaos = res), (res: HttpErrorResponse) => this.onError(res.message));
   }
 
+  invalidaValNeg(input: FormControl) {
+    return ValidatorService.invalidaValNeg(input);
+  }
+
+  invalidaValMov(input: FormControl) {
+    return ValidatorService.invalidaValMov(input, this.tbProduto.qtdEstoque,
+      this.editForm.get("tipo").value);
+  }
+
+
+  naoPreenchido(input) {
+    return ValidatorService.naoPreenchido(input);
+  }
+
   updateForm(tbProduto: ITbProduto) {
     this.editForm.patchValue({
-      id: tbProduto.id,
-      nmProduto: tbProduto.nmProduto,
-      qtdMin: tbProduto.qtdMin,
-      ativo: tbProduto.ativo
+      qtdAlterar: null,
+      tipo: null
     });
   }
 
@@ -76,20 +84,23 @@ export class TbProdutoDetailComponent implements OnInit {
   }
 
   save() {
-    this.isSaving = true;
-    const tbProduto:ITbProduto = this.createFromForm();
-
-    if (tbProduto.id !== undefined) {
+    if (this.editForm.get(['qtdAlterar']).value > this.tbProduto.qtdEstoque &&
+      this.editForm.get(['tipo']).value === "0") {
+      alert("A quantidade de saida informada é maior que estoque atual!\n" +
+        "Verifique se você não errou o valor ou se você marcou 'saida' em vez de 'entrada'");
+    } else {
+      this.isSaving = true;
+      const tbProduto: ITbProduto = this.createFromForm();
       const tbMovimentacao: ITbMovimentacao = new TbMovimentacao();
       tbMovimentacao.data = moment();
       tbMovimentacao.entrada = parseInt(this.editForm.get(['tipo']).value, 10);
       tbMovimentacao.quantidade = parseInt(this.editForm.get(['qtdAlterar']).value, 10);
       tbMovimentacao.produto = tbProduto;
-      tbMovimentacao.saldoAnt = tbProduto.qtdEstoque - tbMovimentacao.quantidade;
+      tbMovimentacao.saldoAnt = tbProduto.qtdEstoque +
+        (tbMovimentacao.entrada === 1 ? -tbMovimentacao.quantidade : tbMovimentacao.quantidade);
+      this.subscribeToSaveResponseProduto(this.tbProdutoService.update(tbProduto));
       this.subscribeToSaveResponseMovimentacao(this.tbMovimentacaoService.create(tbMovimentacao));
-      this.subscribeToSaveResponseProduto(this.tbProdutoService.update(tbProduto));      
-    } else {
-      this.subscribeToSaveResponseProduto(this.tbProdutoService.create(tbProduto));
+
     }
   }
 
@@ -101,7 +112,7 @@ export class TbProdutoDetailComponent implements OnInit {
     if (tipo === 1) {
       estoqueAlteracao = parseInt(this.editForm.get(['qtdAlterar']).value, 10);
     } else {
-      estoqueAlteracao = -1 * parseInt(this.editForm.get(['qtdAlterar']).value, 10);
+      estoqueAlteracao = -parseInt(this.editForm.get(['qtdAlterar']).value, 10);
     }
 
     novoProduto.qtdEstoque = estoqueAtual + estoqueAlteracao;

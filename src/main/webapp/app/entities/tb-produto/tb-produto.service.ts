@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared/util/request-util';
 import { ITbProduto } from 'app/shared/model/tb-produto.model';
+import { FormControl } from '@angular/forms';
 
 type EntityResponseType = HttpResponse<ITbProduto>;
 type EntityArrayResponseType = HttpResponse<ITbProduto[]>;
@@ -35,4 +36,6 @@ export class TbProdutoService {
   delete(id: number): Observable<HttpResponse<any>> {
     return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
+
+  
 }

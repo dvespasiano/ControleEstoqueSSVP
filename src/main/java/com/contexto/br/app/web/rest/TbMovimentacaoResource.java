@@ -50,7 +50,7 @@ public class TbMovimentacaoResource {
         if (tbMovimentacao.getId() != null) {
             throw new BadRequestAlertException("A new tbMovimentacao cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        final TbMovimentacao result = tbMovimentacaoRepository.save(tbMovimentacao);
+        tbMovimentacaoRepository.save(tbMovimentacao);
         return null;
     }
 

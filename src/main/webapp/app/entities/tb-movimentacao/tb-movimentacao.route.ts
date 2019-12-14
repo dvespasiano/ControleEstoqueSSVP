@@ -33,7 +33,7 @@ export const tbMovimentacaoRoute: Routes = [
     path: '',
     component: TbMovimentacaoComponent,
     data: {
-      authorities: ['ROLE_USER'],
+      authorities: ['ROLE_USER','ROLE_ANONYMOUS'],
       pageTitle: 'TbMovimentacaos'
     },
     canActivate: [UserRouteAccessService]
@@ -45,7 +45,7 @@ export const tbMovimentacaoRoute: Routes = [
       tbMovimentacao: TbMovimentacaoResolve
     },
     data: {
-      authorities: ['ROLE_USER'],
+      authorities: ['ROLE_ADMIN'],
       pageTitle: 'TbMovimentacaos'
     },
     canActivate: [UserRouteAccessService]
@@ -69,7 +69,7 @@ export const tbMovimentacaoRoute: Routes = [
       tbMovimentacao: TbMovimentacaoResolve
     },
     data: {
-      authorities: ['ROLE_USER'],
+      authorities: ['ROLE_ADMIN'],
       pageTitle: 'TbMovimentacaos'
     },
     canActivate: [UserRouteAccessService]
@@ -84,7 +84,7 @@ export const tbMovimentacaoPopupRoute: Routes = [
       tbMovimentacao: TbMovimentacaoResolve
     },
     data: {
-      authorities: ['ROLE_USER'],
+      authorities: ['ROLE_ADMIN'],
       pageTitle: 'TbMovimentacaos'
     },
     canActivate: [UserRouteAccessService],

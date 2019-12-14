@@ -84,7 +84,7 @@ export const tbCategoriaPopupRoute: Routes = [
       tbCategoria: TbCategoriaResolve
     },
     data: {
-      authorities: ['ROLE_USER'],
+      authorities: ['ROLE_ADMIN'],
       pageTitle: 'TbCategorias'
     },
     canActivate: [UserRouteAccessService],
