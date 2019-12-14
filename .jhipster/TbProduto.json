@@ -41,7 +41,7 @@
     "changelogDate": "20191107005612",
     "entityTableName": "tb_produto",
     "dto": "no",
-    "pagination": "pagination",
+    "pagination": "no",
     "service": "no",
     "jpaMetamodelFiltering": false,
     "fluentMethods": true,

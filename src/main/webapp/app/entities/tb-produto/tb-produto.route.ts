@@ -37,7 +37,7 @@ export const tbProdutoRoute: Routes = [
       pagingParams: JhiResolvePagingParams
     },
     data: {
-      authorities: ['ROLE_USER'],
+      authorities: ['ROLE_USER','ROLE_ANONYMOUS'],
       defaultSort: 'id,asc',
       pageTitle: 'TbProdutos'
     },

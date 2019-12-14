@@ -1,25 +1,57 @@
-<div class="espacamento">
+<div class="espacamento-topic">
     <h2>Como encontrar um produto</h2>
     <p>Clique no painel administrativo acima e depois clique em "produtos".</p>
+    <div class="row justify-content-center">
+        <img src="../../../content/images/tela inicial.png" alt="">
+    </div>
+    <div class="row justify-content-center espacamento">
+        <small>Tela inicial</small>
+    </div>
     <p>
         Na tela existe uma lista de produtos, você pode procurar pelo nome do produto na barra de
         busca acima. Para garantir que você ache o produto pelo nome, sempre deixe a opção "todos"
         marcada logo abaixo da barra de busca.
     </p>
+    <div class="row justify-content-center">
+        <img src="../../../content/images/barra de busca.png" alt="">
+    </div>
+    <div class="row justify-content-center espacamento">
+        <small>Barra de busca</small>
+    </div>
 </div>
 
-<div class="espacamento">
+<div *jhiHasAnyAuthority="'ROLE_USER'" then class="espacamento-topic">
     <h2>Como adicionar um produto</h2>
     <p>Clique no painel administrativo acima e depois clique em "produtos".</p>
     <p>
-        Clique no botão no canto direito de cima "adicionar novo produto", depois preencha todos
-        as informações pedidas e depois clique em "salvar". Não vai ser possível salvar o produto
-        se algum dado não foi preenchido.
+        Clique no botão no canto direito de cima "adicionar novo produto".
     </p>
+    <div class="row justify-content-center">
+        <img src="../../../content/images/botoes produto.png" alt="">
+    </div>
+    <div class="row justify-content-center espacamento">
+        <small>Botão de adicionar produto</small>
+    </div>
+    <p>
+        Depois preencha todos as informações pedidas e depois clique em "salvar".
+        Não vai ser possível salvar o produto se algum dado não foi preenchido.
+    </p>
+    <div class="row justify-content-center">
+        <img src="../../../content/images/novo produto.png" alt="">
+    </div>
+    <div class="row justify-content-center espacamento">
+        <small>Adicionando novo produto</small>
+    </div>
     <p>Após isso aparecerá uma mensagem que o novo produto foi criado.</p>
+    <div class="row justify-content-center">
+        <img src="../../../content/images/toast novo produto.png" alt="">
+    </div>
+    <div class="row justify-content-center espacamento">
+        <small>Resposta do sistema</small>
+    </div>
 </div>
 
-<div class="espacamento">
+<div *jhiHasAnyAuthority="'ROLE_USER'" class="espacamento-topic">
     <h2>Como mudar o estoque de um produto</h2>
     <p>Clique no painel administrativo acima e depois clique em "produtos".</p>
     <p>
@@ -30,10 +62,22 @@
         saídas e clique em "salvar". Não vai ser possível salvar o estoque se alguma informação
         não foi preenchida.
     </p>
+    <div class="row justify-content-center">
+        <img src="../../../content/images/alterar estoque.png" alt="">
+    </div>
+    <div class="row justify-content-center espacamento">
+        <small>Alterando o estoque</small>
+    </div>
     <p>Após isso aparecerá uma mensagem que o novo produto foi criado.</p>
+    <div class="row justify-content-center">
+        <img src="../../../content/images/toast estoque.png" alt="">
+    </div>
+    <div class="row justify-content-center espacamento">
+        <small>Resposta do sistema</small>
+    </div>
 </div>
 
-<div class="espacamento">
+<div *jhiHasAnyAuthority="'ROLE_USER'" class="espacamento-topic">
     <h2>Como excluir um produto</h2>
     <p>Clique no painel administrativo acima e depois clique em "produtos".</p>
     <p>
@@ -41,19 +85,37 @@
         uma mensagem confirmando se você realmente deseja excluir ele. Caso tenha certeza que sim clique
         em excluir.
     </p>
+    <div class="row justify-content-center">
+        <img src="../../../content/images/exclusao.png" alt="">
+    </div>
+    <div class="row justify-content-center espacamento">
+        <small>Excluindo um produto</small>
+    </div>
     <p>Ao final uma mensagem aparecerá dizendo que o produto foi excluido com sucesso.</p>
+    <div class="row justify-content-center espacamento">
+        <img src="../../../content/images/toast exclusao.png" alt="">
+    </div>
+    <div class="row justify-content-center espacamento">
+        <small>Resposta do sistema</small>
+    </div>
 </div>
 
-<div class="espacamento">
+<div class="espacamento-topic">
     <h2>Como mostrar quais produtos quero que apareça</h2>
     <p>Clique no painel administrativo acima e depois clique em "produtos".</p>
     <p>
         Você pode filtrar por uma das categorias no botao de seleção (remédio, limpeza,
         alimento perecível, alimento não perecível).
     </p>
+    <div class="row justify-content-center espacamento">
+        <img src="../../../content/images/barra de busca.png" alt="">
+    </div>
+    <div class="row justify-content-center">
+        <small>Botão de seleção</small>
+    </div>
 </div>
 
-<div class="espacamento">
+<div class="espacamento-topic">
     <h2>Como mostrar os produtos da forma que eu quiser</h2>
     <p>Clique no painel administrativo acima e depois clique em "produtos".</p>
     <p>É possível clicar em um dos títulos da tabela, que os produtos ficarão em ordem crescente, se clicar pela
@@ -67,20 +129,26 @@
     <p>• "situação" - ordem dos que mais estão em falta ou dos que menos estão em falta</p>
 </div>
 
-<div class="espacamento">
+<div class="espacamento-topic">
     <h2>Como gerar uma lista de todos os produtos</h2>
     <p>Clique no painel administrativo acima e depois clique em "produtos".</p>
     <p>
         Escolha em que ordem deseja que os produtos fiquem (Olhar o tutorial "Como mostrar os
-        produtos da forma que eu quiser") e clique no botão no canto direito de cima "exportar
-        como pdf". Um pdf com o nome "lista de produtos.pdf" será baixado, que possui as
+        produtos da forma que eu quiser") e clique no botão no canto direito de cima "Gerar lista de produtos".
+        Um pdf com o nome "lista de produtos.pdf" será baixado, que possui as
         informações de todos os produtos, aparecendo na ordem dos produtos que estão mais em
         falta. Esse pdf pode ser útil para ter um documento impresso, mostrando quais produtos
         a entidade mais precisa ou usa-lo como lista de compras ou de necessidades.
     </p>
+    <div class="row justify-content-center">
+        <img src="../../../content/images/botoes produto.png" alt="">
+    </div>
+    <div class="row justify-content-center espacamento">
+        <small>Botão para gerar lista</small>
+    </div>
 </div>
 
-<div class="espacamento">
+<div class="espacamento-topic">
     <h2>Como gerar um relátorio de entradas e saídas de todos os produtos</h2>
     <p>Clique no painel administrativo acima e depois clique em "relatório".</p>
     <p>
@@ -88,9 +156,15 @@
         as barras "/". Depois de preenchido, aperte o botão "gerar relatório". Um pdf com o nome
         "relatorio.pdf" será baixado automaticamente.
     </p>
+    <div class="row justify-content-center">
+        <img src="../../../content/images/relatorio.png" alt="">
+    </div>
+    <div class="row justify-content-center espacamento">
+        <small>Gerando relatório</small>
+    </div>
 </div>
 
-<div class="espacamento">
+<div class="espacamento-topic">
     <h2>Entendendo o relatório</h2>
     <p>
         No cabeçalho do relatório é informado a data de emissão do relatório e o período informado na

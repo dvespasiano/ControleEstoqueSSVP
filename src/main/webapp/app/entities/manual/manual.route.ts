@@ -7,7 +7,7 @@ export const manualRoute: Routes = [
       path: '',
       component: ManualComponent,
       data: {
-        authorities: ['ROLE_USER'],
+        authorities: ['ROLE_USER','ROLE_ANONYMOUS'],
         pageTitle: 'Manual'
       },
       canActivate: [UserRouteAccessService]

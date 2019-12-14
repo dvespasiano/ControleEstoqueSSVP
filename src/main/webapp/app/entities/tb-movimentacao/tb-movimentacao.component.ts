@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { HttpHeaders, HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -14,10 +14,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
 import { ITbProduto, TbProduto } from 'app/shared/model/tb-produto.model';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators, FormControl } from '@angular/forms';
 import * as jsPDF from 'jspdf';
 import * as moment from 'moment';
-import { DatePipe } from '@angular/common';
+import { ValidatorService } from '../validator.service';
 require('jspdf-autotable');
 
 @Component({
@@ -25,6 +25,7 @@ require('jspdf-autotable');
   templateUrl: './tb-movimentacao.component.html'
 })
 export class TbMovimentacaoComponent implements OnInit, OnDestroy {
+
   tbMovimentacaos: ITbMovimentacao[];
   relatorio: { nome: string, dataSaldoAnt: Date, saldoAnt: number, entradas: number, saidas: number }[];
   currentAccount: any;
@@ -43,8 +44,8 @@ export class TbMovimentacaoComponent implements OnInit, OnDestroy {
   dataFim: Date;
 
   editForm = this.form.group({
-    dataInicio: [],
-    dataFim: []
+    dataInicio: ['', [Validators.required]],
+    dataFim: ['', Validators.required]
   });
 
   constructor(
@@ -56,7 +57,7 @@ export class TbMovimentacaoComponent implements OnInit, OnDestroy {
     protected activatedRoute: ActivatedRoute,
     protected router: Router,
     private form: FormBuilder,
-    private datePipe: DatePipe
+    protected validatorService: ValidatorService
   ) {
     this.itemsPerPage = ITEMS_PER_PAGE;
     this.routeData = this.activatedRoute.data.subscribe(data => {
@@ -64,6 +65,34 @@ export class TbMovimentacaoComponent implements OnInit, OnDestroy {
       this.previousPage = data.pagingParams.page;
       this.reverse = data.pagingParams.ascending;
       this.predicate = data.pagingParams.predicate;
+    });
+  }
+
+  ngOnInit() {
+    this.loadAll();
+    this.accountService.identity().then(account => {
+      this.currentAccount = account;
+    });
+    this.registerChangeInTbMovimentacaos();
+    this.iniciaForm();
+  }
+
+  naoPreenchido(input) {
+    return ValidatorService.naoPreenchido(input);
+  }
+
+  dataFutura(input) {
+    return ValidatorService.dataFutura(input);
+  }
+
+  datasInconsistentes() {
+    return ValidatorService.datasInconsistentes(this.dataInicio, this.dataFim);
+  }
+
+  iniciaForm() {
+    this.editForm.setValue({
+      dataInicio: null,
+      dataFim: null
     });
   }
 
@@ -82,8 +111,7 @@ export class TbMovimentacaoComponent implements OnInit, OnDestroy {
   }
 
   public agrupamento() {
-    this.relatorio = [];
-    this.transformaData();
+    this.relatorio = [];    
     let existe: boolean;
     let relAtual: { nome: string, dataSaldoAnt: Date, saldoAnt: number, entradas: number, saidas: number };
     this.tbMovimentacaos.forEach(mov => {
@@ -135,6 +163,7 @@ export class TbMovimentacaoComponent implements OnInit, OnDestroy {
         }
       }
     });
+
   }
 
   public criaRelatorio() {
@@ -159,69 +188,85 @@ export class TbMovimentacaoComponent implements OnInit, OnDestroy {
   }
 
   public downloadPDF() {
-    this.agrupamento();
-    const doc = new jsPDF();
-    //const pageTotal = this.page;
+    this.transformaData();
+    if (this.dataInicio.getTime() <= this.dataFim.getTime()) {
+      this.agrupamento();
+      const doc = new jsPDF();
+      //const pageTotal = this.page;
 
-    const imgData = this.imagemData();
-    const tabelaRelatorio = this.criaRelatorio();
-    const tabelaTH = [{ title: ' Nº ', dataKey: 'id' },
-    { title: 'Nome do Produto', dataKey: 'nome' },
-    { title: 'Saldo Anterior', dataKey: 'saldoAnt' },
-    { title: 'Entradas', dataKey: 'entradas' },
-    { title: 'Saídas', dataKey: 'saidas' },
-    { title: 'Saldo Atual', dataKey: 'saldoAtual' }];
-    const headerFooter = (data) => {
-      if (doc.internal.getNumberOfPages() === 1) {
-        //header
-        doc.setFontSize(20);
+      const imgData = this.imagemData();
+      const tabelaRelatorio = this.criaRelatorio();
+      const tabelaTH = [{ title: ' Nº ', dataKey: 'id' },
+      { title: 'Nome do Produto', dataKey: 'nome' },
+      { title: 'Saldo Anterior', dataKey: 'saldoAnt' },
+      { title: 'Entradas', dataKey: 'entradas' },
+      { title: 'Saídas', dataKey: 'saidas' },
+      { title: 'Saldo Atual', dataKey: 'saldoAtual' }];
+      const headerFooter = (data) => {
+        if (doc.internal.getNumberOfPages() === 1) {
+          //header
+          doc.setFontSize(20);
+          doc.setTextColor(40);
+          doc.setFontStyle('normal');
+          doc.addImage(imgData, 'JPEG', 0, 0, 51.2, 26, 16);
+          doc.text("Relatorio", 90, 20, 0, 10);
+
+          doc.setFontSize(10);
+          doc.setTextColor(40);
+          doc.setFontStyle('normal');
+          doc.text("Emitido em: " + moment().format("DD/MM/YYYY"), 14.5, 32, 0, 10);
+
+          doc.setFontSize(10);
+          doc.setTextColor(40);
+          doc.setFontStyle('normal');
+
+          doc.text("Periodo: " + this.retornaData(this.dataInicio) + " - " + this.retornaData(this.dataFim), 142, 32, 0, 10);
+        }
+
+        //footer
+        doc.setFontSize(8);
         doc.setTextColor(40);
         doc.setFontStyle('normal');
-        doc.addImage(imgData, 'JPEG', 0, 0, 51.2, 26, 16);
-        doc.text("Relatorio", 90, 20, 0, 10);
+        doc.text(185, 288, 'página ' + doc.internal.getNumberOfPages());
+      };
 
-        doc.setFontSize(10);
-        doc.setTextColor(40);
-        doc.setFontStyle('normal');
-        doc.text("Emitido em: " + moment().format("DD/MM/YYYY"), 14.5, 32, 0, 10);
+      const centralizaTexto = (data) => {
+        if (data.column.index !== 1 || data.row.raw.nome === "Nome do Produto") {
+          data.cell.styles.halign = 'center';
+        }
+      };
 
-        doc.setFontSize(10);
-        doc.setTextColor(40);
-        doc.setFontStyle('normal');
-
-        doc.text("Periodo: " + this.retornaData(this.dataInicio) + " - " + this.retornaData(this.dataFim), 142, 32, 0, 10);
+      //doc.autoTable({ html: '#lista-produtos', theme: 'grid'});
+      doc.autoTable(tabelaTH, tabelaRelatorio, {
+        didDrawPage: headerFooter,
+        startY: doc.internal.getNumberOfPages() > 1 ? doc.autoTableEndPosY() + 0 : 35,
+        theme: 'grid',
+        rowPageBreak: 'avoid',
+        didParseCell: centralizaTexto,
+        headStyles: {
+          lineWidth: 0.01,
+          lineColor: [100, 100, 100]
+        },
+        bodyStyles: {
+          lineWidth: 0.01,
+          lineColor: [100, 100, 100]
+        }
+      });
+      doc.save('relatório.pdf');
+    } else {
+      if (this.datasInconsistentes() !== null) {
+        alert("A data informada é maior que a data de hoje");
+      } else {
+        alert("A data de inicio ('" + this.retornaData(this.dataInicio) + "') não pode ser maior que a data final('" + this.retornaData(this.dataFim) + "')");
       }
+    }
+  }
 
-      //footer
-      doc.setFontSize(8);
-      doc.setTextColor(40);
-      doc.setFontStyle('normal');
-      doc.text(185, 288, 'página ' + doc.internal.getNumberOfPages());
-    };
-
-    const centralizaTexto = (data) => {
-      if (data.column.index !== 1 || data.row.raw.nome === "Nome do Produto") {
-        data.cell.styles.halign = 'center';
-      }
-    };
-
-    //doc.autoTable({ html: '#lista-produtos', theme: 'grid'});
-    doc.autoTable(tabelaTH, tabelaRelatorio, {
-      didDrawPage: headerFooter,
-      startY: doc.internal.getNumberOfPages() > 1 ? doc.autoTableEndPosY() + 0 : 35,
-      theme: 'grid',
-      rowPageBreak: 'avoid',
-      didParseCell: centralizaTexto,
-      headStyles: {
-        lineWidth: 0.01,
-        lineColor: [100, 100, 100]
-      },
-      bodyStyles: {
-        lineWidth: 0.01,
-        lineColor: [100, 100, 100]
-      }
+  updateForm(tbProduto: ITbProduto) {
+    this.editForm.patchValue({
+      dataInicio: null,
+      datafim: null,
     });
-    doc.save('relatório.pdf');
   }
 
   loadAll() {
@@ -268,14 +313,6 @@ export class TbMovimentacaoComponent implements OnInit, OnDestroy {
       }
     ]);
     this.loadAll();
-  }
-
-  ngOnInit() {
-    this.loadAll();
-    this.accountService.identity().then(account => {
-      this.currentAccount = account;
-    });
-    this.registerChangeInTbMovimentacaos();
   }
 
   ngOnDestroy() {

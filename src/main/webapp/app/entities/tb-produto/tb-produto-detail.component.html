@@ -25,55 +25,46 @@
                 <dd>
                     <span>{{tbProduto.qtdMin}}</span>
                 </dd>
-                
             </dl>
-
-
         </div>
         <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
             <div class="form-group">
-
-                <label class="form-control-label" for="field_tipo">Tipo</label>
+                <label class="form-control-label" for="tipo">Tipo</label>
                 <div style="margin-left: 1em;">
                     <div class="row">
                         <label for="tipo" class="radio-inline">
                             <input type="radio" value="1" formControlName="tipo" checked required /> Entrada &nbsp;
                         </label>
                         <label for="tipo" class="radio-inline">
-                            <input type="radio" value="0" formControlName="tipo" /> Saida
+                            <input type="radio" value="0" formControlName="tipo" required /> Saida
                         </label>
                     </div>
                 </div>
-            </div>
-
-
-            <div class="form-group" [hidden]="!editForm.get('id').value">
-                <input type="hidden" class="form-control" id="id" name="id" formControlName="id" readonly />
+                <small style="color: red" *ngIf="naoPreenchido(editForm.get('tipo'))">Marque uma
+                    das opções</small>
             </div>
 
             <div class="form-group">
-                <label class="form-control-label" for="field_qtdAlterar">Quantidade</label>
-                <input type="number" class="form-control" name="qtdAlterar" id="qtdAlterar"
-                    formControlName="qtdAlterar" />
+                <label class="form-control-label" for="qtdAlterar">Quantidade</label>
+                <input type="number" class="form-control" name="qtdAlterar" id="qtdAlterar" formControlName="qtdAlterar"
+                    required />
+                <small style="color: red" *ngIf="invalidaValNeg(editForm.get('qtdAlterar'))">Valor tem que ser
+                    positivo</small>
+                <small style="color: red" *ngIf="invalidaValMov(editForm.get('qtdAlterar'))">Valor de saida é maior
+                    que o estoque</small>
+                <small style="color: red" *ngIf="naoPreenchido(editForm.get('qtdAlterar'))">Campo
+                    obrigatório</small>
             </div>
-
 
             <div>
                 <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-info">
                     <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Salvar</span>
                 </button>
 
-
                 <button type="button" id="cancel-save" class="btn btn-primary" (click)="previousState()">
                     <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancelar</span>
                 </button>
-
             </div>
         </form>
-
-
     </div>
-
-
-</div>
 </div>
