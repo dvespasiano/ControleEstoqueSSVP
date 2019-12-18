@@ -20,7 +20,7 @@ describe('Service Tests', () => {
       service = injector.get(TbCategoriaService);
       httpMock = injector.get(HttpTestingController);
 
-      elemDefault = new TbCategoria(0, 0, 'AAAAAAA');
+      elemDefault = new TbCategoria(0, 'AAAAAAA');
     });
 
     describe('Service methods', () => {

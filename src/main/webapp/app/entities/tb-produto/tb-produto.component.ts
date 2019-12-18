@@ -10,7 +10,6 @@ import { AccountService } from 'app/core/auth/account.service';
 import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
 import { TbProdutoService } from './tb-produto.service';
 import * as moment from 'moment';
-import * as jsPDF from 'jspdf';
 require('jspdf-autotable');
 
 @Component({
@@ -35,6 +34,7 @@ export class TbProdutoComponent implements OnInit, OnDestroy {
   previousPage: any;
   reverse: any;
   situacao: number;
+  jsPDF: any;
 
   constructor(
     protected tbProdutoService: TbProdutoService,
@@ -45,6 +45,7 @@ export class TbProdutoComponent implements OnInit, OnDestroy {
     protected router: Router,
     protected eventManager: JhiEventManager
   ) {
+    this.jsPDF = require('jspdf');
     this.itemsPerPage = 1000;
     this.routeData = this.activatedRoute.data.subscribe(data => {
       this.page = data.pagingParams.page;
@@ -81,7 +82,7 @@ export class TbProdutoComponent implements OnInit, OnDestroy {
   }
 
   public downloadPDF() {
-    const doc = new jsPDF();
+    const doc = new this.jsPDF();
     //const pageTotal = doc.internal.pages.length;
     const imgData = this.imagemData();
     const tabelaProdutos = this.geraLista();
@@ -128,7 +129,7 @@ export class TbProdutoComponent implements OnInit, OnDestroy {
         data.cell.styles.halign = 'center';
       }
     };
-
+    
     //doc.autoTable({ html: '#lista-produtos', theme: 'grid'});
     doc.autoTable(tabelaTH, tabelaProdutos, {
       didDrawPage: headerFooter,
