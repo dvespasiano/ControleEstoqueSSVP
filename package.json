@@ -28,7 +28,7 @@
     "core-js": "3.2.1",
     "html2canvas": "^1.0.0-rc.5",
     "jspdf": "^1.5.3",
-    "jspdf-autotable": "^3.2.11",
+    "jspdf-autotable": "^2.3.5",
     "moment": "^2.24.0",
     "ng-jhipster": "0.11.1",
     "ngx-cookie": "4.0.2",

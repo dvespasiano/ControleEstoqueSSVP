@@ -190,6 +190,7 @@ export class TbMovimentacaoComponent implements OnInit, OnDestroy {
     if (this.dataInicio.getTime() <= this.dataFim.getTime()) {
       this.agrupamento();
       const doc = new jsPDF();
+      require('jspdf-autotable');
       //const pageTotal = this.page;
 
       const imgData = this.imagemData();
@@ -236,7 +237,7 @@ export class TbMovimentacaoComponent implements OnInit, OnDestroy {
         }
       };
 
-      //doc.autoTable({ html: '#lista-produtos', theme: 'grid'});
+      doc.autoTable({ html: '#lista-produtos', theme: 'grid' });
       doc.autoTable(tabelaTH, tabelaRelatorio, {
         didDrawPage: headerFooter,
         startY: doc.internal.getNumberOfPages() > 1 ? doc.autoTableEndPosY() + 0 : 35,
