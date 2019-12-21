@@ -15,7 +15,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
 import { ITbProduto, TbProduto } from 'app/shared/model/tb-produto.model';
 import { FormBuilder, Validators, FormControl } from '@angular/forms';
-import * as jsPDF from 'jspdf';
 import * as moment from 'moment';
 import { ValidatorService } from '../validator.service';
 require('jspdf-autotable');
@@ -41,6 +40,7 @@ export class TbMovimentacaoComponent implements OnInit, OnDestroy {
   reverse: any;
   dataInicio: Date;
   dataFim: Date;
+  jsPDF: any;
 
   editForm = this.form.group({
     dataInicio: ['', [Validators.required]],
@@ -58,6 +58,7 @@ export class TbMovimentacaoComponent implements OnInit, OnDestroy {
     private form: FormBuilder,
     protected validatorService: ValidatorService
   ) {
+    this.jsPDF = require('jspdf');
     this.itemsPerPage = ITEMS_PER_PAGE;
     this.routeData = this.activatedRoute.data.subscribe(data => {
       this.page = data.pagingParams.page;
@@ -187,10 +188,15 @@ export class TbMovimentacaoComponent implements OnInit, OnDestroy {
 
   public downloadPDF() {
     this.transformaData();
-    if (this.dataInicio.getTime() <= this.dataFim.getTime()) {
+    if (
+      this.dataInicio.getTime() <= this.dataFim.getTime() &&
+      this.dataFim.getTime() <=
+        moment()
+          .toDate()
+          .getTime()
+    ) {
       this.agrupamento();
-      const doc = new jsPDF();
-      require('jspdf-autotable');
+      const doc = new this.jsPDF();
       //const pageTotal = this.page;
 
       const imgData = this.imagemData();
@@ -237,7 +243,7 @@ export class TbMovimentacaoComponent implements OnInit, OnDestroy {
         }
       };
 
-      doc.autoTable({ html: '#lista-produtos', theme: 'grid' });
+      //doc.autoTable({ html: '#lista-produtos', theme: 'grid' });
       doc.autoTable(tabelaTH, tabelaRelatorio, {
         didDrawPage: headerFooter,
         startY: doc.internal.getNumberOfPages() > 1 ? doc.autoTableEndPosY() + 0 : 35,
@@ -255,7 +261,7 @@ export class TbMovimentacaoComponent implements OnInit, OnDestroy {
       });
       doc.save('relatório.pdf');
     } else {
-      if (this.datasInconsistentes() !== null) {
+      if (this.datasInconsistentes() === null) {
         alert('A data informada é maior que a data de hoje');
       } else {
         alert(
