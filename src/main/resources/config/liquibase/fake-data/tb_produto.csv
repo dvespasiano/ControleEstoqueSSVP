@@ -1,171 +1,171 @@
 id;nm_produto;qtd_estoque;qtd_min;situacao;ativo;categoria_id;unidade_medida_id
-1;Acebrofilina;99;2;49.5;1;1;1
-2;Acetilcisteína 600 mg pó;34;2;17.0;1;1;1
-3;agulha 4 mm;38;2;19.0;1;1;1
-4;Amiodarona 200mg;91;2;45.5;1;1;1
-5;Amitriptilina 25mg;81;2;40.5;1;1;1
-6;Amoxicilina 500mg + clav. 125;74;2;37.0;1;1;1
-7;Atadura 12 cm;75;2;37.5;1;1;1
-8;Atorvastatina 10mg;26;2;13.0;1;1;1
-9;Atorvastatina 20 mg;19;2;9.5;1;1;1
-10;Atorvastatina 40 mg;73;2;36.5;1;1;1
-11;Baby med;62;2;31.0;1;1;1
-12;Betaistina 24 mg;18;2;9.0;1;1;1
-13;Biperideno 2mg;85;2;42.5;1;1;1
-14;Bromidrato de galantamina 16MG;53;2;26.5;1;1;1
-15;Buscopan GTS;59;2;29.5;1;1;1
-16;Buscopan composto;22;2;11.0;1;1;1
-17;Carbamazepina 200mg;30;2;15.0;1;1;1
-18;Carvedilol 6,25;13;2;6.5;1;1;1
-19;Cetaconazol shapoo;10;2;5.0;1;1;1
-20;Cetoconazol pomada;96;2;48.0;1;1;1
-21;Cilostazol 100mg;6;2;3.0;1;1;1
-22;Cilostazol 50mg;38;2;19.0;1;1;1
-23;cimegrip;58;2;29.0;1;1;1
-24;Ciprofloxacino 500 mg;96;2;48.0;1;1;1
-25;Citalopram 20 mg;61;2;30.5;1;1;1
-26;Citoneurim 5.000 5.;31;2;15.5;1;1;1
-27;Clopidogrel 75 mg;97;2;48.5;1;1;1
-28;Colplexo B;74;2;37.0;1;1;1
-29;Debridan pomada;56;2;28.0;1;1;1
-30;Diclofenaco de dietilamônio;69;2;34.5;1;1;1
-31;Dipirona 1g;23;2;11.5;1;1;1
-32;Dipirona 500 mg;17;2;8.5;1;1;1
-33;Donaren 150 mg;10;2;5.0;1;1;1
-34;Donaren 50 mg;14;2;7.0;1;1;1
-35;Donila/Duo 10/20;84;2;42.0;1;1;1
-36;Duloxetina 30 mg;48;2;24.0;1;1;1
-37;Escitalopran 10 mg;24;2;12.0;1;1;1
-38;Escitalopran 15 mg;92;2;46.0;1;1;1
-39;Esomeprazol 20 mg;69;2;34.5;1;1;1
-40;Espirolactona 50 mg;95;2;47.5;1;1;1
-41;fenobarbital 100mg;62;2;31.0;1;1;1
-42;flexalgim;39;2;19.5;1;1;1
-43;Fluoxetina 20 mg;79;2;39.5;1;1;1
-44;Forxiga 10 mg;12;2;6.0;1;1;1
-45;Frasco de dieta enteral;98;2;49.0;1;1;1
-46;Galantamina 16 mg;16;2;8.0;1;1;1
-47;Glicazida 30 mg;27;2;13.5;1;1;1
-48;Granado (pó antisséptico);99;2;49.5;1;1;1
-49;Hidralazina 50 mg;92;2;46.0;1;1;1
-50;Imipramina 25mg;58;2;29.0;1;1;1
-51;Lacrifilme colírio;61;2;30.5;1;1;1
-52;Lavitan A a Z;13;2;6.5;1;1;1
-53;levofloxacino 500mg;43;2;21.5;1;1;1
-54;Lidocaína POMADA;72;2;36.0;1;1;1
-55;Lisinopril 10mg;60;2;30.0;1;1;1
-56;listerine/ Fluor;17;2;8.5;1;1;1
-57;Melatonina 6 mg;26;2;13.0;1;1;1
-58;Melotonina 5mg;7;2;3.5;1;1;1
-59;Memantina 10 mg;64;2;32.0;1;1;1
-60;Miconazol pomada;46;2;23.0;1;1;1
-61;Mirtazapina 30mg;84;2;42.0;1;1;1
-62;Nistatina + oxido de zinco;74;2;37.0;1;1;1
-63;Nitrofurantoina 100 mg;55;2;27.5;1;1;1
-64;Oleo de girassol;21;2;10.5;1;1;1
-65;Oleo Mineral;14;2;7.0;1;1;1
-66;Oncilon pomada;32;2;16.0;1;1;1
-67;Omeprazol 20 mg;42;2;21.0;1;1;1
-68;Pantoprazol 40mg;38;2;19.0;1;1;1
-69;Pioglitazona 30 mg;56;2;28.0;1;1;1
-70;Predinisona 20mg ;75;2;37.5;1;1;1
-71;Predinisona 5mg ;35;2;17.5;1;1;1
-72;Pregabalina 75mg;78;2;39.0;1;1;1
-73;Proctfis pomada;11;2;5.5;1;1;1
-74;Prolopa 25mg;71;2;35.5;1;1;1
-75;Prolopa 100mg;48;2;24.0;1;1;1
-76;Propionato de clobetazol 0,5mg;63;2;31.5;1;1;1
-77;Própolis EXTRATO;93;2;46.5;1;1;1
-78;Quetiapina 25 mg;85;2;42.5;1;1;1
-79;Quetiapina XR 50 mg;67;2;33.5;1;1;1
-80;Risperidona 1mg;73;2;36.5;1;1;1
-81;Risperidona 2 mg;7;2;3.5;1;1;1
-82;Sebo de carneiro creme;6;2;3.0;1;1;1
-83;Secnidazol 1 G;43;2;21.5;1;1;1
-84;Seretide 25mcg;13;2;6.5;1;1;1
-85;Seretide 250 mcg;28;2;14.0;1;1;1
-86;Seringa c/agulha 13*4,5;28;2;14.0;1;1;1
-87;Sertralina 50mg ;88;2;44.0;1;1;1
-88;Soro fisiológico;44;2;22.0;1;1;1
-89;Tandrilax;23;2;11.5;1;1;1
-90;Tansulosina 0,4;21;2;10.5;1;1;1
-91;Trazodona 50 mg;29;2;14.5;1;1;1
-92;Valsartana 80 mg;53;2;26.5;1;1;1
-93;vick xarope;39;2;19.5;1;1;1
-94;Vitamina D 200UI;99;2;49.5;1;1;1
-95;Xingduo XR 5mg;42;2;21.0;1;1;1
-96;Achocolado;44;2;22.0;1;3;6
-97;Açúcar;95;60;1.5833333333333333;1;3;2
-98;Adoçante;40;20;2.0;1;3;5
-99;Água mineral ;4;9;0.4444444444444444;1;3;5
-100;Amendoim;4;2;2.0;1;3;4
-101;Amido de Milho (Maisena);42;10;4.2;1;3;4
-102;Arroz;42;70;0.6;1;3;2
-103;Aveia;30;2;15.0;1;3;4
-104;Azeitona;24;2;12.0;1;3;5
-105;Batata palha;9;1;9.0;1;3;4
-106;Biscoito de Sal;14;16;0.875;1;3;4
-107;Biscoito Doce (4 G);3;3;1.0;1;3;4
-108;Biscoito Doce (4 P);87;12;7.25;1;3;4
-109;Biscoito Papa Ovo e Polvilho;66;6;11.0;1;3;4
-110;Café (250g);79;40;1.975;1;3;4
-111;Canjica Branca;10;1;10.0;1;3;4
-112;Canjiquinha;38;1;38.0;1;3;4
-113;Cereais;46;7;6.571428571428571;1;3;4
-114;Chá;98;1;98.0;1;3;5
-115;Corante;98;1;98.0;1;3;2
-116;Creme de Leite;78;5;15.6;1;3;5
-117;Espessante;87;2;43.5;1;3;5
-118;Farinha de Mandioca / Farofa;86;6;14.333333333333334;1;3;2
-119;Farinha de Milho;54;4;13.5;1;3;2
-120;Farinha de Trigo;3;4;0.75;1;3;2
-121;Feijão;92;62;1.4838709677419355;1;3;2
-122;Fermento em Pó;79;2;39.5;1;3;5
-123;Fubá;73;9;8.11111111111111;1;3;2
-124;Gelatina em Pó;95;6;15.833333333333334;1;3;4
-125;Goiabada;35;1;35.0;1;3;5
-126;Lasanha;52;1;52.0;1;3;4
-127;Leite Condensado;84;5;16.8;1;3;5
-128;Leite de 1L;72;90;0.8;1;3;3
-129;Leite em Pó;72;1;72.0;1;3;7
-130;Macarrão (500g);33;24;1;24.0;3;4
-131;Macarrão Cortado;33;5;6.6;1;3;4
-132;Massa de Bolo;46;5;9.2;1;3;4
-133;Massa de Tomate;12;12;1.0;1;3;6
-134;Milho Verde;17;2;8.5;1;3;7
-135;Mucilon 230g;32;10;3.2;1;3;4
-136;Óleo;29;42;0.6904761904761905;1;3;3
-137;Oregano;37;1;37.0;1;3;4
-138;Paçoquinha;49;1;49.0;1;3;4
-139;Papel Alumínio;34;1;34.0;1;3;4
-140;Sal;24;9;2.6666666666666665;1;3;2
-141;Sal Grosso;93;1;93.0;1;3;2
-142;Sardinha;87;2;43.5;1;3;7
-143;Suco;45;25;1.8;1;3;3
-144;Suplemento;38;15;2.533333333333333;1;3;7
-145;Vinagre;63;2;31.5;1;3;3
-146;agua sanitaria galao 5 litros;95;20;4.75;1;4;5
-147;Saco plastico lixo 40 litros reforçada;3;20;0.15;1;4;4
-148;Saco plastico lixo 100 litros reforçada;30;20;1.5;1;4;4
-149;detergente liguido neutro galao 5 litros;9;20;0.45;1;4;5
-150;bucha amarela;83;20;4.15;1;4;5
-151;toalha de papel branco luxo;50;20;2.5;1;4;4
-152;Alcool Etilico 70% ;34;20;1.7;1;4;5
-153;touca descartavel c/100;72;20;3.6;1;4;4
-154;desinfetante galao 5 litros;14;20;0.7;1;4;5
-155;pano de chao 55x75 cm;36;20;1.8;1;4;5
-156;sabonete liquido galao 5 litros;0;20;0.0;1;4;5
-157;copo descartavel 50ml;66;20;3.3;1;4;4
-158;alcool gel 5 litros;35;20;1.75;1;4;5
-159;Sabão em pó;38;20;1.9;1;4;2
-160;Confort;38;20;1.9;1;4;5
-161;Bom bril;62;20;3.1;1;4;5
-162;Bucha estrela;61;20;3.05;1;4;5
-163;Sacola cozinha;86;20;4.3;1;4;4
-164;Luva volk laranja;60;20;3.0;1;4;5
-165;Veja multiuso;63;20;3.15;1;4;5
-166;Rolo perflex 20x300;21;20;1.05;1;4;5
-167;Sacola transparente 40x60 espessura 10;39;20;1.95;1;4;4
-168;Vassoura ;8;20;0.4;1;4;5
-169;rodo;66;20;3.3;1;4;5
-170;Escova lava roupa;70;20;3.5;1;4;5
+1;Acebrofilina ;75;2;37.5;1;1;1
+2;Acetilcisteína 600 mg pó;102;2;51.0;1;1;1
+3;agulha 4 mm;88;2;44.0;1;1;1
+4;Amiodarona 200mg;149;2;74.5;1;1;1
+5;Amitriptilina 25mg;37;2;18.5;1;1;1
+6;Amoxicilina 500mg + clav. 125;109;2;54.5;1;1;1
+7;Atadura 12 cm;26;2;13.0;1;1;1
+8;Atorvastatina 10mg;4;2;2.0;1;1;1
+9;Atorvastatina 20 mg;87;2;43.5;1;1;1
+10;Atorvastatina 40 mg;55;2;27.5;1;1;1
+11;Baby med;50;2;25.0;1;1;1
+12;Betaistina 24 mg;53;2;26.5;1;1;1
+13;Biperideno 2mg;18;2;9.0;1;1;1
+14;Bromidrato de galantamina 16MG;130;2;65.0;1;1;1
+15;Buscopan GTS;44;2;22.0;1;1;1
+16;Buscopan composto;82;2;41.0;1;1;1
+17;Carbamazepina 200mg;77;2;38.5;1;1;1
+18;Carvedilol 6,25;78;2;39.0;1;1;1
+19;Cetaconazol shapoo;95;2;47.5;1;1;1
+20;Cetoconazol pomada;9;2;4.5;1;1;1
+21;Cilostazol 100mg;81;2;40.5;1;1;1
+22;Cilostazol 50mg;31;2;15.5;1;1;1
+23;cimegrip;87;2;43.5;1;1;1
+24;Ciprofloxacino 500 mg;87;2;43.5;1;1;1
+25;Citalopram 20 mg;107;2;53.5;1;1;1
+26;Citoneurim 5.000 5.;63;2;31.5;1;1;1
+27;Clopidogrel 75 mg;91;2;45.5;1;1;1
+28;Colplexo B;116;2;58.0;1;1;1
+29;Debridan pomada;114;2;57.0;1;1;1
+30;Diclofenaco de dietilamônio;87;2;43.5;1;1;1
+31;Dipirona 1g;69;2;34.5;1;1;1
+32;Dipirona 500 mg;112;2;56.0;1;1;1
+33;Donaren 150 mg;29;2;14.5;1;1;1
+34;Donaren 50 mg;50;2;25.0;1;1;1
+35;Donila/Duo 10/20;110;2;55.0;1;1;1
+36;Duloxetina 30 mg;32;2;16.0;1;1;1
+37;Escitalopran 10 mg;44;2;22.0;1;1;1
+38;Escitalopran 15 mg;33;2;16.5;1;1;1
+39;Esomeprazol 20 mg;47;2;23.5;1;1;1
+40;Espirolactona 50 mg;115;2;57.5;1;1;1
+41;fenobarbital 100mg;55;2;27.5;1;1;1
+42;flexalgim;165;2;82.5;1;1;1
+43;Fluoxetina 20 mg;120;2;60.0;1;1;1
+44;Forxiga 10 mg;78;2;39.0;1;1;1
+45;Frasco de dieta enteral;49;2;24.5;1;1;1
+46;Galantamina 16 mg;100;2;50.0;1;1;1
+47;Glicazida 30 mg;103;2;51.5;1;1;1
+48;Granado (pó antisséptico);49;2;24.5;1;1;1
+49;Hidralazina 50 mg;64;2;32.0;1;1;1
+50;Imipramina 25mg;20;2;10.0;1;1;1
+51;Lacrifilme colírio;44;2;22.0;1;1;1
+52;Lavitan A a Z;100;2;50.0;1;1;1
+53;levofloxacino 500mg;124;2;62.0;1;1;1
+54;Lidocaína POMADA;63;2;31.5;1;1;1
+55;Lisinopril 10mg;117;2;58.5;1;1;1
+56;listerine/ Fluor;26;2;13.0;1;1;1
+57;Melatonina 6 mg;32;2;16.0;1;1;1
+58;Melotonina 5mg;78;2;39.0;1;1;1
+59;Memantina 10 mg;39;2;19.5;1;1;1
+60;Miconazol pomada;52;2;26.0;1;1;1
+61;Mirtazapina 30mg;11;2;5.5;1;1;1
+62;Nistatina + oxido de zinco;112;2;56.0;1;1;1
+63;Nitrofurantoina 100 mg;106;2;53.0;1;1;1
+64;Oleo de girassol;97;2;48.5;1;1;1
+65;Oleo Mineral;58;2;29.0;1;1;1
+66;Oncilon pomada;88;2;44.0;1;1;1
+67;Omeprazol 20 mg;121;2;60.5;1;1;1
+68;Pantoprazol 40mg;78;2;39.0;1;1;1
+69;Pioglitazona 30 mg;33;2;16.5;1;1;1
+70;Predinisona 20mg ;127;2;63.5;1;1;1
+71;Predinisona 5mg ;84;2;42.0;1;1;1
+72;Pregabalina 75mg;61;2;30.5;1;1;1
+73;Proctfis pomada;51;2;25.5;1;1;1
+74;Prolopa 25mg;72;2;36.0;1;1;1
+75;Prolopa 100mg;61;2;30.5;1;1;1
+76;Propionato de clobetazol 0,5mg;152;2;76.0;1;1;1
+77;Própolis EXTRATO;41;2;20.5;1;1;1
+78;Quetiapina 25 mg;82;2;41.0;1;1;1
+79;Quetiapina XR 50 mg;74;2;37.0;1;1;1
+80;Risperidona 1mg;107;2;53.5;1;1;1
+81;Risperidona 2 mg;50;2;25.0;1;1;1
+82;Sebo de carneiro creme;65;2;32.5;1;1;1
+83;Secnidazol 1 G;29;2;14.5;1;1;1
+84;Seretide 25mcg;51;2;25.5;1;1;1
+85;Seretide 250 mcg;62;2;31.0;1;1;1
+86;Seringa c/agulha 13*4,5;110;2;55.0;1;1;1
+87;Sertralina 50mg ;81;2;40.5;1;1;1
+88;Soro fisiológico;25;2;12.5;1;1;1
+89;Tandrilax;98;2;49.0;1;1;1
+90;Tansulosina 0,4;74;2;37.0;1;1;1
+91;Trazodona 50 mg;12;2;6.0;1;1;1
+92;Valsartana 80 mg;51;2;25.5;1;1;1
+93;vick xarope;77;2;38.5;1;1;1
+94;Vitamina D 200UI;55;2;27.5;1;1;1
+95;Xingduo XR 5mg;103;2;51.5;1;1;1
+96;Achocolatado;96;2;48.0;1;3;6
+97;Açúcar;77;60;1.2833333333333334;1;3;2
+98;Adoçante;53;20;2.65;1;3;5
+99;Água mineral ;64;9;7.111111111111111;1;3;5
+100;Amendoim;70;2;35.0;1;3;4
+101;Amido de Milho (Maisena);108;10;10.8;1;3;4
+102;Arroz;78;70;1.1142857142857143;1;3;2
+103;Aveia;60;2;30.0;1;3;4
+104;Azeitona;18;2;9.0;1;3;5
+105;Batata palha;94;1;94.0;1;3;4
+106;Biscoito de Sal;89;16;5.5625;1;3;4
+107;Biscoito Doce (4 G);99;3;33.0;1;3;4
+108;Biscoito Doce (4 P);141;12;11.75;1;3;4
+109;Biscoito Papa Ovo e Polvilho;132;6;22.0;1;3;4
+110;Café (250g);44;40;1.1;1;3;4
+111;Canjica Branca;24;1;24.0;1;3;4
+112;Canjiquinha;15;1;15.0;1;3;4
+113;Cereais;97;7;13.857142857142858;1;3;4
+114;Chá;89;1;89.0;1;3;5
+115;Corante;53;1;53.0;1;3;2
+116;Creme de Leite;97;5;19.4;1;3;5
+117;Espessante;57;2;28.5;1;3;5
+118;Farinha de Mandioca / Farofa;60;6;10.0;1;3;2
+119;Farinha de Milho;85;4;21.25;1;3;2
+120;Farinha de Trigo;103;4;25.75;1;3;2
+121;Feijão;117;62;1.8870967741935485;1;3;2
+122;Fermento em Pó;59;2;29.5;1;3;5
+123;Fubá;56;9;6.222222222222222;1;3;2
+124;Gelatina em Pó;53;6;8.833333333333334;1;3;4
+125;Goiabada;138;1;138.0;1;3;5
+126;Lasanha;62;1;62.0;1;3;4
+127;Leite Condensado;74;5;14.8;1;3;5
+128;Leite de 1L;78;90;0.8666666666666667;1;3;3
+129;Leite em Pó;74;1;74.0;1;3;7
+130;Macarrão (500g);104;24;4.333333333333333;1;3;4
+131;Macarrão Cortado;35;5;7.0;1;3;4
+132;Massa de Bolo;140;5;28.0;1;3;4
+133;Massa de Tomate;123;12;10.25;1;3;6
+134;Milho Verde;85;2;42.5;1;3;7
+135;Mucilon 230g;65;10;6.5;1;3;4
+136;Óleo;10;42;0.23809523809523808;1;3;3
+137;Oregano;126;1;126.0;1;3;4
+138;Paçoquinha;92;1;92.0;1;3;4
+139;Papel Alumínio;101;1;101.0;1;3;4
+140;Sal;64;9;7.111111111111111;1;3;2
+141;Sal Grosso;28;1;28.0;1;3;2
+142;Sardinha;55;2;27.5;1;3;7
+143;Suco;23;25;0.92;1;3;3
+144;Suplemento;40;15;2.6666666666666665;1;3;7
+145;Vinagre;141;2;70.5;1;3;3
+146;agua sanitaria galao 5 litros;43;20;2.15;1;4;5
+147;Saco plastico lixo 40 litros reforçada;88;20;4.4;1;4;4
+148;Saco plastico lixo 100 litros reforçada;115;20;5.75;1;4;4
+149;detergente liguido neutro galao 5 litros;56;20;2.8;1;4;5
+150;bucha amarela;65;20;3.25;1;4;5
+151;toalha de papel branco luxo;37;20;1.85;1;4;4
+152;Alcool Etilico 70% ;20;20;1.0;1;4;5
+153;touca descartavel c/100;122;20;6.1;1;4;4
+154;desinfetante galao 5 litros;37;20;1.85;1;4;5
+155;pano de chao 55x75 cm;21;20;1.05;1;4;5
+156;sabonete liquido galao 5L;91;20;4.55;1;4;5
+157;copo descartavel 50ml;78;20;3.9;1;4;4
+158;alcool gel 5 litros;85;20;4.25;1;4;5
+159;Sabão em pó;49;20;2.45;1;4;2
+160;Confort;102;20;5.1;1;4;5
+161;Bom bril;181;20;9.05;1;4;5
+162;Bucha estrela;60;20;3.0;1;4;5
+163;Sacola cozinha;107;20;5.35;1;4;4
+164;Luva volk laranja;117;20;5.85;1;4;5
+165;Veja multiuso;84;20;4.2;1;4;5
+166;Rolo perflex 20x300;55;20;2.75;1;4;5
+167;Sacola transparente 40x60 espessura 10;17;20;0.85;1;4;4
+168;Vassoura ;81;20;4.05;1;4;5
+169;rodo;94;20;4.7;1;4;5
+170;Escova lava roupa;120;20;6.0;1;4;5

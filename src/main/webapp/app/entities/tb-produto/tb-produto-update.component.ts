@@ -22,7 +22,6 @@ import { TbUnidadeMedidaService } from 'app/entities/tb-unidade-medida/tb-unidad
 import * as moment from 'moment';
 import { TbMovimentacaoService } from '../tb-movimentacao/tb-movimentacao.service';
 
-
 @Component({
   selector: 'jhi-tb-produto-update',
   templateUrl: './tb-produto-update.component.html'
@@ -51,8 +50,8 @@ export class TbProdutoUpdateComponent implements OnInit, OnDestroy {
     protected tbUnidadeMedidaService: TbUnidadeMedidaService,
     protected tbCategoriaService: TbCategoriaService,
     protected tbProdutoService: TbProdutoService,
-    protected tbMovimentacaoService: TbMovimentacaoService,
-  ) { }
+    protected tbMovimentacaoService: TbMovimentacaoService
+  ) {}
 
   ngOnInit() {
     this.isSaving = false;
@@ -66,15 +65,15 @@ export class TbProdutoUpdateComponent implements OnInit, OnDestroy {
     });
   }
 
-  invalidaValNeg(input: FormControl) {
+  invalidaValNeg(input) {
     return ValidatorService.invalidaValNeg(input);
   }
 
-  naoPreenchido(input: FormControl) {
+  naoPreenchido(input) {
     return ValidatorService.naoPreenchido(input);
   }
 
-  invalidacaoSelect(input: FormControl) {
+  invalidacaoSelect(input) {
     return ValidatorService.invalidacaoSelect(input);
   }
 
@@ -82,8 +81,8 @@ export class TbProdutoUpdateComponent implements OnInit, OnDestroy {
     this.editForm.patchValue({
       nmProduto: null,
       qtdMin: null,
-      categoria: "padrao",
-      unidadeMedida: "padrao",
+      categoria: 'padrao',
+      unidadeMedida: 'padrao'
     });
   }
 
@@ -95,7 +94,7 @@ export class TbProdutoUpdateComponent implements OnInit, OnDestroy {
     this.isSaving = true;
     const tbProduto: ITbProduto = this.createFromForm();
     const tbMovimentacao: ITbMovimentacao = new TbMovimentacao();
-    tbMovimentacao.data = moment();
+    tbMovimentacao.data = moment().tz('America/Sao_Paulo');
     tbMovimentacao.quantidade = tbProduto.qtdEstoque;
     tbMovimentacao.entrada = 1;
     tbMovimentacao.produto = tbProduto;
@@ -148,7 +147,7 @@ export class TbProdutoUpdateComponent implements OnInit, OnDestroy {
 
   protected onSaveSuccess() {
     this.isSaving = false;
-    this.previousState();    
+    this.previousState();
   }
 
   protected onSaveError() {
@@ -180,19 +179,14 @@ export class TbProdutoUpdateComponent implements OnInit, OnDestroy {
         filter((res: HttpResponse<ITbCategoria[]>) => res.ok),
         map((res: HttpResponse<ITbCategoria[]>) => res.body)
       )
-      .subscribe(
-        (res: ITbCategoria[]) =>
-          this.tbCategorias = res, (res: HttpErrorResponse) => this.onError(res.message)
-      );
+      .subscribe((res: ITbCategoria[]) => (this.tbCategorias = res), (res: HttpErrorResponse) => this.onError(res.message));
     this.tbUnidadeMedidaService
       .query()
       .pipe(
         filter((mayBeOk: HttpResponse<ITbUnidadeMedida[]>) => mayBeOk.ok),
         map((response: HttpResponse<ITbUnidadeMedida[]>) => response.body)
       )
-      .subscribe((res: ITbUnidadeMedida[]) =>
-        (this.tbUnidadeMedidas = res), (res: HttpErrorResponse) => this.onError(res.message));
-
+      .subscribe((res: ITbUnidadeMedida[]) => (this.tbUnidadeMedidas = res), (res: HttpErrorResponse) => this.onError(res.message));
   }
 
   ngOnDestroy() {

@@ -5,10 +5,6 @@
             <hr>
             <jhi-alert-error></jhi-alert-error>
             <dl class="row-md jh-entity-details">
-                <dt><span>Id Tb Movimentacao</span></dt>
-                <dd>
-                    <span>{{tbMovimentacao.idTbMovimentacao}}</span>
-                </dd>
                 <dt><span>Quantidade</span></dt>
                 <dd>
                     <span>{{tbMovimentacao.quantidade}}</span>
@@ -23,8 +19,8 @@
                 </dd>
                 <dt><span>Tb Produto</span></dt>
                 <dd>
-                    <span *ngFor="let tbProduto of tbMovimentacao.tbProdutos; let last = last">
-                        <a [routerLink]="['/tb-produto', tbProduto?.id, 'view' ]">{{tbProduto.idTbProduto}}</a>{{last ? '' : ', '}}
+                    <span *ngFor="let tbProduto of tbMovimentacao.produto; let last = last">
+                        <a [routerLink]="['/tb-produto', tbProduto?.id, 'view' ]">{{tbProduto.id}}</a>{{last ? '' : ', '}}
                     </span>
                 </dd>
             </dl>

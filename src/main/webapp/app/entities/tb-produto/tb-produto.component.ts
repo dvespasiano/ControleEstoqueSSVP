@@ -9,8 +9,10 @@ import { ITbProduto, TbProduto } from 'app/shared/model/tb-produto.model';
 import { AccountService } from 'app/core/auth/account.service';
 import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
 import { TbProdutoService } from './tb-produto.service';
-import * as moment from 'moment';
-require('jspdf-autotable');
+import * as moment from 'moment-timezone';
+import pdfMake from 'pdfmake/build/pdfmake';
+import pdfFonts from 'pdfmake/build/vfs_fonts';
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
   selector: 'jhi-tb-produto',
@@ -34,7 +36,6 @@ export class TbProdutoComponent implements OnInit, OnDestroy {
   previousPage: any;
   reverse: any;
   situacao: number;
-  jsPDF: any;
 
   constructor(
     protected tbProdutoService: TbProdutoService,
@@ -45,7 +46,6 @@ export class TbProdutoComponent implements OnInit, OnDestroy {
     protected router: Router,
     protected eventManager: JhiEventManager
   ) {
-    this.jsPDF = require('jspdf');
     this.itemsPerPage = 1000;
     this.routeData = this.activatedRoute.data.subscribe(data => {
       this.page = data.pagingParams.page;
@@ -64,18 +64,25 @@ export class TbProdutoComponent implements OnInit, OnDestroy {
   }
 
   public geraLista() {
-    const tabela: any[] = [];
-    //let produtoAtual: string[] = [];
+    const tabelaTH = [
+      { text: 'Nº', fillColor: '#00CED1', color: 'white', bold: true, alignment: 'center', fontSize: 10 },
+      { text: 'Nome do Produto', fillColor: '#00CED1', color: 'white', bold: true, alignment: 'center', fontSize: 10 },
+      { text: 'Quantidade no Estoque', fillColor: '#00CED1', color: 'white', bold: true, alignment: 'center', fontSize: 10 },
+      { text: 'Quantidade Mínima', fillColor: '#00CED1', color: 'white', bold: true, alignment: 'center', fontSize: 10 },
+      { text: 'Categoria', fillColor: '#00CED1', color: 'white', bold: true, alignment: 'center', fontSize: 10 },
+      { text: 'Situação', fillColor: '#00CED1', color: 'white', bold: true, alignment: 'center', fontSize: 10 }
+    ];
+    const tabela: any[][] = [tabelaTH];
     let i = 0;
     this.tbProdutos.forEach(p => {
-      tabela.push({
-        id: i + 1 + '',
-        nome: p.nmProduto,
-        estoque: p.qtdEstoque + '',
-        min: p.qtdMin + '',
-        categoria: p.categoria.nmCategoria + '',
-        situacao: this.decideSituacao(p.situacao + '')
-      });
+      tabela.push([
+        { text: i + 1 + '', alignment: 'center', fontSize: 10, color: '#404040' },
+        { text: p.nmProduto, fontSize: 10, color: '#404040' },
+        { text: p.qtdEstoque + '', alignment: 'center', fontSize: 10, color: '#404040' },
+        { text: p.qtdMin + '', alignment: 'center', fontSize: 10, color: '#404040' },
+        { text: p.categoria.nmCategoria + '', alignment: 'center', fontSize: 10, color: '#404040' },
+        this.decideSituacao(p.situacao + '')
+      ]);
       i = i + 1;
     });
     return tabela;
@@ -86,82 +93,64 @@ export class TbProdutoComponent implements OnInit, OnDestroy {
   }
 
   public downloadPDF() {
-    const doc = new this.jsPDF();
-    //const pageTotal = doc.internal.pages.length;
-    const imgData = this.imagemData();
+    const margemTamV = () => {
+      return 0.01;
+    };
+    const margemTamH = () => {
+      return 0.01;
+    };
+    const margemCorV = () => {
+      return 'black';
+    };
+    const margemCorH = () => {
+      return 'black';
+    };
+    const paginas = (pageCount, pageSize) => {
+      return { text: 'página ' + pageCount + ' de ' + pageSize, fontSize: 9, margin: [495, 0, 0, 0] };
+    };
     const tabelaProdutos = this.geraLista();
-    const tabelaTH = [
-      { title: '  Nº ', dataKey: 'id' },
-      { title: 'Nome do Produto', dataKey: 'nome' },
-      { title: 'Quantidade no Estoque', dataKey: 'estoque' },
-      { title: 'Quantidade Mínima', dataKey: 'min' },
-      { title: 'Categoria', dataKey: 'categoria' },
-      { title: 'Situação', dataKey: 'situacao' }
-    ];
-    const headerFooter = data => {
-      if (doc.internal.getNumberOfPages() === 1) {
-        //header
-        doc.setFontSize(20);
-        doc.setTextColor(40);
-        doc.setFontStyle('normal');
-        doc.addImage(imgData, 'JPEG', 0, 0, 51.2, 26, 16);
-        doc.text('Lista de Produtos', 80, 20, 0, 10);
-
-        doc.setFontSize(10);
-        doc.setTextColor(40);
-        doc.setFontStyle('normal');
-        doc.text('Emitido em: ' + moment().format('DD/MM/YYYY'), 15, 32, 0, 10);
-      }
-
-      //footer
-      doc.setFontSize(8);
-      doc.setTextColor(40);
-      doc.setFontStyle('normal');
-      doc.text(185, 288, 'página ' + doc.internal.getNumberOfPages());
+    const docDefinition = {
+      content: [
+        { image: this.imagemData(), width: 150, height: 80, absolutePosition: { x: 0, y: 0 } },
+        { text: 'Lista de Produtos', fontSize: 20, alignment: 'center', margin: [0, 0, 0, 40] },
+        {
+          text:
+            'Emitido em: ' +
+            moment()
+              .tz('America/Sao_Paulo')
+              .format('DD/MM/YYYY'),
+          fontSize: 10,
+          absolutePosition: { x: 40, y: 90 }
+        },
+        {
+          layout: {
+            hLineWidth: margemTamV,
+            vLineWidth: margemTamH,
+            hLineColor: margemCorV,
+            vLineColor: margemCorH
+          },
+          pageSize: 'A4',
+          pageMargins: [0, 0, 0, 0],
+          table: {
+            widths: [20, 165, 55, 50, 105, 70],
+            headerRows: 1,
+            body: tabelaProdutos,
+            dontBreakRows: true
+          }
+        }
+      ],
+      footer: paginas
     };
-
-    const corSituacaoECenter = data => {
-      if (data.row.raw.situacao === 'Em estoque' && data.column.index === 5) {
-        data.cell.styles.fillColor = [0, 200, 0];
-        data.cell.styles.textColor = [255, 255, 255];
-      } else if (data.row.raw.situacao === 'Quase em falta' && data.column.index === 5) {
-        data.cell.styles.fillColor = [200, 200, 0];
-        data.cell.styles.textColor = [255, 255, 255];
-      } else if (data.row.raw.situacao === 'Em falta' && data.column.index === 5) {
-        data.cell.styles.fillColor = [200, 0, 0];
-        data.cell.styles.textColor = [255, 255, 255];
-      }
-      if (data.column.index !== 1 || data.row.raw.nome === 'Nome do Produto') {
-        data.cell.styles.halign = 'center';
-      }
-    };
-
-    //doc.autoTable({ html: '#lista-produtos', theme: 'grid'});
-    doc.autoTable(tabelaTH, tabelaProdutos, {
-      didDrawPage: headerFooter,
-      startY: doc.internal.getNumberOfPages() > 1 ? doc.autoTableEndPosY() + 0 : 35,
-      theme: 'grid',
-      didParseCell: corSituacaoECenter,
-      rowPageBreak: 'avoid',
-      headerStyles: {
-        lineWidth: 0.01,
-        lineColor: [100, 100, 100]
-      },
-      bodyStyles: {
-        lineWidth: 0.01,
-        lineColor: [100, 100, 100]
-      }
-    });
-    doc.save('lista de produtos.pdf');
+    pdfMake.createPdf(docDefinition).download('lista de produtos.pdf');
   }
 
   decideSituacao(num1: string) {
     if (this.menor(num1, '1')) {
-      return 'Em falta';
+      return { text: 'Em falta', fillColor: '#C80000', color: 'white', alignment: 'center', fontSize: 10 };
     } else if (this.maiorIgual(num1, '1') && this.menor(num1, '1.2')) {
-      return 'Quase em falta';
+      return { text: 'Quase em falta', fillColor: '#C8C800', color: 'white', alignment: 'center', fontSize: 10 };
     } else if (this.maiorIgual(num1, '1.2')) {
-      return 'Em estoque';
+      return { text: 'Em estoque', fillColor: '#00C800', color: 'white', alignment: 'center', fontSize: 10 };
     }
   }
 

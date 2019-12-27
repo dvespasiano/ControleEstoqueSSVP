@@ -5,18 +5,14 @@
             <hr>
             <jhi-alert-error></jhi-alert-error>
             <dl class="row-md jh-entity-details">
-                <dt><span>Id Tb Unidade Medida</span></dt>
-                <dd>
-                    <span>{{tbUnidadeMedida.idTbUnidadeMedida}}</span>
-                </dd>
                 <dt><span>Nm Unidade Medida</span></dt>
                 <dd>
                     <span>{{tbUnidadeMedida.nmUnidadeMedida}}</span>
                 </dd>
                 <dt><span>Id Unidade Medida</span></dt>
                 <dd>
-                    <div *ngIf="tbUnidadeMedida.idUnidadeMedida">
-                        <a [routerLink]="['/tb-produto', tbUnidadeMedida.idUnidadeMedida?.id, 'view']">{{tbUnidadeMedida.idUnidadeMedida?.id}}</a>
+                    <div *ngIf="tbUnidadeMedida.id">
+                        <a [routerLink]="['/tb-produto', tbUnidadeMedida.id, 'view']">{{tbUnidadeMedida.id}}</a>
                     </div>
                 </dd>
             </dl>

@@ -17,7 +17,9 @@ import { ITbProduto, TbProduto } from 'app/shared/model/tb-produto.model';
 import { FormBuilder, Validators, FormControl } from '@angular/forms';
 import * as moment from 'moment';
 import { ValidatorService } from '../validator.service';
-require('jspdf-autotable');
+import pdfMake from 'pdfmake/build/pdfmake';
+import pdfFonts from 'pdfmake/build/vfs_fonts';
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
   selector: 'jhi-tb-movimentacao',
@@ -40,7 +42,6 @@ export class TbMovimentacaoComponent implements OnInit, OnDestroy {
   reverse: any;
   dataInicio: Date;
   dataFim: Date;
-  jsPDF: any;
 
   editForm = this.form.group({
     dataInicio: ['', [Validators.required]],
@@ -58,7 +59,6 @@ export class TbMovimentacaoComponent implements OnInit, OnDestroy {
     private form: FormBuilder,
     protected validatorService: ValidatorService
   ) {
-    this.jsPDF = require('jspdf');
     this.itemsPerPage = ITEMS_PER_PAGE;
     this.routeData = this.activatedRoute.data.subscribe(data => {
       this.page = data.pagingParams.page;
@@ -168,16 +168,29 @@ export class TbMovimentacaoComponent implements OnInit, OnDestroy {
   }
 
   public criaRelatorio() {
-    const tabela: any[] = [];
+    const tabelaTH = [
+      { text: 'Nº', fillColor: '#00CED1', color: 'white', bold: true, alignment: 'center', fontSize: 10 },
+      { text: 'Nome do Produto', fillColor: '#00CED1', color: 'white', bold: true, alignment: 'center', fontSize: 10 },
+      { text: 'Saldo Anterior', fillColor: '#00CED1', color: 'white', bold: true, alignment: 'center', fontSize: 10 },
+      { text: 'Entradas', fillColor: '#00CED1', color: 'white', bold: true, alignment: 'center', fontSize: 10 },
+      { text: 'Saídas', fillColor: '#00CED1', color: 'white', bold: true, alignment: 'center', fontSize: 10 },
+      { text: 'Saldo Atual', fillColor: '#00CED1', color: 'white', bold: true, alignment: 'center', fontSize: 10 }
+    ];
+    const tabela: any[][] = [tabelaTH];
     for (let index = 0; index < this.relatorio.length; index++) {
-      tabela.push({
-        id: index + 1 + '',
-        nome: this.relatorio[index].nome,
-        saldoAnt: this.relatorio[index].saldoAnt,
-        entradas: this.relatorio[index].entradas + '',
-        saidas: this.relatorio[index].saidas + '',
-        saldoAtual: this.relatorio[index].saldoAnt + this.relatorio[index].entradas - this.relatorio[index].saidas + ''
-      });
+      tabela.push([
+        { text: index + 1 + '', alignment: 'center', fontSize: 10, color: '#404040' },
+        { text: this.relatorio[index].nome, fontSize: 10, color: '#404040' },
+        { text: this.relatorio[index].saldoAnt, alignment: 'center', fontSize: 10, color: '#404040' },
+        { text: this.relatorio[index].entradas + '', alignment: 'center', fontSize: 10, color: '#404040' },
+        { text: this.relatorio[index].saidas + '', alignment: 'center', fontSize: 10, color: '#404040' },
+        {
+          text: this.relatorio[index].saldoAnt + this.relatorio[index].entradas - this.relatorio[index].saidas + '',
+          alignment: 'center',
+          fontSize: 10,
+          color: '#404040'
+        }
+      ]);
     }
     return tabela;
   }
@@ -195,71 +208,64 @@ export class TbMovimentacaoComponent implements OnInit, OnDestroy {
           .toDate()
           .getTime()
     ) {
+      const margemTamV = () => {
+        return 0.01;
+      };
+      const margemTamH = () => {
+        return 0.01;
+      };
+      const margemCorV = () => {
+        return 'black';
+      };
+      const margemCorH = () => {
+        return 'black';
+      };
+      const paginas = (pageCount, pageSize) => {
+        return { text: 'página ' + pageCount + ' de ' + pageSize, fontSize: 9, margin: [500, 0, 0, 0] };
+      };
+
       this.agrupamento();
-      const doc = new this.jsPDF();
-      //const pageTotal = this.page;
-
-      const imgData = this.imagemData();
-      const tabelaRelatorio = this.criaRelatorio();
-      const tabelaTH = [
-        { title: ' Nº ', dataKey: 'id' },
-        { title: 'Nome do Produto', dataKey: 'nome' },
-        { title: 'Saldo Anterior', dataKey: 'saldoAnt' },
-        { title: 'Entradas', dataKey: 'entradas' },
-        { title: 'Saídas', dataKey: 'saidas' },
-        { title: 'Saldo Atual', dataKey: 'saldoAtual' }
-      ];
-      const headerFooter = data => {
-        if (doc.internal.getNumberOfPages() === 1) {
-          //header
-          doc.setFontSize(20);
-          doc.setTextColor(40);
-          doc.setFontStyle('normal');
-          doc.addImage(imgData, 'JPEG', 0, 0, 51.2, 26, 16);
-          doc.text('Relatorio', 90, 20, 0, 10);
-
-          doc.setFontSize(10);
-          doc.setTextColor(40);
-          doc.setFontStyle('normal');
-          doc.text('Emitido em: ' + moment().format('DD/MM/YYYY'), 14.5, 32, 0, 10);
-
-          doc.setFontSize(10);
-          doc.setTextColor(40);
-          doc.setFontStyle('normal');
-
-          doc.text('Periodo: ' + this.retornaData(this.dataInicio) + ' - ' + this.retornaData(this.dataFim), 142, 32, 0, 10);
-        }
-
-        //footer
-        doc.setFontSize(8);
-        doc.setTextColor(40);
-        doc.setFontStyle('normal');
-        doc.text(185, 288, 'página ' + doc.internal.getNumberOfPages());
+      const tabelaProdutos = this.criaRelatorio();
+      const docDefinition = {
+        content: [
+          { image: this.imagemData(), width: 150, height: 80, absolutePosition: { x: 0, y: 0 } },
+          { text: 'Relatório', fontSize: 20, alignment: 'center', margin: [0, 0, 0, 40] },
+          [
+            {
+              text:
+                'Emitido em: ' +
+                moment()
+                  .tz('America/Sao_Paulo')
+                  .format('DD/MM/YYYY'),
+              fontSize: 10,
+              absolutePosition: { x: 40, y: 90 }
+            },
+            {
+              text: 'Periodo: ' + this.retornaData(this.dataInicio) + ' - ' + this.retornaData(this.dataFim),
+              fontSize: 10,
+              absolutePosition: { x: 400, y: 90 }
+            }
+          ],
+          {
+            layout: {
+              hLineWidth: margemTamV,
+              vLineWidth: margemTamH,
+              hLineColor: margemCorV,
+              vLineColor: margemCorH
+            },
+            pageSize: 'A4',
+            pageMargins: [0, 0, 0, 0],
+            table: {
+              widths: [20, 200, 65, 60, 60, 60],
+              headerRows: 1,
+              body: tabelaProdutos,
+              dontBreakRows: true
+            }
+          }
+        ],
+        footer: paginas
       };
-
-      const centralizaTexto = data => {
-        if (data.column.index !== 1 || data.row.raw.nome === 'Nome do Produto') {
-          data.cell.styles.halign = 'center';
-        }
-      };
-
-      //doc.autoTable({ html: '#lista-produtos', theme: 'grid' });
-      doc.autoTable(tabelaTH, tabelaRelatorio, {
-        didDrawPage: headerFooter,
-        startY: doc.internal.getNumberOfPages() > 1 ? doc.autoTableEndPosY() + 0 : 35,
-        theme: 'grid',
-        rowPageBreak: 'avoid',
-        didParseCell: centralizaTexto,
-        headStyles: {
-          lineWidth: 0.01,
-          lineColor: [100, 100, 100]
-        },
-        bodyStyles: {
-          lineWidth: 0.01,
-          lineColor: [100, 100, 100]
-        }
-      });
-      doc.save('relatório.pdf');
+      pdfMake.createPdf(docDefinition).download('relatório.pdf');
     } else {
       if (this.datasInconsistentes() === null) {
         alert('A data informada é maior que a data de hoje');

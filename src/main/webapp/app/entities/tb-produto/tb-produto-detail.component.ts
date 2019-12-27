@@ -36,8 +36,7 @@ export class TbProdutoDetailComponent implements OnInit {
     protected tbMovimentacaoService: TbMovimentacaoService,
     protected activatedRoute: ActivatedRoute,
     private fb: FormBuilder
-  ) { }
-
+  ) {}
 
   ngOnInit() {
     this.isSaving = false;
@@ -58,15 +57,13 @@ export class TbProdutoDetailComponent implements OnInit {
       .subscribe((res: ITbMovimentacao[]) => (this.tbmovimentacaos = res), (res: HttpErrorResponse) => this.onError(res.message));
   }
 
-  invalidaValNeg(input: FormControl) {
+  invalidaValNeg(input) {
     return ValidatorService.invalidaValNeg(input);
   }
 
-  invalidaValMov(input: FormControl) {
-    return ValidatorService.invalidaValMov(input, this.tbProduto.qtdEstoque,
-      this.editForm.get("tipo").value);
+  invalidaValMov(input) {
+    return ValidatorService.invalidaValMov(input, this.tbProduto.qtdEstoque, this.editForm.get('tipo').value);
   }
-
 
   naoPreenchido(input) {
     return ValidatorService.naoPreenchido(input);
@@ -84,23 +81,23 @@ export class TbProdutoDetailComponent implements OnInit {
   }
 
   save() {
-    if (this.editForm.get(['qtdAlterar']).value > this.tbProduto.qtdEstoque &&
-      this.editForm.get(['tipo']).value === "0") {
-      alert("A quantidade de saida informada é maior que estoque atual!\n" +
-        "Verifique se você não errou o valor ou se você marcou 'saida' em vez de 'entrada'");
+    if (this.editForm.get(['qtdAlterar']).value > this.tbProduto.qtdEstoque && this.editForm.get(['tipo']).value === '0') {
+      alert(
+        'A quantidade de saida informada é maior que estoque atual!\n' +
+          "Verifique se você não errou o valor ou se você marcou 'saida' em vez de 'entrada'"
+      );
     } else {
       this.isSaving = true;
       const tbProduto: ITbProduto = this.createFromForm();
       const tbMovimentacao: ITbMovimentacao = new TbMovimentacao();
-      tbMovimentacao.data = moment();
+      tbMovimentacao.data = moment().tz('America/Sao_Paulo');
       tbMovimentacao.entrada = parseInt(this.editForm.get(['tipo']).value, 10);
       tbMovimentacao.quantidade = parseInt(this.editForm.get(['qtdAlterar']).value, 10);
       tbMovimentacao.produto = tbProduto;
-      tbMovimentacao.saldoAnt = tbProduto.qtdEstoque +
-        (tbMovimentacao.entrada === 1 ? -tbMovimentacao.quantidade : tbMovimentacao.quantidade);
+      tbMovimentacao.saldoAnt =
+        tbProduto.qtdEstoque + (tbMovimentacao.entrada === 1 ? -tbMovimentacao.quantidade : tbMovimentacao.quantidade);
       this.subscribeToSaveResponseProduto(this.tbProdutoService.update(tbProduto));
       this.subscribeToSaveResponseMovimentacao(this.tbMovimentacaoService.create(tbMovimentacao));
-
     }
   }
 
