@@ -92,6 +92,11 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
+                <groupId>jboss.web</groupId>
+                <artifactId>servlet-api</artifactId>
+                <version>2.1.0.GA</version>
+            </dependency>
+            <dependency>
                 <groupId>io.github.jhipster</groupId>
                 <artifactId>jhipster-dependencies</artifactId>
                 <version>${jhipster-dependencies.version}</version>
@@ -328,6 +333,11 @@
     <build>
         <defaultGoal>spring-boot:run</defaultGoal>
         <plugins>
+            <plugin>
+                <groupId>com.heroku.sdk</groupId>
+                <artifactId>heroku-maven-plugin</artifactId>
+                <version>2.0.16</version>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -735,7 +745,7 @@
                     <version>${maven-failsafe-plugin.version}</version>
                     <configuration>
                         <!-- Due to spring-boot repackage, without adding this property test classes are not found
-                             See https://github.com/spring-projects/spring-boot/issues/6254 -->
+                        See https://github.com/spring-projects/spring-boot/issues/6254 -->
                         <classesDirectory>${project.build.outputDirectory}</classesDirectory>
                         <!-- Force alphabetical order to have a reproducible build -->
                         <runOrder>alphabetical</runOrder>

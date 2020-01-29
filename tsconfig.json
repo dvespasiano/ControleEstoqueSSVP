@@ -15,7 +15,9 @@
     "typeRoots": ["node_modules/@types"],
     "baseUrl": "./",
     "paths": {
-      "app/*": ["src/main/webapp/app/*"]
+      "app/*": ["src/main/webapp/app/*"],
+      "mylib": ["dist/mylib"],
+      "mylib/*": ["dist/mylib/*"]
     },
     "importHelpers": true,
     "allowJs": true

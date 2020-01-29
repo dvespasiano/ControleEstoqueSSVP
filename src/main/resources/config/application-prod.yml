@@ -33,9 +33,9 @@ spring:
       enabled: false
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:mysql://localhost:3306/id11973084_contexto?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC
-    username: id11973084_ssvp
-    password: lardadivinaprovidencia
+    url: jdbc:mysql://localhost:3306/postgresql-objective-50847?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC
+    username: denis.vespasiano@live.com
+    password: 91939All131281
     hikari:
       poolName: Hikari
       auto-commit: false
