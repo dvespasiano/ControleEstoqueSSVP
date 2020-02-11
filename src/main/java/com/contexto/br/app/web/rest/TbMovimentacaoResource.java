@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 
@@ -81,7 +80,7 @@ public class TbMovimentacaoResource {
      * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of tbMovimentacaos in body.
      */
-    
+
     @GetMapping("/tb-movimentacaos")
     public List<TbMovimentacao> getAllTbMovimentacaos(@RequestParam(required = false, defaultValue = "false") boolean eagerload) {
         log.debug("REST request to get all TbMovimentacaos");
@@ -102,7 +101,7 @@ public class TbMovimentacaoResource {
      * @param id the id of the tbMovimentacao to retrieve.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the tbMovimentacao, or with status {@code 404 (Not Found)}.
      */
-    
+
     /* @GetMapping("/tb-movimentacaos/{id}")
     public ResponseEntity<TbMovimentacao> getTbMovimentacao(@PathVariable Long id) {
         log.debug("REST request to get TbMovimentacao : {}", id);

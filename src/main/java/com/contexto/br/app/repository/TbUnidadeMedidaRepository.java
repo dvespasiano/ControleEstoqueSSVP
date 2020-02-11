@@ -7,8 +7,10 @@ import org.springframework.stereotype.Repository;
 /**
  * Spring Data  repository for the TbUnidadeMedida entity.
  */
-@SuppressWarnings("unused")
+@SuppressWarnings(TbUnidadeMedidaRepository.UNUSED)
 @Repository
 public interface TbUnidadeMedidaRepository extends JpaRepository<TbUnidadeMedida, Long> {
+
+    public static final String UNUSED = "unused";
 
 }
