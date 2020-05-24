@@ -4,11 +4,9 @@
 
 ### **Informações**
 
-##### Front-End desenvolvido em Angular;
-
-##### Back-End desenvolvido em Java;
-
-##### Banco de dados desenvolvido em SQL;
+1. Front-End desenvolvido em Angular;
+2. Back-End desenvolvido em Java;
+3. Banco de dados desenvolvido em SQL;
 
 ### **Instruções de Inicialização**
 
