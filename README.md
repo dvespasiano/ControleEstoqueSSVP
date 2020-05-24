@@ -2,14 +2,14 @@
 
 ### Software desenvolvido e doado para a Sociedade São Vicente de Paula na disciplina de Contexto Social do CEFET-MG de Timóteo.
 
-##### **Informações**
+#### **Informações**
 
-###### Front-End desenvolvido em Angular
+##### Front-End desenvolvido em Angular
 
-###### Back-End desenvolvido em Java
+##### Back-End desenvolvido em Java
 
-###### Banco de dados desenvolvido em SQL
+##### Banco de dados desenvolvido em SQL
 
-##### **Instruções**
+#### **Instruções**
 
-###### Utilizar o comando ´´´npm install ´´´ ou ´´´yarn install ´´´ para realizar a instalação de todas as dependências.
+##### Utilizar o comando ´´´npm install ´´´ ou ´´´yarn install ´´´ para realizar a instalação de todas as dependências.
