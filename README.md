@@ -12,4 +12,4 @@
 
 #### **Instruções**
 
-##### Utilizar o comando ´´´npm install ´´´ ou ´´´yarn install ´´´ para realizar a instalação de todas as dependências.
+##### Utilizar o comando '''npm install''' ou `yarn install` para realizar a instalação de todas as dependências.
