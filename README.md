@@ -28,4 +28,4 @@
 5. Um administrador pode desativar um usuário e ele somente será ativado de novo caso um administrador o ative.
 6. Um administrador pode excluir um usuário.
 
-##### Em caso de demais dúvidas entrar em contato através do e-mail: `denis.vespasiano@Live.com`
+##### Em caso de demais dúvidas entrar em contato através do e-mail: `denis.vespasiano@live.com`
